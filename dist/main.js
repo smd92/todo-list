@@ -1,0 +1,1 @@
+(()=>{"use strict";let t=new class{constructor(t){for(let s in t)this.prop=s;this.test="hi"}logTest(){console.log(this.test)}}({title:"Test Title",description:"this is a test",dueDate:"01-01-1970",priority:"high",notes:"this is a test note"});t.logTest(),console.log(t)})();
