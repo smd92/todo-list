@@ -1,5 +1,8 @@
+import pageFrame from "/src/pageFrame.js";
 import ToDo from "/src/createToDo.js";
 import Project from "/src/createProject.js";
+
+pageFrame.renderPageFrame();
 
 let todoData = {
     title: "Test Title",
