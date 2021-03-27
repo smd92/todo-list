@@ -14,8 +14,16 @@ class Project {
     }
 
     removeTodo(todo) {
-        let index = this.todoList.indexOf(todo);
+        let index = todo.index;
         this.todoList.splice(index, 1);
+    }
+
+    indexTodos() {
+        let count = 0;
+        this.todoList.forEach((todo) => {
+            todo.index = count;
+            count++;
+        })
     }
 }
 

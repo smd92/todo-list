@@ -1,8 +1,10 @@
 import pageFrame from "/src/pageFrame.js";
 import ToDo from "/src/createToDo.js";
 import Project from "/src/createProject.js";
+import todoLists from "/src/sidebarDOM.js";
 
 pageFrame.renderPageFrame();
+todoLists.renderTodoLists();
 
 let todoData = {
     title: "Test Title",
