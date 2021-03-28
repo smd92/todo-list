@@ -1,39 +1,61 @@
 const todoLists = (function() {
 
     let listsContainer;
+    let globalList;
+    let todayList;
+    let upcomingList;
 
     function createListsContainer() {
-        listsContainer = document.createElement("p");
+        listsContainer = document.createElement("div");
         listsContainer.id = "listsContainer";
         
         sidebar.appendChild(listsContainer);
     }
 
-    function createGlobalList() {
-        const globalList = document.createElement("p");
-        globalList.id = "globalList";
-        globalList.classList.add("sidebarItem");
-        globalList.textContent = "Eingang";
+    function createSidebarItem(elementVar, id, textContent) {
+        elementVar = document.createElement("p");
+        elementVar.id = id;
+        elementVar.classList.add("todoList");
+        elementVar.textContent = textContent;
 
-        listsContainer.appendChild(globalList);
-    }
-
-    function createTodayList() {
-        const todayList = document.createElement("p");
-        todayList.id = "todayList";
-        todayList.classList.add("sidebarItem");
-        todayList.textContent = "Heute";
-
-        listsContainer.appendChild(todayList);
+        listsContainer.appendChild(elementVar);
     }
 
     function renderTodoLists() {
         createListsContainer();
-        createGlobalList();
-        createTodayList();
+        createSidebarItem(globalList, "globalList", "Eingang");
+        createSidebarItem(todayList, "todayList", "Heute");
+        createSidebarItem(upcomingList, "upcomingList", "Demnächst");
     }
 
     return { renderTodoLists };
 })();
 
-export default todoLists;
+const projectsSidebar = (function() {
+    
+    let projectsContainer;
+
+    function createProjectsContainer() {
+        projectsContainer = document.createElement("div");
+        projectsContainer.id = "projectsContainer";
+
+        sidebar.appendChild(projectsContainer);
+    }
+
+    function createProjectsTitle() {
+        const title = document.createElement("p");
+        title.id = "projectsTitle";
+        title.textContent = "Projekte";
+
+        projectsContainer.appendChild(title);
+    }
+
+    function renderProjectsSidebar() {
+        createProjectsContainer();
+        createProjectsTitle();
+    }
+
+    return { renderProjectsSidebar };
+})();
+
+export { todoLists, projectsSidebar };
