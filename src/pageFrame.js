@@ -4,6 +4,7 @@ const pageFrame = (function() {
     let header;
     let container;
     let sidebar;
+    let subContainer;
     
     function createHeader() {
         header = document.createElement("div");
@@ -35,11 +36,19 @@ const pageFrame = (function() {
         container.appendChild(sidebar);
     }
 
+    function createSubContainer() {
+        subContainer = document.createElement("div");
+        subContainer.id = "subContainer";
+
+        container.appendChild(subContainer);
+    }
+
     function renderPageFrame() {
         createHeader();
         populateHeader();
         createContainer();
         createSidebar();
+        createSubContainer();
     }
 
     return { renderPageFrame };

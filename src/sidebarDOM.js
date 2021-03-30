@@ -58,4 +58,29 @@ const projectsSidebar = (function() {
     return { renderProjectsSidebar };
 })();
 
-export { todoLists, projectsSidebar };
+const sideBarEvents = (function() {
+
+    function addTodoListsEvent() {
+        let listsNodes = document.getElementsByClassName("todoList");
+        for (let i = 0; i < listsNodes.length; i++) {
+            listsNodes[i].addEventListener(("click"), () => {
+                
+            })
+        }
+    }
+
+    function addProjectsContainerEvent() {
+        projectsContainer.addEventListener(("click"), () => {
+
+        })
+    }
+
+    function addSidebarEvents() {
+        addTodoListsEvent();
+        addProjectsContainerEvent();
+    }
+
+    return { addSidebarEvents }
+})();
+
+export { todoLists, projectsSidebar, sideBarEvents };
