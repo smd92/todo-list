@@ -2,10 +2,12 @@ import pageFrame from "/src/pageFrame.js";
 import ToDo from "/src/createToDo.js";
 import Project from "/src/createProject.js";
 import { todoLists, projectsSidebar } from "/src/sidebarDOM.js";
+import subContainerHeader from "/src/subContainer.js";
 
 pageFrame.renderPageFrame();
 todoLists.renderTodoLists();
 projectsSidebar.renderProjectsSidebar();
+subContainerHeader.renderSubContainerHeader();
 
 let todoData = {
     title: "Test Title",

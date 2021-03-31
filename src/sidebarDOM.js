@@ -63,7 +63,7 @@ const sideBarEvents = (function() {
     function addTodoListsEvent() {
         let listsNodes = document.getElementsByClassName("todoList");
         for (let i = 0; i < listsNodes.length; i++) {
-            listsNodes[i].addEventListener(("click"), () => {
+            listsNodes[i].addEventListener(("click"), (e) => {
                 
             })
         }
