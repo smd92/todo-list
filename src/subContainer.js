@@ -9,11 +9,22 @@ const subContainerHeader = (function() {
         subContainer.appendChild(subContainerHeader);
     }
 
+    function setSubContainerTitle(text) {
+        const subContainerTitle = document.createElement("p");
+        subContainerTitle.id = "subContainerTitle";
+        subContainerTitle.textContent = text;
+
+        subContainerHeader.appendChild(subContainerTitle);
+    }
+
     function renderSubContainerHeader() {
         createSubContainerHeader();
     }
 
-    return { renderSubContainerHeader };
+    return {
+        renderSubContainerHeader,
+        setSubContainerTitle
+    };
 })();
 
 export default subContainerHeader;

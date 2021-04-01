@@ -1,13 +1,16 @@
 import pageFrame from "/src/pageFrame.js";
 import ToDo from "/src/createToDo.js";
 import Project from "/src/createProject.js";
-import { todoLists, projectsSidebar } from "/src/sidebarDOM.js";
+import { todoLists, projectsSidebar } from "/src/sidebar.js";
 import subContainerHeader from "/src/subContainer.js";
 
-pageFrame.renderPageFrame();
-todoLists.renderTodoLists();
-projectsSidebar.renderProjectsSidebar();
-subContainerHeader.renderSubContainerHeader();
+const onLoad = (function() {
+    pageFrame.renderPageFrame();
+    todoLists.renderTodoLists();
+    projectsSidebar.renderProjectsSidebar();
+    subContainerHeader.renderSubContainerHeader();
+    subContainerHeader.setSubContainerTitle("Eingang");
+})();
 
 let todoData = {
     title: "Test Title",
