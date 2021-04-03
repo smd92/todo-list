@@ -1,7 +1,7 @@
 import pageFrame from "/src/pageFrame.js";
 import ToDo from "/src/createToDo.js";
 import Project from "/src/createProject.js";
-import { todoLists, projectsSidebar } from "/src/sidebar.js";
+import { todoLists, projectsSidebar, sideBarEvents } from "/src/sidebar.js";
 import subContainerHeader from "/src/subContainer.js";
 
 const onLoad = (function() {
@@ -9,7 +9,7 @@ const onLoad = (function() {
     todoLists.renderTodoLists();
     projectsSidebar.renderProjectsSidebar();
     subContainerHeader.renderSubContainerHeader();
-    subContainerHeader.setSubContainerTitle("Eingang");
+    sideBarEvents.addTodoListsEvent();
 })();
 
 let todoData = {

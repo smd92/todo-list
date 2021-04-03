@@ -1,6 +1,7 @@
 const subContainerHeader = (function() {
 
     let subContainerHeader;
+    let subContainerTitle;
 
     function createSubContainerHeader() {
         subContainerHeader = document.createElement("div");
@@ -9,16 +10,21 @@ const subContainerHeader = (function() {
         subContainer.appendChild(subContainerHeader);
     }
 
-    function setSubContainerTitle(text) {
-        const subContainerTitle = document.createElement("p");
+    function createSubContainerTitle() {
+        subContainerTitle = document.createElement("p");
         subContainerTitle.id = "subContainerTitle";
-        subContainerTitle.textContent = text;
+        subContainerTitle.textContent = "Eingang";
 
         subContainerHeader.appendChild(subContainerTitle);
     }
 
+    function setSubContainerTitle(text) {
+        subContainerTitle.textContent = text;
+    }
+
     function renderSubContainerHeader() {
         createSubContainerHeader();
+        createSubContainerTitle();
     }
 
     return {
