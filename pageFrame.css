@@ -1,0 +1,24 @@
+html {
+    font-size: 100%;
+}
+
+body {
+    margin: 0;
+    background-image: url("img/bg-blue.jpg");
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: center;
+}
+
+#main {
+    display: grid;
+    grid-template-rows: 10vh 90vh;
+}
+
+#header {
+    display: grid;
+}
+
+#container {
+    display: grid;
+}
