@@ -1,4 +1,4 @@
-import subContainerHeader from "/src/subContainer.js";
+import { subContainerHeader } from "/src/subContainer.js";
 
 const todoLists = (function() {
 

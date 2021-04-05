@@ -2,13 +2,15 @@ import pageFrame from "/src/pageFrame.js";
 import ToDo from "/src/createToDo.js";
 import Project from "/src/createProject.js";
 import { todoLists, projectsSidebar, sideBarEvents } from "/src/sidebar.js";
-import subContainerHeader from "/src/subContainer.js";
+import { subContainerHeader, subContainerList } from "/src/subContainer.js";
 
 const onLoad = (function() {
     pageFrame.renderPageFrame();
     todoLists.renderTodoLists();
     projectsSidebar.renderProjectsSidebar();
     subContainerHeader.renderSubContainerHeader();
+    subContainerList.renderSubContainerList();
+    subContainerList.renderAddTodo();
     sideBarEvents.addTodoListsEvent();
 })();
 

@@ -21,4 +21,17 @@ body {
 
 #container {
     display: grid;
+    grid-template-columns: 20vw 80vw;
+    grid-template-areas:
+    "sidebar subContainer";
+}
+
+#sidebar {
+    display: grid;
+    grid-area: sidebar;
+}
+
+#subContainer {
+    display: grid;
+    grid-area: subContainer;
 }
