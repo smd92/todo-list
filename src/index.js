@@ -3,6 +3,7 @@ import ToDo from "/src/createToDo.js";
 import Project from "/src/createProject.js";
 import { todoLists, projectsSidebar, sideBarEvents } from "/src/sidebar.js";
 import { subContainerHeader, subContainerList } from "/src/subContainer.js";
+import modalDOM from "/src/modal.js";
 
 const onLoad = (function() {
     pageFrame.renderPageFrame();
@@ -12,6 +13,7 @@ const onLoad = (function() {
     subContainerList.renderSubContainerList();
     subContainerList.renderAddTodo();
     sideBarEvents.addTodoListsEvent();
+    modalDOM.renderModalFrame();
 })();
 
 let todoData = {
