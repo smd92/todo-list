@@ -36,13 +36,33 @@ const modalDOM = (function() {
     }
 
     function renderaddTodoModal() {
+        
+    }
 
+    function clearModalBody() {
+        modalBody.childNodes.remove();
     }
 
     return {
         renderModalFrame,
-        renderaddTodoModal
+        renderaddTodoModal,
+        clearModalBody
     }
 })();
 
-export default modalDOM;
+const modalEvents = (function() {
+
+    function addCloseButtonEvent() {
+        const closeButton = document.querySelector("#closeButton");
+        closeButton.addEventListener("click", () => {
+            modalDOM.clearModalBody();
+        })
+    }
+
+    return {
+        addCloseButtonEvent
+    }
+
+})();
+
+export { modalDOM, modalEvents };
