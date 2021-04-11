@@ -19,6 +19,10 @@ body {
     display: grid;
 }
 
+#pageTitle {
+    margin: 2em;
+}
+
 #container {
     display: grid;
     grid-template-columns: 20vw 80vw;
@@ -29,6 +33,22 @@ body {
 #sidebar {
     display: grid;
     grid-area: sidebar;
+    grid-template-rows: 1fr 1fr;
+    grid-template-areas:
+    "listsContainer"
+    "projectsContainer";
+    margin-left: 2em;
+}
+
+#listsContainer {
+    display: grid;
+    grid-area: listsContainer;
+    grid-template-rows: repeat(3, 5vh);
+}
+
+#projectsContainer {
+    display: grid;
+    grid-area: projectsContainer;
 }
 
 #subContainer {
