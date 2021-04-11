@@ -34,4 +34,43 @@ body {
 #subContainer {
     display: grid;
     grid-area: subContainer;
+    grid-template-rows: 10vh 1fr;
+    grid-template-areas:
+    "subContainerHeader"
+    "subContainerList";
+}
+
+#subContainerHeader {
+    display: grid;
+    grid-area: subContainerHeader;
+}
+
+#subContainerList {
+    display: grid;
+    grid-area: subContainerList;
+}
+
+#addTodoDiv {
+    display: grid;
+    grid-template-columns: 5vw 15vw;
+    height: 10vh;
+    grid-template-areas:
+    "plusSymbol addTodo";
+    place-items: center;
+}
+
+#plusSymbol {
+    display: grid;
+    grid-area: plusSymbol;
+    text-align: center;
+    border: solid 1px;
+    line-height: 2em;
+    width: 2em;
+    border-radius: 1em;
+}
+
+#addTodo {
+    display: grid;
+    grid-area: addTodo;
+    justify-self: start;
 }

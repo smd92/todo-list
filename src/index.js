@@ -14,8 +14,6 @@ const onLoad = (function() {
     sideBarEvents.addTodoListsEvent();
 })();
 
-//TEST
-
 let todoData = {
     title: "Test Title",
     description: "this is a test",
