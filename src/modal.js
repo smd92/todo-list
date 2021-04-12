@@ -36,11 +36,9 @@ const modalDOM = (function() {
     }
 
     function renderaddTodoModal() {
-        
-    }
+        const addTodoModal = document.createElement("div");
 
-    function clearModalBody() {
-        modalBody.childNodes.remove();
+        modalBody.appendChild(addTodoModal);
     }
 
     return {
@@ -52,17 +50,18 @@ const modalDOM = (function() {
 
 const modalEvents = (function() {
 
-    function addCloseButtonEvent() {
-        const closeButton = document.querySelector("#closeButton");
+    const closeButton = document.querySelector("#closeButton");
+    const modalBody = document.querySelector("#modalBody");
+
+    function clearModalOnClose() {
         closeButton.addEventListener("click", () => {
-            modalDOM.clearModalBody();
+            modalBody.firstChild.remove();
         })
     }
 
     return {
-        addCloseButtonEvent
+        clearModalOnClose
     }
-
 })();
 
 export { modalDOM, modalEvents };
