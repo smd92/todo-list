@@ -1,4 +1,4 @@
-const modalDOM = (function() {
+const modalDOM = (function () {
 
     let modal;
     let modalHeader;
@@ -36,7 +36,9 @@ const modalDOM = (function() {
     }
 
     function renderaddTodoModal() {
+        const addTodoModal = document.createElement("div");
 
+        modalBody.appendChild(addTodoModal);
     }
 
     return {
@@ -45,4 +47,20 @@ const modalDOM = (function() {
     }
 })();
 
-export default modalDOM;
+const modalEvents = (function () {
+
+    const closeButton = document.querySelector("#closeButton");
+    const modalBody = document.querySelector("#modalBody");
+
+    function clearModalOnClose() {
+        closeButton.addEventListener("click", () => {
+            modalBody.firstChild.remove();
+        })
+    }
+
+    return {
+        clearModalOnClose
+    }
+})();
+
+export { modalDOM, modalEvents };

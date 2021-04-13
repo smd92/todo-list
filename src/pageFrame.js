@@ -1,11 +1,11 @@
-const pageFrame = (function() {
+const pageFrame = (function () {
 
     const main = document.querySelector("#main");
     let header;
     let container;
     let sidebar;
     let subContainer;
-    
+
     function createHeader() {
         header = document.createElement("div");
         header.id = "header";
