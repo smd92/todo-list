@@ -54,7 +54,7 @@ body {
 #subContainer {
     display: grid;
     grid-area: subContainer;
-    grid-template-rows: 5vh 1fr;
+    grid-template-rows: 10vh 1fr;
     grid-template-areas:
     "subContainerHeader"
     "subContainerList";
