@@ -36,17 +36,42 @@ const modalDOM = (function () {
     }
 
     function renderaddTodoModal() {
+<<<<<<< HEAD
         const addTodoModal = document.createElement("div");
 
         modalBody.appendChild(addTodoModal);
+=======
+        
+    }
+
+    function clearModalBody() {
+        modalBody.childNodes.remove();
+>>>>>>> 7833ce1b72ab574ee879d90bfcef7ec917e78ce8
     }
 
     return {
         renderModalFrame,
-        renderaddTodoModal
+        renderaddTodoModal,
+        clearModalBody
     }
 })();
 
+const modalEvents = (function() {
+
+    function addCloseButtonEvent() {
+        const closeButton = document.querySelector("#closeButton");
+        closeButton.addEventListener("click", () => {
+            modalDOM.clearModalBody();
+        })
+    }
+
+    return {
+        addCloseButtonEvent
+    }
+
+})();
+
+<<<<<<< HEAD
 const modalEvents = (function () {
 
     const closeButton = document.querySelector("#closeButton");
@@ -63,4 +88,6 @@ const modalEvents = (function () {
     }
 })();
 
+=======
+>>>>>>> 7833ce1b72ab574ee879d90bfcef7ec917e78ce8
 export { modalDOM, modalEvents };
