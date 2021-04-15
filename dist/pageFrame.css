@@ -33,7 +33,7 @@ body {
 #sidebar {
     display: grid;
     grid-area: sidebar;
-    grid-template-rows: 1fr 1fr;
+    grid-template-rows: auto 1fr;
     grid-template-areas:
     "listsContainer"
     "projectsContainer";
@@ -74,6 +74,7 @@ body {
     display: grid;
     grid-template-columns: 5vw 15vw;
     height: 10vh;
+    width: 10vw;
     grid-template-areas:
     "plusSymbol addTodo";
     place-items: center;

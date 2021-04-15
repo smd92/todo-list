@@ -1,9 +1,40 @@
 import pageFrame from "/src/pageFrame.js";
-import ToDo from "/src/createToDo.js";
-import Project from "/src/createProject.js";
-import { todoLists, projectsSidebar, sideBarEvents } from "/src/sidebar.js";
+import ToDo from "/src/ToDos.js";
+import Project from "/src/Projects.js";
+import { todoLists, projectsSidebar } from "/src/sidebar.js";
 import { subContainerHeader, subContainerList } from "/src/subContainer.js";
-import { modalDOM } from "/src/modal.js";
+import modalDOM from "/src/modal.js";
+
+const sideBarEvents = (function() {
+
+    function addTodoListsEvent() {
+        let listsNodes = document.getElementsByClassName("todoList");
+        for (let i = 0; i < listsNodes.length; i++) {
+            listsNodes[i].addEventListener(("click"), (e) => {
+                subContainerHeader.setSubContainerTitle(e.target.textContent);
+            })
+        }
+    }
+
+    return {
+        addTodoListsEvent
+    }
+})();
+
+const subContainerEvents = (function () {
+
+    function addTodoButtonEvents() {
+        const addTodoDiv = document.querySelector("#addTodoDiv");
+        addTodoDiv.addEventListener("click", () => {
+            const modal = document.querySelector("#modal");
+            modalDOM.openModal(modal);
+        })
+    }
+
+    return {
+        addTodoButtonEvents
+    }
+})();
 
 const onLoad = (function () {
     pageFrame.renderPageFrame();
@@ -13,6 +44,7 @@ const onLoad = (function () {
     subContainerList.renderSubContainerList();
     subContainerList.renderAddTodo();
     sideBarEvents.addTodoListsEvent();
+    subContainerEvents.addTodoButtonEvents();
     modalDOM.renderModalFrame();
 })();
 

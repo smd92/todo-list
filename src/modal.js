@@ -4,6 +4,7 @@ const modalDOM = (function () {
     let modalHeader;
     let modalBody;
 
+    //create the core elements of the modal
     function renderModalFrame(titleText) {
         modal = document.createElement("div");
         modal.id = "modal";
@@ -11,6 +12,12 @@ const modalDOM = (function () {
 
         const overlay = document.createElement("div");
         overlay.id = "overlay";
+        overlay.addEventListener(("click"), () => {
+            const modals = document.querySelectorAll(".modal.active");
+            modals.forEach(modal => {
+                closeModal(modal);
+            })
+        })
 
         modalHeader = document.createElement("div");
         modalHeader.classList.add("modal-header");
@@ -26,6 +33,13 @@ const modalDOM = (function () {
         closeButton.id = "closeButton";
         closeButton.classList.add("close-button");
         closeButton.innerHTML = "&times;";
+        closeButton.addEventListener("click", () => {
+            //close the modal
+            const modal = closeButton.closest(".modal");
+            closeModal(modal);
+            //remove modal content
+            if (modalBody.firstChild != null) modalBody.firstChild.remove();
+        })
 
         main.appendChild(modal);
         main.appendChild(overlay);
@@ -35,32 +49,33 @@ const modalDOM = (function () {
         modalHeader.appendChild(closeButton);
     }
 
+    //render modal for adding a new todo item
     function renderaddTodoModal() {
         const addTodoModal = document.createElement("div");
 
         modalBody.appendChild(addTodoModal);
     }
 
+    //open the modal
+    function openModal(modal) {
+        if (modal === null) return;
+        modal.classList.add("active");
+        overlay.classList.add("active");
+    }
+
+    //close the modal
+    function closeModal(modal) {
+        if (modal === null) return;
+        modal.classList.remove("active");
+        overlay.classList.remove("active");
+    }
+
     return {
         renderModalFrame,
-        renderaddTodoModal
+        renderaddTodoModal,
+        openModal,
+        closeModal
     }
 })();
 
-const modalEvents = (function () {
-
-    const closeButton = document.querySelector("#closeButton");
-    const modalBody = document.querySelector("#modalBody");
-
-    function clearModalOnClose() {
-        closeButton.addEventListener("click", () => {
-            modalBody.firstChild.remove();
-        })
-    }
-
-    return {
-        clearModalOnClose
-    }
-})();
-
-export { modalDOM, modalEvents };
+export default modalDOM;
