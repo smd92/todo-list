@@ -1,5 +1,3 @@
-import { subContainerHeader } from "/src/subContainer.js";
-
 const todoLists = (function() {
 
     let listsContainer;
@@ -60,20 +58,4 @@ const projectsSidebar = (function() {
     return { renderProjectsSidebar };
 })();
 
-const sideBarEvents = (function() {
-
-    function addTodoListsEvent() {
-        let listsNodes = document.getElementsByClassName("todoList");
-        for (let i = 0; i < listsNodes.length; i++) {
-            listsNodes[i].addEventListener(("click"), (e) => {
-                subContainerHeader.setSubContainerTitle(e.target.textContent);
-            })
-        }
-    }
-
-    return {
-        addTodoListsEvent
-    }
-})();
-
-export { todoLists, projectsSidebar, sideBarEvents };
+export { todoLists, projectsSidebar };

@@ -1,4 +1,4 @@
-const subContainerHeader = (function() {
+const subContainerHeader = (function () {
 
     let subContainerHeader;
     let subContainerTitle;
@@ -33,7 +33,7 @@ const subContainerHeader = (function() {
     };
 })();
 
-const subContainerList = (function() {
+const subContainerList = (function () {
 
     let list;
 
