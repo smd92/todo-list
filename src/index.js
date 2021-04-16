@@ -53,7 +53,6 @@ let todoData = {
     description: "this is a test",
     dueDate: "01-01-1970",
     priority: "high",
-    notes: "this is a test note"
 }
 
 let testToDo = new ToDo(todoData);
@@ -64,7 +63,6 @@ let projectData = {
     description: "this is a project",
     dueDate: "01-01-1970",
     priority: "medium",
-    notes: "test project note"
 }
 
 let testProject = new Project(projectData);

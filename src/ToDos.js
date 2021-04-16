@@ -5,7 +5,6 @@ class ToDo {
         this.description = todoData.description;
         this.dueDate = todoData.dueDate;
         this.priority = todoData.priority;
-        this.notes = todoData.notes;
         this.index;
     }
 }
