@@ -52,6 +52,20 @@ const modalDOM = (function () {
     //render modal for adding a new todo item
     function renderaddTodoModal() {
         const addTodoModal = document.createElement("div");
+        addTodoModal.id = "addTodoModal";
+
+        const modalForm = document.createElement("div");
+        modalForm.id = "modalForm";
+
+        const form = document.createElement("form");
+        form.setAttribute("action", "#");
+        form.setAttribute("method", "post");
+
+        //const unorderedList = document.createElement("ul");
+        //const orderedList = document.createElement("li");
+
+        const formFields = document.createElement("div");
+        formFields.id = "formFields";
 
         modalBody.appendChild(addTodoModal);
     }
