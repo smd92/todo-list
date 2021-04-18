@@ -53,25 +53,30 @@ const modalDOM = (function () {
     }
 
     //render modal for adding a new todo item
-    function renderaddTodoModal() {
+    function renderAddTodoModal() {
         const addTodoModal = document.createElement("div");
         addTodoModal.id = "addTodoModal";
 
-        const modalForm = document.createElement("div");
-        modalForm.id = "modalForm";
+        const formContainer = document.createElement("div");
+        formContainer.id = "formContainer";
 
         const form = document.createElement("form");
         form.setAttribute("action", "#");
         form.setAttribute("method", "post");
 
-        //const unorderedList = document.createElement("ul");
-        //const orderedList = document.createElement("li");
-
         const formFields = document.createElement("div");
         formFields.id = "formFields";
-
         renderAddTodoFormFields(form, formFieldsArray, labelTextArray);
 
+        const formButton = document.createElement("p");
+        formButton.id = "formButton";
+        formButton.classList.add("button");
+        formButton.textContent = "+";
+
+        form.appendChild(formFields);
+        formContainer.appendChild(form);
+        addTodoModal.appendChild(formContainer);
+        addTodoModal.appendChild(formButton);
         modalBody.appendChild(addTodoModal);
     }
 
@@ -96,6 +101,10 @@ const modalDOM = (function () {
         }
     }
 
+    function addFormButtonEvent() {
+
+    }
+
     //open the modal
     function openModal(modal) {
         if (modal === null) return;
@@ -112,7 +121,7 @@ const modalDOM = (function () {
 
     return {
         renderModalFrame,
-        renderaddTodoModal,
+        renderAddTodoModal,
         openModal,
         closeModal
     }
