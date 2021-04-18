@@ -6,7 +6,7 @@ import { subContainerHeader, subContainerList } from "/src/subContainer.js";
 import modalDOM from "/src/modal.js";
 
 const sideBarEvents = (function() {
-
+    //displays the lists title in the header of the subcontainer
     function addTodoListsEvent() {
         let listsNodes = document.getElementsByClassName("todoList");
         for (let i = 0; i < listsNodes.length; i++) {
@@ -28,6 +28,7 @@ const subContainerEvents = (function () {
         addTodoDiv.addEventListener("click", () => {
             const modal = document.querySelector("#modal");
             modalDOM.openModal(modal);
+            //render modal form
         })
     }
 

@@ -3,6 +3,9 @@ const modalDOM = (function () {
     let modal;
     let modalHeader;
     let modalBody;
+    //define the form fields
+    let formFieldsArray = ["title", "description", "dueDate", "priority", "list"];
+    let labelTextArray = ["Titel", "Beschreibung", "Timing", "Priorität", "Liste"];
 
     //create the core elements of the modal
     function renderModalFrame(titleText) {
@@ -67,7 +70,30 @@ const modalDOM = (function () {
         const formFields = document.createElement("div");
         formFields.id = "formFields";
 
+        renderAddTodoFormFields(form, formFieldsArray, labelTextArray);
+
         modalBody.appendChild(addTodoModal);
+    }
+
+    //render the label and input elements
+    function renderAddTodoFormFields(form, formFieldsArray, labelTextArray) {
+        for (let i = 0; i < formFieldsArray.length; i++) {
+            let fieldDiv = document.createElement("div");
+            fieldDiv.classList.add("form-field");
+
+            let label = document.createElement("label");
+            label.setAttribute("for", formFieldsArray[i]);
+            label.textContent = labelTextArray[i];
+            fieldDiv.appendChild(label);
+
+            let input = document.createElement("input");
+            formFieldsArray[i] === "dueDate" ? input.type = "date" : input.type = "text";
+            input.id = `todo_${formFieldsArray[i]}`;
+            input.name = `todo_${formFieldsArray[i]}`;
+            fieldDiv.appendChild(input);
+
+            form.appendChild(fieldDiv);
+        }
     }
 
     //open the modal
