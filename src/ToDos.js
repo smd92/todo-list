@@ -9,4 +9,11 @@ class ToDo {
     }
 }
 
+const todoManager = (function () {
+
+    return {
+        
+    }
+})();
+
 export default ToDo;

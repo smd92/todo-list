@@ -101,8 +101,8 @@ const modalDOM = (function () {
         }
     }
 
-    function addFormButtonEvent() {
-
+    function addNewTodoButtonEvent() {
+        
     }
 
     //open the modal
