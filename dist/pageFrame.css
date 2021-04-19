@@ -70,13 +70,13 @@ body {
     grid-area: subContainerList;
 }
 
-#addTodoDiv {
+#newTodoDiv {
     display: grid;
     grid-template-columns: 5vw 15vw;
     height: 10vh;
     width: 10vw;
     grid-template-areas:
-    "plusSymbol addTodo";
+    "plusSymbol newTodo";
     place-items: center;
 }
 
@@ -90,8 +90,8 @@ body {
     border-radius: 1em;
 }
 
-#addTodo {
+#newTodo {
     display: grid;
-    grid-area: addTodo;
+    grid-area: newTodo;
     justify-self: start;
 }

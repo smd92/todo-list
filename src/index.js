@@ -23,19 +23,19 @@ const sideBarEvents = (function () {
 
 const subContainerEvents = (function () {
 
-    function addTodoButtonEvents() {
-        const addTodoDiv = document.querySelector("#addTodoDiv");
-        addTodoDiv.addEventListener("click", () => {
+    function newTodoButtonEvents() {
+        const newTodoDiv = document.querySelector("#newTodoDiv");
+        newTodoDiv.addEventListener("click", () => {
             const modal = document.querySelector("#modal");
             //open modal
             modalDOM.openModal(modal);
             //render modal form
-            modalDOM.renderAddTodoModal();
+            modalDOM.renderNewTodoModal();
         })
     }
 
     return {
-        addTodoButtonEvents
+        newTodoButtonEvents
     }
 })();
 
@@ -45,9 +45,9 @@ const onLoad = (function () {
     projectsSidebar.renderProjectsSidebar();
     subContainerHeader.renderSubContainerHeader();
     subContainerList.renderSubContainerList();
-    subContainerList.renderAddTodo();
+    subContainerList.renderNewTodo();
     sideBarEvents.renderListTitleEvent();
-    subContainerEvents.addTodoButtonEvents();
+    subContainerEvents.newTodoButtonEvents();
     modalDOM.renderModalFrame();
 })();
 

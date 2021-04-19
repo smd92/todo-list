@@ -44,26 +44,26 @@ const subContainerList = (function () {
         subContainer.appendChild(list);
     }
 
-    function renderAddTodo() {
-        const addTodoDiv = document.createElement("div");
-        addTodoDiv.id = "addTodoDiv";
+    function renderNewTodo() {
+        const newTodoDiv = document.createElement("div");
+        newTodoDiv.id = "newTodoDiv";
 
         const plusSymbol = document.createElement("p");
         plusSymbol.id = "plusSymbol";
         plusSymbol.textContent = "+";
 
-        const addTodo = document.createElement("p");
-        addTodo.id = "addTodo";
-        addTodo.textContent = "Aufgabe hinzufügen";
+        const newTodo = document.createElement("p");
+        newTodo.id = "newTodo";
+        newTodo.textContent = "Aufgabe hinzufügen";
 
-        addTodoDiv.appendChild(plusSymbol);
-        addTodoDiv.appendChild(addTodo);
-        list.appendChild(addTodoDiv);
+        newTodoDiv.appendChild(plusSymbol);
+        newTodoDiv.appendChild(newTodo);
+        list.appendChild(newTodoDiv);
     }
 
     return {
         renderSubContainerList,
-        renderAddTodo
+        renderNewTodo
     }
 })();
 

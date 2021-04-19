@@ -8,7 +8,7 @@ const modalDOM = (function () {
     let labelTextArray = ["Titel", "Beschreibung", "Timing", "Priorität", "Liste"];
 
     //create the core elements of the modal
-    function renderModalFrame(titleText) {
+    function renderModalFrame() {
         modal = document.createElement("div");
         modal.id = "modal";
         modal.classList.add("modal");
@@ -30,7 +30,6 @@ const modalDOM = (function () {
 
         const modalTitle = document.createElement("div");
         modalTitle.classList.add("modal-title");
-        modalTitle.textContent = titleText;
 
         const closeButton = document.createElement("button");
         closeButton.id = "closeButton";
@@ -40,8 +39,6 @@ const modalDOM = (function () {
             //close the modal
             const modal = closeButton.closest(".modal");
             closeModal(modal);
-            //remove modal content
-            if (modalBody.firstChild != null) modalBody.firstChild.remove();
         })
 
         main.appendChild(modal);
@@ -53,9 +50,12 @@ const modalDOM = (function () {
     }
 
     //render modal for adding a new todo item
-    function renderAddTodoModal() {
-        const addTodoModal = document.createElement("div");
-        addTodoModal.id = "addTodoModal";
+    function renderNewTodoModal() {
+        const modalTitle = document.querySelector(".modal-title");
+        modalTitle.textContent = "Neue Aufgabe";
+
+        const newTodoModal = document.createElement("div");
+        newTodoModal.id = "newTodoModal";
 
         const formContainer = document.createElement("div");
         formContainer.id = "formContainer";
@@ -66,7 +66,7 @@ const modalDOM = (function () {
 
         const formFields = document.createElement("div");
         formFields.id = "formFields";
-        renderAddTodoFormFields(form, formFieldsArray, labelTextArray);
+        renderNewTodoFormFields(form, formFieldsArray, labelTextArray);
 
         const formButton = document.createElement("p");
         formButton.id = "formButton";
@@ -75,13 +75,13 @@ const modalDOM = (function () {
 
         form.appendChild(formFields);
         formContainer.appendChild(form);
-        addTodoModal.appendChild(formContainer);
-        addTodoModal.appendChild(formButton);
-        modalBody.appendChild(addTodoModal);
+        newTodoModal.appendChild(formContainer);
+        newTodoModal.appendChild(formButton);
+        modalBody.appendChild(newTodoModal);
     }
 
     //render the label and input elements
-    function renderAddTodoFormFields(form, formFieldsArray, labelTextArray) {
+    function renderNewTodoFormFields(form, formFieldsArray, labelTextArray) {
         for (let i = 0; i < formFieldsArray.length; i++) {
             let fieldDiv = document.createElement("div");
             fieldDiv.classList.add("form-field");
@@ -117,11 +117,13 @@ const modalDOM = (function () {
         if (modal === null) return;
         modal.classList.remove("active");
         overlay.classList.remove("active");
+        //clean up modal on close
+        modalBody.firstChild.remove();
     }
 
     return {
         renderModalFrame,
-        renderAddTodoModal,
+        renderNewTodoModal,
         openModal,
         closeModal
     }
