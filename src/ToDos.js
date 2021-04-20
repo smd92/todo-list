@@ -12,8 +12,30 @@ class ToDo {
 const todoManager = (function () {
 
     return {
-        
+
     }
 })();
 
-export default ToDo;
+const todoListsManager = (function () {
+
+    let todoLists = {
+        defaultList: [],
+        todayList: [],
+        upcomingList: []
+    }
+
+    function setNewTodoList(newList) {
+        todoLists.newList = [];
+    }
+
+    function pushTodoInList(list, todo) {
+        todoLists.list.push(todo);
+    }
+
+    return {
+        setNewTodoList,
+        pushTodoInList
+    }
+})();
+
+export { ToDo, todoManager, todoListsManager };

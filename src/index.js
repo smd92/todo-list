@@ -1,5 +1,5 @@
 import pageFrame from "/src/pageFrame.js";
-import ToDo from "/src/ToDos.js";
+import { ToDo } from "/src/ToDos.js";
 import Project from "/src/Projects.js";
 import { todoLists, projectsSidebar } from "/src/sidebar.js";
 import { subContainerHeader, subContainerList } from "/src/subContainer.js";
