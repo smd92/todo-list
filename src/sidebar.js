@@ -1,3 +1,5 @@
+import { subContainerHeader } from "/src/subContainer.js";
+
 const todoLists = (function() {
 
     let listsContainer;
@@ -23,7 +25,7 @@ const todoLists = (function() {
 
     function renderTodoLists() {
         createListsContainer();
-        createSidebarItem(globalList, "globalList", "Eingang");
+        createSidebarItem(globalList, "defaultList", "Eingang");
         createSidebarItem(todayList, "todayList", "Heute");
         createSidebarItem(upcomingList, "upcomingList", "Demnächst");
     }
@@ -58,4 +60,20 @@ const projectsSidebar = (function() {
     return { renderProjectsSidebar };
 })();
 
-export { todoLists, projectsSidebar };
+const sideBarEvents = (function () {
+    //displays the lists title in the header of the subcontainer
+    function renderListTitleEvent() {
+        let listsNodes = document.getElementsByClassName("todoList");
+        for (let i = 0; i < listsNodes.length; i++) {
+            listsNodes[i].addEventListener(("click"), (e) => {
+                subContainerHeader.setSubContainerTitle(e.target.textContent);
+            })
+        }
+    }
+
+    return {
+        renderListTitleEvent
+    }
+})();
+
+export { todoLists, projectsSidebar, sideBarEvents };

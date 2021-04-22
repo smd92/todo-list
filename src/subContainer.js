@@ -1,3 +1,5 @@
+import modalDOM from "/src/modal.js";
+
 const subContainerHeader = (function () {
 
     let subContainerHeader;
@@ -67,4 +69,22 @@ const subContainerList = (function () {
     }
 })();
 
-export { subContainerHeader, subContainerList };
+const subContainerEvents = (function () {
+
+    function newTodoButtonEvents() {
+        const newTodoDiv = document.querySelector("#newTodoDiv");
+        newTodoDiv.addEventListener("click", () => {
+            const modal = document.querySelector("#modal");
+            //open modal
+            modalDOM.openModal(modal);
+            //render modal form
+            modalDOM.renderNewTodoModal();
+        })
+    }
+
+    return {
+        newTodoButtonEvents
+    }
+})();
+
+export { subContainerHeader, subContainerList, subContainerEvents };

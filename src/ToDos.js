@@ -11,11 +11,16 @@ class ToDo {
 
 const todoManager = (function () {
 
-    return {
+    function createNewTodo(formData) {
+        
+    }
 
+    return {
+        createNewTodo
     }
 })();
 
+//manages todo lists e.g. default, today, upcoming
 const todoListsManager = (function () {
 
     let todoLists = {

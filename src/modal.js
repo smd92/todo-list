@@ -1,3 +1,5 @@
+import { todoManager } from "/src/ToDos.js";
+
 const modalDOM = (function () {
 
     let modal;
@@ -72,6 +74,8 @@ const modalDOM = (function () {
         formButton.id = "formButton";
         formButton.classList.add("button");
         formButton.textContent = "+";
+        //submit event
+        modalEvents.submitFormButtonEvent(formButton);
 
         form.appendChild(formFields);
         formContainer.appendChild(form);
@@ -84,7 +88,7 @@ const modalDOM = (function () {
     function renderNewTodoFormFields(form, formFieldsArray, labelTextArray) {
         for (let i = 0; i < formFieldsArray.length; i++) {
             let fieldDiv = document.createElement("div");
-            fieldDiv.classList.add("form-field");
+            fieldDiv.classList.add("form-field-container");
 
             let label = document.createElement("label");
             label.setAttribute("for", formFieldsArray[i]);
@@ -95,14 +99,11 @@ const modalDOM = (function () {
             formFieldsArray[i] === "dueDate" ? input.type = "date" : input.type = "text";
             input.id = `todo_${formFieldsArray[i]}`;
             input.name = `todo_${formFieldsArray[i]}`;
+            input.classList.add("input-field");
             fieldDiv.appendChild(input);
 
             form.appendChild(fieldDiv);
         }
-    }
-
-    function addNewTodoButtonEvent() {
-        
     }
 
     //open the modal
@@ -126,6 +127,26 @@ const modalDOM = (function () {
         renderNewTodoModal,
         openModal,
         closeModal
+    }
+})();
+
+const modalEvents = (function () {
+
+    //event of the form button for creating a new todo
+    function submitFormButtonEvent(formButton) {
+        
+        formButton.addEventListener("click", () => {
+            const formFields = document.getElementsByClassName("input-field");
+            let formDataArr = [];
+            for (let i = 0; i < formFields.length; i++) {
+                formDataArr.push(formFields[i].value);
+            }
+            todoManager.createNewTodo(formDataArr);
+        })
+    }
+
+    return {
+        submitFormButtonEvent
     }
 })();
 
