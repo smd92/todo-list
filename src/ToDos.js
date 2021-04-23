@@ -11,9 +11,11 @@ class ToDo {
 
 const todoManager = (function () {
 
-    let defaultList = [];
-    let todayList = [];
-    let upcomingList = [];
+    let fixedLists = {
+        defaultList: [],
+        todayList: [],
+        upcomingList: []
+    }
 
     function addNewTodo(formData) {
         let todoData = {
@@ -23,8 +25,8 @@ const todoManager = (function () {
             priority: formData[3]
         }
         let todo = new ToDo(todoData);
-        pushTodoInList(defaultList, todo);
-        console.log(defaultList);
+        pushTodoInList(fixedLists.defaultList, todo);
+        console.log(fixedLists.defaultList);
     }
     
     function setNewTodoList(newList) {
