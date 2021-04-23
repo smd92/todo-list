@@ -141,7 +141,10 @@ const modalEvents = (function () {
             for (let i = 0; i < formFields.length; i++) {
                 formDataArr.push(formFields[i].value);
             }
-            todoManager.createNewTodo(formDataArr);
+            todoManager.addNewTodo(formDataArr);
+            //close and clean modal after submitting form
+            const modal = document.querySelector(".modal");
+            modalDOM.closeModal(modal);
         })
     }
 

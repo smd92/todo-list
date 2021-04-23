@@ -11,36 +11,35 @@ class ToDo {
 
 const todoManager = (function () {
 
-    function createNewTodo(formData) {
-        
+    let defaultList = [];
+    let todayList = [];
+    let upcomingList = [];
+
+    function addNewTodo(formData) {
+        let todoData = {
+            title: formData[0],
+            description: formData[1],
+            dueDate: formData[2],
+            priority: formData[3]
+        }
+        let todo = new ToDo(todoData);
+        pushTodoInList(defaultList, todo);
+        console.log(defaultList);
     }
-
-    return {
-        createNewTodo
-    }
-})();
-
-//manages todo lists e.g. default, today, upcoming
-const todoListsManager = (function () {
-
-    let todoLists = {
-        defaultList: [],
-        todayList: [],
-        upcomingList: []
-    }
-
+    
     function setNewTodoList(newList) {
         todoLists.newList = [];
     }
-
+    
     function pushTodoInList(list, todo) {
-        todoLists.list.push(todo);
+        list.push(todo);
     }
 
     return {
+        addNewTodo,
         setNewTodoList,
         pushTodoInList
     }
 })();
 
-export { ToDo, todoManager, todoListsManager };
+export { ToDo, todoManager };
