@@ -15,6 +15,7 @@ const subContainerHeader = (function () {
     function createSubContainerTitle() {
         subContainerTitle = document.createElement("p");
         subContainerTitle.id = "subContainerTitle";
+        subContainerTitle.className = "defaultList";
         subContainerTitle.textContent = "Eingang";
 
         subContainerHeader.appendChild(subContainerTitle);
@@ -24,6 +25,10 @@ const subContainerHeader = (function () {
         subContainerTitle.textContent = text;
     }
 
+    function setSubContainerTitleClassName(className) {
+        subContainerTitle.classList.add(className);
+    }
+
     function renderSubContainerHeader() {
         createSubContainerHeader();
         createSubContainerTitle();
@@ -31,7 +36,8 @@ const subContainerHeader = (function () {
 
     return {
         renderSubContainerHeader,
-        setSubContainerTitle
+        setSubContainerTitle,
+        setSubContainerTitleClassName
     };
 })();
 

@@ -10,14 +10,17 @@ class ToDo {
 }
 
 const todoManager = (function () {
-
+    //store all todo items
+    let allTodos = [];
+    //contains the pre-set lists
     let fixedLists = {
         defaultList: [],
         todayList: [],
         upcomingList: []
     }
 
-    function addNewTodo(formData) {
+    //take form input and use it to create new todo item
+    function addNewTodo(formData, list) {
         let todoData = {
             title: formData[0],
             description: formData[1],
@@ -25,22 +28,41 @@ const todoManager = (function () {
             priority: formData[3]
         }
         let todo = new ToDo(todoData);
-        pushTodoInList(fixedLists.defaultList, todo);
-        console.log(fixedLists.defaultList);
+        //store the todo item
+        allTodos.push(todo);
+        pushTodoInList(list, todo);
+        //enumerate the todo item
+        setTodoIndexes();
+        console.log(allTodos);
     }
     
     function setNewTodoList(newList) {
         todoLists.newList = [];
     }
-    
+
+    //push todo in respective list
     function pushTodoInList(list, todo) {
-        list.push(todo);
+        switch (list) {
+            case "defaultList":
+                fixedLists.defaultList.push(todo);
+                break;
+            case "todayList":
+                fixedLists.todayList.push(todo);
+                break;
+            case "upcomingList":
+                fixedLists.upcomingList.push(todo);
+        }
+    }
+
+    function setTodoIndexes() {
+        for (let i = 0; i < allTodos.length; i++) {
+            allTodos[i].index = i;
+        }
     }
 
     return {
         addNewTodo,
-        setNewTodoList,
-        pushTodoInList
+        setNewTodoList
     }
 })();
 

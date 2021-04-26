@@ -61,12 +61,20 @@ const projectsSidebar = (function() {
 })();
 
 const sideBarEvents = (function () {
-    //displays the lists title in the header of the subcontainer
+    
     function renderListTitleEvent() {
+        const subContainerTitle = document.querySelector("#subContainerTitle");
         let listsNodes = document.getElementsByClassName("todoList");
+
         for (let i = 0; i < listsNodes.length; i++) {
             listsNodes[i].addEventListener(("click"), (e) => {
+                //display the lists title in the header of the subcontainer
                 subContainerHeader.setSubContainerTitle(e.target.textContent);
+                //set class name of subContainerTItle to list item id, to know in which list todo was created
+                if (e.target.id != subContainerTitle.className) {
+                    subContainerTitle.classList.remove(subContainerTitle.className);
+                }
+                subContainerHeader.setSubContainerTitleClassName(e.target.id);
             })
         }
     }

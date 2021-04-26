@@ -136,12 +136,16 @@ const modalEvents = (function () {
     function submitFormButtonEvent(formButton) {
         
         formButton.addEventListener("click", () => {
+            //grab list name to know in which list the new todo item has to be pushed
+            const subContainerTitle = document.querySelector("#subContainerTitle");
+            let list = subContainerTitle.className;
+            //grab form input and trigger creation of todo item
             const formFields = document.getElementsByClassName("input-field");
             let formDataArr = [];
             for (let i = 0; i < formFields.length; i++) {
                 formDataArr.push(formFields[i].value);
             }
-            todoManager.addNewTodo(formDataArr);
+            todoManager.addNewTodo(formDataArr, list);
             //close and clean modal after submitting form
             const modal = document.querySelector(".modal");
             modalDOM.closeModal(modal);
