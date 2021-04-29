@@ -74,8 +74,6 @@ const subContainerList = (function () {
         newTodoDiv.remove();
     }
 
-
-
     return {
         renderSubContainerList,
         renderNewTodoButton,

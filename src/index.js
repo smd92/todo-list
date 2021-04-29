@@ -18,6 +18,8 @@ const onLoad = (function () {
     modalDOM.renderModalFrame();
 })();
 
+/* TEST DATA
+
 let todoData = {
     title: "Test Title",
     description: "this is a test",
@@ -37,3 +39,5 @@ let projectData = {
 
 let testProject = new Project(projectData);
 console.log(testProject);
+
+*/

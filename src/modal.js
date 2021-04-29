@@ -1,4 +1,4 @@
-import { todoManager } from "/src/ToDos.js";
+import { ToDo } from "/src/ToDos.js";
 
 const modalDOM = (function () {
 
@@ -6,8 +6,8 @@ const modalDOM = (function () {
     let modalHeader;
     let modalBody;
     //define the form fields
-    let formFieldsArray = ["title", "description", "dueDate", "priority", "list"];
-    let labelTextArray = ["Titel", "Beschreibung", "Timing", "Priorität", "Liste"];
+    let formFieldsArray = ["title", "description", "dueDate", "priority"];
+    let labelTextArray = ["Titel", "Beschreibung", "Timing", "Priorität"];
 
     //create the core elements of the modal
     function renderModalFrame() {
@@ -136,16 +136,21 @@ const modalEvents = (function () {
     function submitFormButtonEvent(formButton) {
         
         formButton.addEventListener("click", () => {
-            //grab list name to know in which list the new todo item has to be pushed
-            const subContainerTitle = document.querySelector("#subContainerTitle");
-            let list = subContainerTitle.className;
-            //grab form input and trigger creation of todo item
+            //grab form input
             const formFields = document.getElementsByClassName("input-field");
-            let formDataArr = [];
+            let formData = [];
             for (let i = 0; i < formFields.length; i++) {
-                formDataArr.push(formFields[i].value);
+                formData.push(formFields[i].value);
             }
-            todoManager.addNewTodo(formDataArr, list);
+            let todoData = {
+                title: formData[0],
+                description: formData[1],
+                dueDate: formData[2],
+                priority: formData[3]
+            }
+            //create new todo
+            let todo = new ToDo(todoData);
+            console.log(todo);
             //close and clean modal after submitting form
             const modal = document.querySelector(".modal");
             modalDOM.closeModal(modal);
