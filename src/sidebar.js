@@ -1,4 +1,4 @@
-import { subContainerHeader } from "/src/subContainer.js";
+import { subContainerHeader, subContainerList } from "/src/subContainer.js";
 
 const todoLists = (function() {
 
@@ -61,26 +61,37 @@ const projectsSidebar = (function() {
 })();
 
 const sideBarEvents = (function () {
+
+    let listsNodes = document.getElementsByClassName("todoList");
     
     function renderListTitleEvent() {
-        const subContainerTitle = document.querySelector("#subContainerTitle");
-        let listsNodes = document.getElementsByClassName("todoList");
-
         for (let i = 0; i < listsNodes.length; i++) {
             listsNodes[i].addEventListener(("click"), (e) => {
                 //display the lists title in the header of the subcontainer
                 subContainerHeader.setSubContainerTitle(e.target.textContent);
-                //set class name of subContainerTItle to list item id, to know in which list todo was created
-                if (e.target.id != subContainerTitle.className) {
-                    subContainerTitle.classList.remove(subContainerTitle.className);
+            })
+        }
+    }
+
+    function manageNewTodoButtonEvent() {
+        for (let i = 0; i < listsNodes.length; i++) {
+            listsNodes[i].addEventListener("click", (e) => {
+                const newTodoButton = document.querySelector("#newTodoDiv");
+
+                //add/remove button for adding new todo
+                if (e.target.id != "defaultList" && newTodoButton != null) {
+                    subContainerList.removeNewTodoButton();
                 }
-                subContainerHeader.setSubContainerTitleClassName(e.target.id);
+                if (e.target.id === "defaultList" && newTodoButton === null) {
+                    subContainerList.renderNewTodoButton();
+                }
             })
         }
     }
 
     return {
-        renderListTitleEvent
+        renderListTitleEvent,
+        manageNewTodoButtonEvent
     }
 })();
 

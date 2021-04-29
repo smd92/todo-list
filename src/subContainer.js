@@ -52,7 +52,7 @@ const subContainerList = (function () {
         subContainer.appendChild(list);
     }
 
-    function renderNewTodo() {
+    function renderNewTodoButton() {
         const newTodoDiv = document.createElement("div");
         newTodoDiv.id = "newTodoDiv";
 
@@ -69,9 +69,17 @@ const subContainerList = (function () {
         list.appendChild(newTodoDiv);
     }
 
+    function removeNewTodoButton() {
+        const newTodoDiv = document.querySelector("#newTodoDiv");
+        newTodoDiv.remove();
+    }
+
+
+
     return {
         renderSubContainerList,
-        renderNewTodo
+        renderNewTodoButton,
+        removeNewTodoButton
     }
 })();
 
