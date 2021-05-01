@@ -1,3 +1,4 @@
+import { subContainerEvents } from "./subContainer";
 import { subContainerHeader, subContainerList } from "/src/subContainer.js";
 
 const todoListsSidebar = (function() {
@@ -89,6 +90,7 @@ const sideBarEvents = (function () {
                 }
                 if (e.target.id === "defaultList" && newTodoButton === null) {
                     subContainerList.renderNewTodoButton();
+                    subContainerEvents.newTodoButtonEvents();
                 }
             })
         }
