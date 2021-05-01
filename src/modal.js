@@ -1,4 +1,4 @@
-import { ToDo } from "/src/ToDos.js";
+import { Todo } from "/src/Todos.js";
 
 const modalDOM = (function () {
 

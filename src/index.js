@@ -1,13 +1,14 @@
 import pageFrame from "/src/pageFrame.js";
-import { ToDo } from "/src/ToDos.js";
+import { Todo, TodoList } from "/src/Todos.js";
 import Project from "/src/Projects.js";
-import { todoLists, projectsSidebar, sideBarEvents } from "/src/sidebar.js";
+import { todoListsSidebar, projectsSidebar, sideBarEvents } from "/src/sidebar.js";
 import { subContainerHeader, subContainerList, subContainerEvents } from "/src/subContainer.js";
 import modalDOM from "/src/modal.js";
+import { todoListManager } from "./Todos";
 
-const onLoad = (function () {
+const onLoadDOM = (function () {
     pageFrame.renderPageFrame();
-    todoLists.renderTodoLists();
+    todoListsSidebar.renderSideBar();
     projectsSidebar.renderProjectsSidebar();
     subContainerHeader.renderSubContainerHeader();
     subContainerList.renderSubContainerList();
@@ -16,6 +17,12 @@ const onLoad = (function () {
     sideBarEvents.manageNewTodoButtonEvent();
     subContainerEvents.newTodoButtonEvents();
     modalDOM.renderModalFrame();
+})();
+
+const onLoadFunctionality = (function () {
+    let defaultList = new TodoList("defaultList");
+    todoListManager.addTodoList(defaultList);
+    todoListManager.printLists();
 })();
 
 /* TEST DATA

@@ -1,6 +1,6 @@
 import { subContainerHeader, subContainerList } from "/src/subContainer.js";
 
-const todoLists = (function() {
+const todoListsSidebar = (function() {
 
     let listsContainer;
     let globalList;
@@ -23,14 +23,14 @@ const todoLists = (function() {
         listsContainer.appendChild(elementVar);
     }
 
-    function renderTodoLists() {
+    function renderSideBar() {
         createListsContainer();
         createSidebarItem(globalList, "defaultList", "Eingang");
         createSidebarItem(todayList, "todayList", "Heute");
         createSidebarItem(upcomingList, "upcomingList", "Demnächst");
     }
 
-    return { renderTodoLists };
+    return { renderSideBar };
 })();
 
 const projectsSidebar = (function() {
@@ -95,4 +95,4 @@ const sideBarEvents = (function () {
     }
 })();
 
-export { todoLists, projectsSidebar, sideBarEvents };
+export { todoListsSidebar, projectsSidebar, sideBarEvents };
