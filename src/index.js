@@ -21,7 +21,12 @@ const onLoadDOM = (function () {
 
 const onLoadFunctionality = (function () {
     let defaultList = new TodoList("defaultList");
+    let todayList = new TodoList("todayList");
+    let upcomingList = new TodoList("upcomingList");
     todoListManager.addTodoList(defaultList);
+    todoListManager.addTodoList(todayList);
+    todoListManager.addTodoList(upcomingList);
+    //TEST
     todoListManager.printLists();
 })();
 

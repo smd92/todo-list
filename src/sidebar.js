@@ -3,7 +3,7 @@ import { subContainerHeader, subContainerList } from "/src/subContainer.js";
 const todoListsSidebar = (function() {
 
     let listsContainer;
-    let globalList;
+    let defaultList;
     let todayList;
     let upcomingList;
 
@@ -25,12 +25,15 @@ const todoListsSidebar = (function() {
 
     function renderSideBar() {
         createListsContainer();
-        createSidebarItem(globalList, "defaultList", "Eingang");
+        createSidebarItem(defaultList, "defaultList", "Eingang");
         createSidebarItem(todayList, "todayList", "Heute");
         createSidebarItem(upcomingList, "upcomingList", "Demnächst");
     }
 
-    return { renderSideBar };
+    return { 
+        renderSideBar,
+        createSidebarItem
+     };
 })();
 
 const projectsSidebar = (function() {
@@ -69,6 +72,8 @@ const sideBarEvents = (function () {
             listsNodes[i].addEventListener(("click"), (e) => {
                 //display the lists title in the header of the subcontainer
                 subContainerHeader.setSubContainerTitle(e.target.textContent);
+                //change classname of subcontainer title to know which list is open
+                subContainerHeader.setSubContainerTitleClassName(e.target.id);
             })
         }
     }

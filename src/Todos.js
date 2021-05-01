@@ -8,6 +8,18 @@ class TodoList {
     addItem(item) {
         this.items.push(item);
     }
+
+    enumerateItems() {
+        for (let i = 0; i < this.items.length; i++) {
+            this.items[i].index = i;
+        }
+    }
+
+    setItemsListName() {
+        this.items.forEach((item) => {
+            item.listName = this.name;
+        })
+    }
 }
 
 //create todo items
@@ -18,6 +30,7 @@ class Todo {
         this.dueDate = todoData.dueDate;
         this.priority = todoData.priority;
         this.index;
+        this.listName;
     }
 }
 
@@ -28,12 +41,22 @@ const todoListManager = (function () {
         allTodoLists.push(todoList);
     }
 
+    function pushInCorrectList(listName, item) {
+        allTodoLists.forEach((list) => {
+            if (list.name === listName) {
+                list.items.push(item);
+            }
+        })
+    }
+
+    //TEST
     function printLists() {
         console.log(allTodoLists);
     }
 
     return {
         addTodoList,
+        pushInCorrectList,
         printLists
     }
 })();

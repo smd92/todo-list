@@ -1,4 +1,4 @@
-import { Todo } from "/src/Todos.js";
+import { Todo, todoListManager } from "/src/Todos.js";
 
 const modalDOM = (function () {
 
@@ -149,8 +149,10 @@ const modalEvents = (function () {
                 priority: formData[3]
             }
             //create new todo
-            let todo = new ToDo(todoData);
-            console.log(todo);
+            let listName = document.querySelector("#subContainerTitle").className;
+            let todo = new Todo(todoData);
+            todoListManager.pushInCorrectList(listName, todo);
+            todoListManager.printLists();
             //close and clean modal after submitting form
             const modal = document.querySelector(".modal");
             modalDOM.closeModal(modal);

@@ -26,7 +26,7 @@ const subContainerHeader = (function () {
     }
 
     function setSubContainerTitleClassName(className) {
-        subContainerTitle.classList.add(className);
+        subContainerTitle.className = className;
     }
 
     function renderSubContainerHeader() {
@@ -48,8 +48,12 @@ const subContainerList = (function () {
     function renderSubContainerList() {
         list = document.createElement("div");
         list.id = "subContainerList";
-
         subContainer.appendChild(list);
+    }
+
+    function renderListItem(item) {
+        let newItem = document.createElement("div");
+        newItem.id = item.listName + item.index;
     }
 
     function renderNewTodoButton() {
@@ -76,6 +80,7 @@ const subContainerList = (function () {
 
     return {
         renderSubContainerList,
+        renderListItem,
         renderNewTodoButton,
         removeNewTodoButton
     }
