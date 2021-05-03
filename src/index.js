@@ -11,7 +11,6 @@ const onLoadDOM = (function () {
     todoListsSidebar.renderSideBar();
     projectsSidebar.renderProjectsSidebar();
     subContainerHeader.renderSubContainerHeader();
-    subContainerList.renderSubContainerList();
     subContainerList.renderNewTodoButton();
     sideBarEvents.renderListTitleEvent();
     sideBarEvents.manageNewTodoButtonEvent();
@@ -26,30 +25,4 @@ const onLoadFunctionality = (function () {
     todoListManager.addTodoList(defaultList);
     todoListManager.addTodoList(todayList);
     todoListManager.addTodoList(upcomingList);
-    //TEST
-    todoListManager.printLists();
 })();
-
-/* TEST DATA
-
-let todoData = {
-    title: "Test Title",
-    description: "this is a test",
-    dueDate: "01-01-1970",
-    priority: "high",
-}
-
-let testToDo = new ToDo(todoData);
-console.log(testToDo);
-
-let projectData = {
-    title: "Test Project",
-    description: "this is a project",
-    dueDate: "01-01-1970",
-    priority: "medium",
-}
-
-let testProject = new Project(projectData);
-console.log(testProject);
-
-*/

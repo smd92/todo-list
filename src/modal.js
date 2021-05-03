@@ -1,4 +1,5 @@
 import { Todo, todoListManager } from "/src/Todos.js";
+import { subContainerList } from "/src/subContainer.js";
 
 const modalDOM = (function () {
 
@@ -132,7 +133,7 @@ const modalDOM = (function () {
 
 const modalEvents = (function () {
 
-    //event of the form button for creating a new todo
+    //event of the form button for creating a new todo item
     function submitFormButtonEvent(formButton) {
         
         formButton.addEventListener("click", () => {
@@ -148,11 +149,12 @@ const modalEvents = (function () {
                 dueDate: formData[2],
                 priority: formData[3]
             }
-            //create new todo
+            //create new todo item
             let listName = document.querySelector("#subContainerTitle").className;
             let todo = new Todo(todoData);
             todoListManager.pushInCorrectList(listName, todo);
-            todoListManager.printLists();
+            //render new todo item
+            subContainerList.renderListItem(listName, todo);
             //close and clean modal after submitting form
             const modal = document.querySelector(".modal");
             modalDOM.closeModal(modal);

@@ -42,21 +42,59 @@ const subContainerHeader = (function () {
 })();
 
 const subContainerList = (function () {
-
-    let list;
-
-    function renderSubContainerList() {
-        list = document.createElement("div");
-        list.id = "subContainerList";
-        subContainer.appendChild(list);
-    }
-
-    function renderListItem(item) {
+    function renderListItem(listName, item) {
+        let taskList = document.querySelector(`.${listName}`);
+        //container
         let newItem = document.createElement("div");
-        newItem.id = item.listName + item.index;
+        newItem.id = listName + item.index;
+        //components array for operations
+        let components = [];
+        //checkbox (task done/tasknot done)
+        let checkbox = document.createElement("p");
+        checkbox.id = "checkbox" + item.index;
+        components.push(checkbox);
+        //item title
+        let itemTitle = document.createElement("p");
+        itemTitle.id = "itemTitle" + item.index;
+        itemTitle.textContent = item.title;
+        components.push(itemTitle);
+        //edit button
+        let editBtn = document.createElement("p");
+        editBtn.id = "editBtn" + item.index;
+        components.push(editBtn);
+        //timing button
+        let timingBtn = document.createElement("p");
+        timingBtn.id = "timingBtn" + item.index;
+        components.push(timingBtn);
+        //notes button
+        let notesBtn = document.createElement("p");
+        notesBtn.id = "notesBtn" + item.index;
+        components.push(notesBtn);
+        //move item to other list button
+        let switchListBtn = document.createElement("p");
+        switchListBtn.id = "switchListBtn" + item.index;
+        components.push(switchListBtn);
+        //delete button
+        let deleteBtn = document.createElement("p");
+        deleteBtn.id = "deleteBtn" + item.index;
+        components.push(deleteBtn);
+        
+        //append components
+        components.forEach((component) => {
+            newItem.appendChild(component);
+        })
+        
+        //append item to list
+        const addTodoBtn = document.querySelector("#newTodoDiv");
+        if (addTodoBtn != null) {
+            taskList.insertBefore(newItem, addTodoBtn);
+        } else {
+            taskList.appendChild(newItem);
+        }
     }
 
     function renderNewTodoButton() {
+        const subContainerTitle = document.querySelector("#subContainerTitle");
         const newTodoDiv = document.createElement("div");
         newTodoDiv.id = "newTodoDiv";
 
@@ -70,7 +108,7 @@ const subContainerList = (function () {
 
         newTodoDiv.appendChild(plusSymbol);
         newTodoDiv.appendChild(newTodo);
-        list.appendChild(newTodoDiv);
+        subContainerTitle.appendChild(newTodoDiv);
     }
 
     function removeNewTodoButton() {
@@ -79,7 +117,6 @@ const subContainerList = (function () {
     }
 
     return {
-        renderSubContainerList,
         renderListItem,
         renderNewTodoButton,
         removeNewTodoButton
@@ -87,7 +124,7 @@ const subContainerList = (function () {
 })();
 
 const subContainerEvents = (function () {
-
+    //render modal for adding new todo item
     function newTodoButtonEvents() {
         const newTodoDiv = document.querySelector("#newTodoDiv");
         newTodoDiv.addEventListener("click", () => {
