@@ -12,8 +12,7 @@ const onLoadDOM = (function () {
     projectsSidebar.renderProjectsSidebar();
     subContainerHeader.renderSubContainerHeader();
     subContainerList.renderNewTodoButton();
-    sideBarEvents.renderListTitleEvent();
-    sideBarEvents.manageNewTodoButtonEvent();
+    sideBarEvents.addSidebarEvents();
     subContainerEvents.newTodoButtonEvents();
     modalDOM.renderModalFrame();
 })();

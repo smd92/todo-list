@@ -71,9 +71,9 @@ const subContainerList = (function () {
         notesBtn.id = "notesBtn" + item.index;
         components.push(notesBtn);
         //move item to other list button
-        let switchListBtn = document.createElement("p");
-        switchListBtn.id = "switchListBtn" + item.index;
-        components.push(switchListBtn);
+        let moveListBtn = document.createElement("p");
+        moveListBtn.id = "moveListBtn" + item.index;
+        components.push(moveListBtn);
         //delete button
         let deleteBtn = document.createElement("p");
         deleteBtn.id = "deleteBtn" + item.index;

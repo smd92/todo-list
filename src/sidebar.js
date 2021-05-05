@@ -1,5 +1,6 @@
-import { subContainerEvents } from "./subContainer";
+import { subContainerEvents } from "/src/subContainer.js";
 import { subContainerHeader, subContainerList } from "/src/subContainer.js";
+import { todoListManager } from "/src/Todos.js";
 
 const todoListsSidebar = (function() {
 
@@ -96,9 +97,34 @@ const sideBarEvents = (function () {
         }
     }
 
+    //triggers rendering of the items within clicked list
+    function renderListItemsEvent() {
+        for (let i = 0; i < listsNodes.length; i++) {
+            listsNodes[i].addEventListener("click", (e) => {
+
+                let todoLists = todoListManager.getTodoLists();
+                todoLists.forEach((list) => {
+                    if (list.name === e.target.id) {
+                        list.items.forEach((item) => {
+                            subContainerList.renderListItem(e.target.id, item);
+                        })
+                    }
+                })
+            })
+        }
+    }
+
+    function addSidebarEvents() {
+        renderListTitleEvent();
+        manageNewTodoButtonEvent();
+        renderListItemsEvent();
+    }
+
     return {
         renderListTitleEvent,
-        manageNewTodoButtonEvent
+        manageNewTodoButtonEvent,
+        renderListItemsEvent,
+        addSidebarEvents
     }
 })();
 

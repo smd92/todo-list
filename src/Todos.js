@@ -49,6 +49,10 @@ const todoListManager = (function () {
         })
     }
 
+    function getTodoLists() {
+        return allTodoLists;
+    }
+
     //TEST
     function printLists() {
         console.log(allTodoLists);
@@ -57,6 +61,7 @@ const todoListManager = (function () {
     return {
         addTodoList,
         pushInCorrectList,
+        getTodoLists,
         printLists
     }
 })();
