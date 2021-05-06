@@ -49,6 +49,33 @@ body {
 #projectsContainer {
     display: grid;
     grid-area: projectsContainer;
+    grid-template-rows: 5vh 1fr;
+}
+
+#newProjectDiv {
+    display: grid;
+    grid-template-columns: 5vw 15vw;
+    height: 5vh;
+    width: 5vw;
+    grid-template-areas:
+    "plusProject newProject";
+    place-items: center;
+}
+
+#plusProject {
+    display: grid;
+    grid-area: plusProject;
+    text-align: center;
+    border: solid 1px;
+    line-height: 2em;
+    width: 2em;
+    border-radius: 1em;
+}
+
+#newProject {
+    display: grid;
+    grid-area: newProject;
+    justify-self: start;
 }
 
 #subContainer {

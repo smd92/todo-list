@@ -41,15 +41,16 @@ const todoListsSidebar = (function() {
 const projectsSidebar = (function() {
     
     let projectsContainer;
+    let projectsList;
 
-    function createProjectsContainer() {
+    function renderProjectsContainer() {
         projectsContainer = document.createElement("div");
         projectsContainer.id = "projectsContainer";
 
         sidebar.appendChild(projectsContainer);
     }
 
-    function createProjectsTitle() {
+    function renderProjectsTitle() {
         const title = document.createElement("p");
         title.id = "projectsTitle";
         title.textContent = "Projekte";
@@ -57,9 +58,35 @@ const projectsSidebar = (function() {
         projectsContainer.appendChild(title);
     }
 
+    function renderProjectsList() {
+        projectsList = document.createElement("div");
+        projectsList.id = "projectsList";
+
+        projectsContainer.appendChild(projectsList);
+    }
+
+    function renderAddProjectButton() {
+        const newProjectDiv = document.createElement("div");
+        newProjectDiv.id = "newProjectDiv";
+
+        const plusProject = document.createElement("p");
+        plusProject.id = "plusProject";
+        plusProject.textContent = "+";
+
+        const newProject = document.createElement("p");
+        newProject.id = "newProject";
+        newProject.textContent = "neues Projekt";
+
+        newProjectDiv.appendChild(plusProject);
+        newProjectDiv.appendChild(newProject);
+        projectsList.appendChild(newProjectDiv);
+    }
+
     function renderProjectsSidebar() {
-        createProjectsContainer();
-        createProjectsTitle();
+        renderProjectsContainer();
+        renderProjectsTitle();
+        renderProjectsList();
+        renderAddProjectButton();
     }
 
     return { renderProjectsSidebar };
