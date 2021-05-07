@@ -1,6 +1,7 @@
 import { subContainerEvents } from "/src/subContainer.js";
 import { subContainerHeader, subContainerList } from "/src/subContainer.js";
 import { todoListManager } from "/src/Todos.js";
+import modalDOM from "/src/modal.js";
 
 const todoListsSidebar = (function() {
 
@@ -107,6 +108,17 @@ const sideBarEvents = (function () {
         }
     }
 
+    function newProjectButtonEvents() {
+        const newProjectDiv = document.querySelector("#newProjectDiv");
+        newProjectDiv.addEventListener("click", () => {
+            const modal = document.querySelector("#modal");
+                //open modal
+                modalDOM.openModal(modal);
+                //render modal form
+                modalDOM.renderNewProjectModal();
+        })
+    }
+
     function manageNewTodoButtonEvent() {
         for (let i = 0; i < listsNodes.length; i++) {
             listsNodes[i].addEventListener("click", (e) => {
@@ -143,12 +155,14 @@ const sideBarEvents = (function () {
 
     function addSidebarEvents() {
         renderListTitleEvent();
+        newProjectButtonEvents();
         manageNewTodoButtonEvent();
         renderListItemsEvent();
     }
 
     return {
         renderListTitleEvent,
+        newProjectButtonEvents,
         manageNewTodoButtonEvent,
         renderListItemsEvent,
         addSidebarEvents

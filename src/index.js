@@ -1,6 +1,5 @@
 import pageFrame from "/src/pageFrame.js";
-import { Todo, TodoList } from "/src/Todos.js";
-import Project from "/src/Projects.js";
+import { TodoList } from "/src/Todos.js";
 import { todoListsSidebar, projectsSidebar, sideBarEvents } from "/src/sidebar.js";
 import { subContainerHeader, subContainerList, subContainerEvents } from "/src/subContainer.js";
 import modalDOM from "/src/modal.js";

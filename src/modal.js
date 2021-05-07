@@ -102,9 +102,57 @@ const modalDOM = (function () {
             input.name = `todo_${formFieldsArray[i]}`;
             input.classList.add("input-field");
             fieldDiv.appendChild(input);
-
+            //append the field container
             form.appendChild(fieldDiv);
         }
+    }
+
+    function renderNewProjectModal() {
+        const modalTitle = document.querySelector(".modal-title");
+        modalTitle.textContent = "Neues Projekt";
+
+        const newProjectModal = document.createElement("div");
+        newProjectModal.id = "newProjectModal";
+
+        const formContainer = document.createElement("div");
+        formContainer.id = "formContainer";
+
+        const form = document.createElement("form");
+        form.setAttribute("action", "#");
+        form.setAttribute("method", "post");
+
+        //render project modal form fields
+        const formFields = document.createElement("div");
+        formFields.id = "formFields";
+        const projectModalNameDiv = document.createElement("div");
+        projectModalNameDiv.classList.add("form-field-container");
+        //label
+        const nameLabel = document.createElement("label");
+        nameLabel.setAttribute("for", "name");
+        nameLabel.textContent = "Projektname";
+        projectModalNameDiv.appendChild(nameLabel);
+        //input
+        const nameInput = document.createElement("input");
+        nameInput.type = "text";
+        nameInput.id = "project_name";
+        nameInput.name = "project_name";
+        nameInput.classList.add("input-field");
+        projectModalNameDiv.appendChild(nameInput);
+        //append the field container
+        form.appendChild(projectModalNameDiv);
+
+        const formButton = document.createElement("p");
+        formButton.id = "formButton";
+        formButton.classList.add("button");
+        formButton.textContent = "+";
+        //submit event
+        modalEvents.projectFormButtonEvent(formButton);
+
+        form.appendChild(formFields);
+        formContainer.appendChild(form);
+        newProjectModal.appendChild(formContainer);
+        newProjectModal.appendChild(formButton);
+        modalBody.appendChild(newProjectModal);
     }
 
     //open the modal
@@ -126,6 +174,7 @@ const modalDOM = (function () {
     return {
         renderModalFrame,
         renderNewTodoModal,
+        renderNewProjectModal,
         openModal,
         closeModal
     }
@@ -135,7 +184,7 @@ const modalEvents = (function () {
 
     //event of the form button for creating a new todo item
     function submitFormButtonEvent(formButton) {
-        
+
         formButton.addEventListener("click", () => {
             //grab form input
             const formFields = document.getElementsByClassName("input-field");
@@ -161,8 +210,14 @@ const modalEvents = (function () {
         })
     }
 
+    //event of the form button for creating a new project item/todo list
+    function projectFormButtonEvent(projectFormButton) {
+        
+    }
+
     return {
-        submitFormButtonEvent
+        submitFormButtonEvent,
+        projectFormButtonEvent
     }
 })();
 

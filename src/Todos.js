@@ -9,6 +9,10 @@ class TodoList {
         this.items.push(item);
     }
 
+    removeItem(item) {
+        this.items.splice(item.index, 1);
+    }
+
     enumerateItems() {
         for (let i = 0; i < this.items.length; i++) {
             this.items[i].index = i;
