@@ -184,7 +184,6 @@ const modalEvents = (function () {
 
     //event of the form button for creating a new todo item
     function submitFormButtonEvent(formButton) {
-
         formButton.addEventListener("click", () => {
             //grab form input
             const formFields = document.getElementsByClassName("input-field");
@@ -212,7 +211,20 @@ const modalEvents = (function () {
 
     //event of the form button for creating a new project item/todo list
     function projectFormButtonEvent(projectFormButton) {
-        
+        projectFormButton.addEventListener("click", () => {
+            //grad form input
+            const formFields = document.getElementsByClassName("input-field");
+            let formData = [];
+            let projectData = {};
+            for (let i = 0; i < formFields.length; i++) {
+                formData.push(formFields[i].value);
+                projectData[i] = formData[i];
+            }
+            console.log(projectData);
+            //close and clean modal after submitting form
+            const modal = document.querySelector(".modal");
+            modalDOM.closeModal(modal);
+        })
     }
 
     return {
