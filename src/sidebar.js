@@ -66,6 +66,18 @@ const projectsSidebar = (function() {
         projectsContainer.appendChild(projectsList);
     }
 
+    function renderNewProject(project) {
+        let sidebarProject = document.createElement("p");
+        sidebarProject.id = project.nameDOM;
+        sidebarProject.classList.add("todoList");
+        sidebarProject.textContent = project.visibleName;  
+
+        projectsList.appendChild(sidebarProject);
+        sideBarEvents.renderListTitleEvent();
+        sideBarEvents.renderListItemsEvent();
+        sideBarEvents.manageNewTodoButtonEvent();
+    }
+
     function renderAddProjectButton() {
         const newProjectDiv = document.createElement("div");
         newProjectDiv.id = "newProjectDiv";
@@ -90,14 +102,22 @@ const projectsSidebar = (function() {
         renderAddProjectButton();
     }
 
-    return { renderProjectsSidebar };
+    return { 
+        renderProjectsSidebar,
+        renderNewProject
+     };
 })();
 
 const sideBarEvents = (function () {
 
     let listsNodes = document.getElementsByClassName("todoList");
+
+    function refreshListsNodes() {
+        listsNodes = document.getElementsByClassName("todoList");
+    }
     
     function renderListTitleEvent() {
+        refreshListsNodes();
         for (let i = 0; i < listsNodes.length; i++) {
             listsNodes[i].addEventListener(("click"), (e) => {
                 //display the lists title in the header of the subcontainer
@@ -128,7 +148,7 @@ const sideBarEvents = (function () {
                 if (e.target.id != "defaultList" && newTodoButton != null) {
                     subContainerList.removeNewTodoButton();
                 }
-                if (e.target.id === "defaultList" && newTodoButton === null) {
+                if (e.target.id != "todayList" && e.target.id != "upcomingList" && newTodoButton === null) {
                     subContainerList.renderNewTodoButton();
                     subContainerEvents.newTodoButtonEvents();
                 }
@@ -140,10 +160,10 @@ const sideBarEvents = (function () {
     function renderListItemsEvent() {
         for (let i = 0; i < listsNodes.length; i++) {
             listsNodes[i].addEventListener("click", (e) => {
-
+                
                 let todoLists = todoListManager.getTodoLists();
                 todoLists.forEach((list) => {
-                    if (list.name === e.target.id) {
+                    if (list.nameDOM === e.target.id) {
                         list.items.forEach((item) => {
                             subContainerList.renderListItem(e.target.id, item);
                         })

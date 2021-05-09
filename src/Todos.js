@@ -1,7 +1,8 @@
 //create todo lists
 class TodoList {
-    constructor(name) {
-        this.name = name;
+    constructor(projectData) {
+        this.visibleName = projectData[0];
+        this.nameDOM = this.visibleName.split(" ").join("-") + "List";
         this.items = [];
     }
     
@@ -45,9 +46,9 @@ const todoListManager = (function () {
         allTodoLists.push(todoList);
     }
 
-    function pushInCorrectList(listName, item) {
+    function pushTodoInCorrectList(listName, item) {
         allTodoLists.forEach((list) => {
-            if (list.name === listName) {
+            if (list.nameDOM === listName) {
                 list.items.push(item);
             }
         })
@@ -64,7 +65,7 @@ const todoListManager = (function () {
 
     return {
         addTodoList,
-        pushInCorrectList,
+        pushTodoInCorrectList,
         getTodoLists,
         printLists
     }

@@ -1,5 +1,6 @@
-import { Todo, todoListManager } from "/src/Todos.js";
+import { Todo, TodoList, todoListManager } from "/src/Todos.js";
 import { subContainerList } from "/src/subContainer.js";
+import { projectsSidebar } from "/src/sidebar.js";
 
 const modalDOM = (function () {
 
@@ -200,7 +201,7 @@ const modalEvents = (function () {
             //create new todo item
             let listName = document.querySelector("#subContainerTitle").className;
             let todo = new Todo(todoData);
-            todoListManager.pushInCorrectList(listName, todo);
+            todoListManager.pushTodoInCorrectList(listName, todo);
             //render new todo item
             subContainerList.renderListItem(listName, todo);
             //close and clean modal after submitting form
@@ -220,7 +221,11 @@ const modalEvents = (function () {
                 formData.push(formFields[i].value);
                 projectData[i] = formData[i];
             }
-            console.log(projectData);
+            //create new project
+            let project = new TodoList(projectData);
+            todoListManager.addTodoList(project);
+            //render new project in sidebar
+            projectsSidebar.renderNewProject(project);
             //close and clean modal after submitting form
             const modal = document.querySelector(".modal");
             modalDOM.closeModal(modal);
