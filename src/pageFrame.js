@@ -51,7 +51,10 @@ const pageFrame = (function () {
         createSubContainer();
     }
 
-    return { renderPageFrame };
+    return { 
+        renderPageFrame,
+        sidebar
+    };
 })();
 
 export default pageFrame;

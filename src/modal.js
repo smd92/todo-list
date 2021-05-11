@@ -4,6 +4,7 @@ import { projectsSidebar } from "/src/sidebar.js";
 
 const modalDOM = (function () {
 
+    let main = document.querySelector("#main");
     let modal;
     let modalHeader;
     let modalBody;
@@ -17,7 +18,7 @@ const modalDOM = (function () {
         modal.id = "modal";
         modal.classList.add("modal");
 
-        const overlay = document.createElement("div");
+        let overlay = document.createElement("div");
         overlay.id = "overlay";
         overlay.addEventListener(("click"), () => {
             const modals = document.querySelectorAll(".modal.active");

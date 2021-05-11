@@ -17,6 +17,9 @@
   },
   "homepage": "https://github.com/smd92/todo-list#readme",
   "devDependencies": {
+    "eslint": "^7.26.0",
+    "eslint-config-prettier": "^8.3.0",
+    "prettier": "2.3.0",
     "webpack": "^5.26.3",
     "webpack-cli": "^4.5.0"
   },
