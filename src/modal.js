@@ -200,13 +200,12 @@ const modalEvents = (function () {
         dueDate: format(new Date(formData[2]), "dd.MM.yyyy"),
         priority: formData[3],
       };
-      //test
-      let today = format(new Date(), "dd.MM.yyyy");
-      console.log(today === todoData.dueDate);
       //create new todo item
       let listName = document.querySelector("#subContainerTitle").className;
       let todo = new Todo(todoData);
       todoListManager.pushTodoInCorrectList(listName, todo);
+      //update todayList
+      todoListManager.fillTodayList();
       //render new todo item
       subContainerList.renderListItem(listName, todo);
       //close and clean modal after submitting form

@@ -34,7 +34,7 @@ const onLoadFunctionality = (function () {
   let upcomingListData = {
     0: "Demnächst",
   };
-    let archiveListData = {
+  let archiveListData = {
     0: "Demnächst",
   };
   let defaultList = new TodoList(defaultListData);

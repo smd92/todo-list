@@ -38,6 +38,7 @@ class Todo {
     this.priority = todoData.priority;
     this.index;
     this.listName;
+    this.inTodayList = false;
   }
 }
 
@@ -56,24 +57,16 @@ const todoListManager = (function () {
     });
   }
 
-  function getSpecificList(nameDOM) {
-    allTodoLists.forEach((list) => {
-      if (list.nameDOM === nameDOM) {
-        return list;
-      }
-    });
-  }
-
   //populate todayList
   function fillTodayList() {
-    let todayList = getSpecificList("todayList");
     let todayDate = format(new Date(), "dd.MM.yyyy");
 
     allTodoLists.forEach((todoList) => {
       if (todoList.nameDOM != "todayList") {
-        todoList.forEach((item) => {
-          if (item.dueDate === todayDate) {
-            todayList.push(item);
+        todoList.items.forEach((item) => {
+          if (item.dueDate === todayDate && item.inTodayList === false) {
+            pushTodoInCorrectList("todayList", item);
+            item.inTodayList = true;
           }
         });
       }
@@ -97,7 +90,6 @@ const todoListManager = (function () {
   return {
     addTodoList,
     pushTodoInCorrectList,
-    getSpecificList,
     fillTodayList,
     getTodoLists,
     printLists,
