@@ -1,3 +1,5 @@
+import format from "date-fns/format";
+
 //create todo lists
 class TodoList {
   constructor(projectData) {
@@ -54,6 +56,35 @@ const todoListManager = (function () {
     });
   }
 
+  function getSpecificList(nameDOM) {
+    allTodoLists.forEach((list) => {
+      if (list.nameDOM === nameDOM) {
+        return list;
+      }
+    });
+  }
+
+  //populate todayList
+  function fillTodayList() {
+    let todayList = getSpecificList("todayList");
+    let todayDate = format(new Date(), "dd.MM.yyyy");
+
+    allTodoLists.forEach((todoList) => {
+      if (todoList.nameDOM != "todayList") {
+        todoList.forEach((item) => {
+          if (item.dueDate === todayDate) {
+            todayList.push(item);
+          }
+        });
+      }
+    });
+  }
+
+  //populate upcomingList
+  function fillUpcomingList() {
+    
+  }
+
   function getTodoLists() {
     return allTodoLists;
   }
@@ -66,9 +97,15 @@ const todoListManager = (function () {
   return {
     addTodoList,
     pushTodoInCorrectList,
+    getSpecificList,
+    fillTodayList,
     getTodoLists,
     printLists,
   };
+})();
+
+const todoManager = (function () {
+  return {};
 })();
 
 export { Todo, TodoList, todoListManager };

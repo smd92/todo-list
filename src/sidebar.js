@@ -8,6 +8,7 @@ const todoListsSidebar = (function () {
   let defaultList;
   let todayList;
   let upcomingList;
+  let archiveList;
 
   function createListsContainer() {
     listsContainer = document.createElement("div");
@@ -30,6 +31,7 @@ const todoListsSidebar = (function () {
     createSidebarItem(defaultList, "defaultList", "Eingang");
     createSidebarItem(todayList, "todayList", "Heute");
     createSidebarItem(upcomingList, "upcomingList", "Demnächst");
+    createSidebarItem(archiveList, "archiveList", "Archiv");
   }
 
   return {
@@ -148,6 +150,7 @@ const sideBarEvents = (function () {
         if (
           e.target.id != "todayList" &&
           e.target.id != "upcomingList" &&
+          e.target.id != "archiveList" &&
           newTodoButton === null
         ) {
           subContainerList.renderNewTodoButton();

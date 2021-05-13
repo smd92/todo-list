@@ -1,6 +1,7 @@
 import { Todo, TodoList, todoListManager } from "/src/Todos.js";
 import { subContainerList } from "/src/subContainer.js";
 import { projectsSidebar } from "/src/sidebar.js";
+import format from "date-fns/format";
 
 const modalDOM = (function () {
   let main = document.querySelector("#main");
@@ -196,9 +197,12 @@ const modalEvents = (function () {
       let todoData = {
         title: formData[0],
         description: formData[1],
-        dueDate: formData[2],
+        dueDate: format(new Date(formData[2]), "dd.MM.yyyy"),
         priority: formData[3],
       };
+      //test
+      let today = format(new Date(), "dd.MM.yyyy");
+      console.log(today === todoData.dueDate);
       //create new todo item
       let listName = document.querySelector("#subContainerTitle").className;
       let todo = new Todo(todoData);

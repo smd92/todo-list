@@ -34,13 +34,19 @@ const onLoadFunctionality = (function () {
   let upcomingListData = {
     0: "Demnächst",
   };
+    let archiveListData = {
+    0: "Demnächst",
+  };
   let defaultList = new TodoList(defaultListData);
   defaultList.nameDOM = "defaultList";
   let todayList = new TodoList(todayListData);
   todayList.nameDOM = "todayList";
   let upcomingList = new TodoList(upcomingListData);
   upcomingList.nameDOM = "upcomingList";
+  let archiveList = new TodoList(archiveListData);
+  archiveList.nameDOM = "archiveList";
   todoListManager.addTodoList(defaultList);
   todoListManager.addTodoList(todayList);
   todoListManager.addTodoList(upcomingList);
+  todoListManager.addTodoList(archiveList);
 })();
