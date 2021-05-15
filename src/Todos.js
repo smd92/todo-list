@@ -39,6 +39,7 @@ class Todo {
     this.index;
     this.listName;
     this.inTodayList = false;
+    this.inUpcomingList = false;
   }
 }
 
@@ -62,7 +63,10 @@ const todoListManager = (function () {
     let todayDate = format(new Date(), "dd.MM.yyyy");
 
     allTodoLists.forEach((todoList) => {
-      if (todoList.nameDOM != "todayList") {
+      if (
+        todoList.nameDOM != "todayList" &&
+        todoList.nameDOM != "archiveList"
+      ) {
         todoList.items.forEach((item) => {
           if (item.dueDate === todayDate && item.inTodayList === false) {
             pushTodoInCorrectList("todayList", item);
@@ -75,8 +79,31 @@ const todoListManager = (function () {
 
   //populate upcomingList
   function fillUpcomingList() {
-    
+    let todayDate = format(new Date(), "dd.MM.yyyy");
+    let maxBase = new Date();
+    maxBase.setDate(new Date().getDate() + 3);
+    let rangeMax = format(maxBase, "dd.MM.yyyy");
+
+    allTodoLists.forEach((todoList) => {
+      if (
+        todoList.nameDOM != "upcomingList" &&
+        todoList.nameDOM != "archiveList"
+      ) {
+        todoList.items.forEach((item) => {
+          if (
+            item.dueDate > todayDate &&
+            item.dueDate <= rangeMax &&
+            item.inUpcomingList === false
+          ) {
+            pushTodoInCorrectList("upcomingList", item);
+            item.inUpcomingList = true;
+          }
+        });
+      }
+    });
   }
+
+  function removeFromUpcomingList() {}
 
   function getTodoLists() {
     return allTodoLists;
@@ -91,6 +118,7 @@ const todoListManager = (function () {
     addTodoList,
     pushTodoInCorrectList,
     fillTodayList,
+    fillUpcomingList,
     getTodoLists,
     printLists,
   };

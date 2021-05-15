@@ -25,6 +25,7 @@ const onLoadDOM = (function () {
 })();
 
 const onLoadFunctionality = (function () {
+  //create the basic set of lists
   let defaultListData = {
     0: "Eingang",
   };
@@ -49,4 +50,7 @@ const onLoadFunctionality = (function () {
   todoListManager.addTodoList(todayList);
   todoListManager.addTodoList(upcomingList);
   todoListManager.addTodoList(archiveList);
+  //keep due today / due soon lists up to date
+  todoListManager.fillTodayList();
+  todoListManager.fillUpcomingList();
 })();

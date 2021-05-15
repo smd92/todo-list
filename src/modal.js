@@ -204,8 +204,9 @@ const modalEvents = (function () {
       let listName = document.querySelector("#subContainerTitle").className;
       let todo = new Todo(todoData);
       todoListManager.pushTodoInCorrectList(listName, todo);
-      //update todayList
+      //update todayList and upcomingList
       todoListManager.fillTodayList();
+      todoListManager.fillUpcomingList();
       //render new todo item
       subContainerList.renderListItem(listName, todo);
       //close and clean modal after submitting form
