@@ -18,7 +18,22 @@ const pageFrame = (function () {
     pageTitle.classList.add("headerItem");
     pageTitle.textContent = "ToDo-List by smd92";
 
+    const builtBy = document.createElement("div");
+    builtBy.id = "builtBy";
+
+    const gitHubLink = document.createElement("a");
+    gitHubLink.id = "gitHubLink";
+    gitHubLink.setAttribute("href", "https://github.com/smd92");
+    gitHubLink.setAttribute("target", "_blank");
+
+    const gitHubLogo = document.createElement("img");
+    gitHubLogo.id = "gitHubLogo";
+    gitHubLogo.setAttribute("src", "./img/GitHub-Mark-Light-32px.png");
+
     header.appendChild(pageTitle);
+    builtBy.appendChild(gitHubLink);
+    gitHubLink.appendChild(gitHubLogo);
+    header.appendChild(builtBy);
   }
 
   function createContainer() {
