@@ -1,124 +1,148 @@
 html {
-    font-size: 100%;
+  font-size: 100%;
 }
 
 body {
-    margin: 0;
-    background-image: url("img/bg-blue.jpg");
-    background-repeat: no-repeat;
-    background-attachment: fixed;
-    background-position: center;
+  margin: 0;
+  background-image: url("img/bg-blue.jpg");
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-position: center;
+  font-family: "Montserrat", sans-serif;
 }
 
 #main {
-    display: grid;
-    grid-template-rows: 10vh 90vh;
+  display: grid;
+  grid-template-rows: 12vh 88vh;
 }
 
 #header {
-    display: grid;
+  display: grid;
+  grid-template-columns: 50% 50%;
+  grid-template-areas: "title builtBy";
+  background-color: black;
+  color: white;
 }
 
 #pageTitle {
-    margin: 2em;
+  grid-area: title;
+  font-size: 2em;
+  margin-left: 2em;
+}
+
+#builtBy {
+  display: grid;
+  grid-area: builtBy;
+}
+
+#gitHubLink {
+  display: grid;
+  grid-area: gitHubLink;
+  justify-self: end;
+  height: 32px;
+  margin-right: 4em;
+  border-radius: 16px;
+  transition: 0.5s;
+}
+
+#gitHubLink:hover {
+  background-color: rgba(138, 138, 138, 0.534);
 }
 
 #container {
-    display: grid;
-    grid-template-columns: 20vw 80vw;
-    grid-template-areas:
-    "sidebar subContainer";
+  display: grid;
+  grid-template-columns: 20vw 80vw;
+  grid-template-areas: "sidebar subContainer";
+  margin-top: 2em;
 }
 
 #sidebar {
-    display: grid;
-    grid-area: sidebar;
-    grid-template-rows: auto 1fr;
-    grid-template-areas:
+  display: grid;
+  grid-area: sidebar;
+  grid-template-rows: auto 1fr;
+  grid-template-areas:
     "listsContainer"
     "projectsContainer";
-    margin-left: 2em;
+  margin-left: 2em;
 }
 
 #listsContainer {
-    display: grid;
-    grid-area: listsContainer;
-    grid-template-rows: repeat(3, 5vh);
+  display: grid;
+  grid-area: listsContainer;
+  grid-template-rows: repeat(3, 5vh);
 }
 
 #projectsContainer {
-    display: grid;
-    grid-area: projectsContainer;
-    grid-template-rows: 5vh 1fr;
+  display: grid;
+  grid-area: projectsContainer;
+  grid-template-rows: 5vh 1fr;
 }
 
 #newProjectDiv {
-    display: grid;
-    grid-template-columns: 5vw 15vw;
-    height: 5vh;
-    width: 5vw;
-    grid-template-areas:
-    "plusProject newProject";
-    place-items: center;
+  display: grid;
+  grid-template-columns: 5vw 15vw;
+  height: 5vh;
+  width: 5vw;
+  grid-template-areas: "plusProject newProject";
+  place-items: center;
 }
 
 #plusProject {
-    display: grid;
-    grid-area: plusProject;
-    text-align: center;
-    border: solid 1px;
-    line-height: 2em;
-    width: 2em;
-    border-radius: 1em;
+  display: grid;
+  grid-area: plusProject;
+  text-align: center;
+  border: solid 1px;
+  line-height: 2em;
+  width: 2em;
+  border-radius: 1em;
 }
 
 #newProject {
-    display: grid;
-    grid-area: newProject;
-    justify-self: start;
+  display: grid;
+  grid-area: newProject;
+  justify-self: start;
 }
 
 #subContainer {
-    display: grid;
-    grid-area: subContainer;
-    grid-template-rows: 10vh 1fr;
-    grid-template-areas:
+  display: grid;
+  grid-area: subContainer;
+  grid-template-rows: 10vh 1fr;
+  grid-template-areas:
     "subContainerHeader"
     "subContainerList";
 }
 
 #subContainerHeader {
-    display: grid;
-    grid-area: subContainerHeader;
+  display: grid;
+  grid-area: subContainerHeader;
 }
 
 #subContainerList {
-    display: grid;
-    grid-area: subContainerList;
+  display: grid;
+  grid-area: subContainerList;
 }
 
 #newTodoDiv {
-    display: grid;
-    grid-template-columns: 5vw 15vw;
-    height: 10vh;
-    width: 10vw;
-    grid-template-areas:
-    "plusSymbol newTodo";
-    place-items: center;
+  display: grid;
+  grid-template-columns: 5vw 15vw;
+  height: 10vh;
+  width: 10vw;
+  grid-template-areas: "plusSymbol newTodo";
+  place-items: center;
 }
 
 #plusSymbol {
-    display: grid;
-    grid-area: plusSymbol;
-    text-align: center;
-    border: solid 1px;
-    line-height: 2em;
-    width: 2em;
-    border-radius: 1em;
+  display: grid;
+  grid-area: plusSymbol;
+  text-align: center;
+  border: solid 1px;
+  line-height: 2em;
+  width: 2em;
+  border-radius: 1em;
 }
 
 #newTodo {
-    display: grid;
-    grid-area: newTodo;
-    justify-self: start;
+  display: grid;
+  grid-area: newTodo;
+  justify-self: start;
 }
