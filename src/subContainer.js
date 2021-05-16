@@ -46,6 +46,8 @@ const subContainerList = (function () {
     //container
     let newItem = document.createElement("div");
     newItem.id = listName + item.index;
+    newItem.classList.add("todo-item");
+    newItem.setAttribute("data-index", item.index);
     //components array for operations
     let components = [];
     //checkbox (task done/tasknot done)
@@ -135,8 +137,22 @@ const subContainerEvents = (function () {
     });
   }
 
+  function editTodoItemEvent() {
+    const todoItems = document.querySelectorAll(".todo-item");
+    for (let i = 0; i < todoItems.length; i++) {
+      todoItems[i].addEventListener("click", () => {
+        const modal = document.querySelector("#modal");
+        //open modal
+        modalDOM.openModal(modal);
+        //render modal form
+        modalDOM.renderNewTodoModal();
+      });
+    }
+  }
+
   return {
     newTodoButtonEvents,
+    editTodoItemEvent,
   };
 })();
 
