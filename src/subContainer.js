@@ -145,7 +145,7 @@ const subContainerEvents = (function () {
         //open modal
         modalDOM.openModal(modal);
         //render modal form
-        modalDOM.renderNewTodoModal();
+        modalDOM.renderEditTodoModal();
       });
     }
   }

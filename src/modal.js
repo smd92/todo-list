@@ -1,5 +1,5 @@
 import { Todo, TodoList, todoListManager } from "/src/Todos.js";
-import { subContainerList } from "/src/subContainer.js";
+import { subContainerList, subContainerEvents } from "/src/subContainer.js";
 import { projectsSidebar } from "/src/sidebar.js";
 import format from "date-fns/format";
 
@@ -85,6 +85,33 @@ const modalDOM = (function () {
     newTodoModal.appendChild(formContainer);
     newTodoModal.appendChild(formButton);
     modalBody.appendChild(newTodoModal);
+  }
+
+  //modal for editing todo items
+  function renderEditTodoModal() {
+    const modalTitle = document.querySelector(".modal-title");
+    modalTitle.textContent = "Aufgabe bearbeiten";
+
+    const editTodoModal = document.createElement("div");
+    editTodoModal.id = "editTodoModal";
+
+    const formContainer = document.createElement("div");
+    formContainer.id = "formContainer";
+
+    const form = document.createElement("form");
+    form.setAttribute("action", "#");
+    form.setAttribute("method", "post");
+
+    const formFields = document.createElement("div");
+    formFields.id = "formFields";
+    renderNewTodoFormFields(form, formFieldsArray, labelTextArray);
+
+    const formButton = document.createElement("p");
+    formButton.id = "formButton";
+    formButton.classList.add("button");
+    formButton.textContent = "+";
+    //submit event
+    modalEvents.submitFormButtonEvent(formButton);
   }
 
   //render the label and input elements
@@ -178,6 +205,7 @@ const modalDOM = (function () {
   return {
     renderModalFrame,
     renderNewTodoModal,
+    renderEditTodoModal,
     renderNewProjectModal,
     openModal,
     closeModal,
@@ -209,10 +237,18 @@ const modalEvents = (function () {
       todoListManager.fillUpcomingList();
       //render new todo item
       subContainerList.renderListItem(listName, todo);
+      //add eventlistener for editing modal
+      subContainerEvents.editTodoItemEvent();
       //close and clean modal after submitting form
       const modal = document.querySelector(".modal");
       modalDOM.closeModal(modal);
     });
+  }
+
+  function submitEditsEvent(formButton) {
+    formButton.addEventListener("click", () => {
+      
+    })
   }
 
   //event of the form button for creating a new project item/todo list
