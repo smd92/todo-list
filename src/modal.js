@@ -88,7 +88,7 @@ const modalDOM = (function () {
   }
 
   //modal for editing todo items
-  function renderEditTodoModal() {
+  function renderEditTodoModal(itemIndex) {
     const modalTitle = document.querySelector(".modal-title");
     modalTitle.textContent = "Aufgabe bearbeiten";
 
@@ -111,7 +111,13 @@ const modalDOM = (function () {
     formButton.classList.add("button");
     formButton.textContent = "+";
     //submit event
-    modalEvents.submitFormButtonEvent(formButton);
+    modalEvents.submitEditsEvent(formButton);
+
+    form.appendChild(formFields);
+    formContainer.appendChild(form);
+    editTodoModal.appendChild(formContainer);
+    editTodoModal.appendChild(formButton);
+    modalBody.appendChild(editTodoModal);
   }
 
   //render the label and input elements
@@ -136,6 +142,10 @@ const modalDOM = (function () {
       //append the field container
       form.appendChild(fieldDiv);
     }
+  }
+
+  function fillEditFormFields(itemIndex) {
+    
   }
 
   function renderNewProjectModal() {
@@ -275,6 +285,7 @@ const modalEvents = (function () {
 
   return {
     submitFormButtonEvent,
+    submitEditsEvent,
     projectFormButtonEvent,
   };
 })();

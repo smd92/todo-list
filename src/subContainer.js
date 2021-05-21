@@ -141,11 +141,12 @@ const subContainerEvents = (function () {
     const todoItems = document.querySelectorAll(".todo-item");
     for (let i = 0; i < todoItems.length; i++) {
       todoItems[i].addEventListener("click", () => {
+        let itemIndex = parseInt(todoItems[i].getAttribute("data-index"));
         const modal = document.querySelector("#modal");
         //open modal
         modalDOM.openModal(modal);
         //render modal form
-        modalDOM.renderEditTodoModal();
+        modalDOM.renderEditTodoModal(itemIndex);
       });
     }
   }

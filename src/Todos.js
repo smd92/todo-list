@@ -55,6 +55,8 @@ const todoListManager = (function () {
       if (list.nameDOM === listName) {
         list.items.push(item);
       }
+      //set index property of items
+      list.enumerateItems();
     });
   }
 
