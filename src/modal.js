@@ -88,7 +88,7 @@ const modalDOM = (function () {
   }
 
   //modal for editing todo items
-  function renderEditTodoModal(itemIndex) {
+  function renderEditTodoModal() {
     const modalTitle = document.querySelector(".modal-title");
     modalTitle.textContent = "Aufgabe bearbeiten";
 
@@ -144,8 +144,8 @@ const modalDOM = (function () {
     }
   }
 
-  function fillEditFormFields(itemIndex) {
-    
+  function fillEditFormFields(item) {
+    console.log(item);
   }
 
   function renderNewProjectModal() {
@@ -216,6 +216,7 @@ const modalDOM = (function () {
     renderModalFrame,
     renderNewTodoModal,
     renderEditTodoModal,
+    fillEditFormFields,
     renderNewProjectModal,
     openModal,
     closeModal,

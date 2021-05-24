@@ -111,9 +111,12 @@ const todoListManager = (function () {
     return allTodoLists;
   }
 
-  //TEST
-  function printLists() {
-    console.log(allTodoLists);
+  function getItemFromList(listName, itemIndex) {
+    let item;
+    allTodoLists.forEach((list) => {
+      if (list.nameDOM === listName) item = (list.items[itemIndex]);
+    });
+    return item;
   }
 
   return {
@@ -121,8 +124,9 @@ const todoListManager = (function () {
     pushTodoInCorrectList,
     fillTodayList,
     fillUpcomingList,
+    removeFromUpcomingList,
+    getItemFromList,
     getTodoLists,
-    printLists,
   };
 })();
 

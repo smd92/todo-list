@@ -1,4 +1,5 @@
 import modalDOM from "/src/modal.js";
+import { todoListManager } from "/src/Todos.js";
 
 const subContainerHeader = (function () {
   let subContainerHeader;
@@ -140,13 +141,18 @@ const subContainerEvents = (function () {
   function editTodoItemEvent() {
     const todoItems = document.querySelectorAll(".todo-item");
     for (let i = 0; i < todoItems.length; i++) {
-      todoItems[i].addEventListener("click", () => {
+      todoItems[i].addEventListener("click", (e) => {
+        //get item data
+        let listName = e.target.parentNode.parentNode.className;
         let itemIndex = parseInt(todoItems[i].getAttribute("data-index"));
+        let item = todoListManager.getItemFromList(listName, itemIndex);
         const modal = document.querySelector("#modal");
         //open modal
         modalDOM.openModal(modal);
         //render modal form
-        modalDOM.renderEditTodoModal(itemIndex);
+        modalDOM.renderEditTodoModal();
+        //fill form fields using the info from the respective list item
+        modalDOM.fillEditFormFields(item);
       });
     }
   }
