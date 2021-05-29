@@ -114,7 +114,7 @@ const todoListManager = (function () {
   function getItemFromList(listName, itemIndex) {
     let item;
     allTodoLists.forEach((list) => {
-      if (list.nameDOM === listName) item = (list.items[itemIndex]);
+      if (list.nameDOM === listName) item = list.items[itemIndex];
     });
     return item;
   }

@@ -120,6 +120,28 @@ const modalDOM = (function () {
     modalBody.appendChild(editTodoModal);
   }
 
+  //pre-set the values of the fields with the values of the to-be-edited item
+  function fillEditFormFields(item) {
+    const formFields = document.querySelectorAll(".input-field");
+    let inputArr = [];
+    //format date
+    for (let key in item) {
+      if (typeof item[key] === "string") inputArr.push(item[key]);
+    }
+    //format item.dueDate for Chrome's datepicker
+    let formatDatePicker = (dateString) => {
+      let arr = dateString.split("");
+      let year = arr[6] + arr[7] + arr[8] + arr[9];
+      let month = arr[3] + arr[4];
+      let day = arr[0] + arr[1];
+      return year + "-" + month + "-" + day;
+    };
+    inputArr[2] = formatDatePicker(inputArr[2]);
+    for (let i = 0; i < formFields.length; i++) {
+      formFields[i].value = inputArr[i];
+    }
+  }
+
   //render the label and input elements
   function renderNewTodoFormFields(form, formFieldsArray, labelTextArray) {
     for (let i = 0; i < formFieldsArray.length; i++) {
@@ -142,10 +164,6 @@ const modalDOM = (function () {
       //append the field container
       form.appendChild(fieldDiv);
     }
-  }
-
-  function fillEditFormFields(item) {
-    console.log(item);
   }
 
   function renderNewProjectModal() {
@@ -257,9 +275,7 @@ const modalEvents = (function () {
   }
 
   function submitEditsEvent(formButton) {
-    formButton.addEventListener("click", () => {
-      
-    })
+    formButton.addEventListener("click", () => {});
   }
 
   //event of the form button for creating a new project item/todo list
