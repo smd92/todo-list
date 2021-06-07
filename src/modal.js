@@ -246,17 +246,8 @@ const modalEvents = (function () {
   function submitFormButtonEvent(formButton) {
     formButton.addEventListener("click", () => {
       //grab form input
-      const formFields = document.getElementsByClassName("input-field");
-      let formData = [];
-      for (let i = 0; i < formFields.length; i++) {
-        formData.push(formFields[i].value);
-      }
-      let todoData = {
-        title: formData[0],
-        description: formData[1],
-        dueDate: format(new Date(formData[2]), "dd.MM.yyyy"),
-        priority: formData[3],
-      };
+      let formData = formHandler.grabTodoData();
+      let todoData = formHandler.processTodoData(formData);
       //create new todo item
       let listName = document.querySelector("#subContainerTitle").className;
       let todo = new Todo(todoData);
@@ -275,20 +266,19 @@ const modalEvents = (function () {
   }
 
   function submitEditsEvent(formButton) {
-    formButton.addEventListener("click", () => {});
+    formButton.addEventListener("click", () => {
+      //grab form input
+      let formData = formHandler.grabTodoData();
+      let todoData = formHandler.processTodoData(formData);
+      console.log(todoData);
+    });
   }
 
   //event of the form button for creating a new project item/todo list
   function projectFormButtonEvent(projectFormButton) {
     projectFormButton.addEventListener("click", () => {
-      //grad form input
-      const formFields = document.getElementsByClassName("input-field");
-      let formData = [];
-      let projectData = {};
-      for (let i = 0; i < formFields.length; i++) {
-        formData.push(formFields[i].value);
-        projectData[i] = formData[i];
-      }
+      //grab form input
+      let projectData = formHandler.processProjectData();
       //create new project
       let project = new TodoList(projectData);
       todoListManager.addTodoList(project);
@@ -304,6 +294,48 @@ const modalEvents = (function () {
     submitFormButtonEvent,
     submitEditsEvent,
     projectFormButtonEvent,
+  };
+})();
+
+const formHandler = (function () {
+  //grab form input
+  function grabTodoData() {
+    //grab form input
+    const formFields = document.getElementsByClassName("input-field");
+    let formData = [];
+    for (let i = 0; i < formFields.length; i++) {
+      formData.push(formFields[i].value);
+    }
+    return formData;
+  }
+
+  //create data for todo constructor function
+  function processTodoData(formData) {
+    let todoData = {
+      title: formData[0],
+      description: formData[1],
+      dueDate: format(new Date(formData[2]), "dd.MM.yyyy"),
+      priority: formData[3],
+    };
+    return todoData;
+  }
+
+  //create data for project constructor function
+  function processProjectData() {
+    const formFields = document.getElementsByClassName("input-field");
+    let formData = [];
+    let projectData = {};
+    for (let i = 0; i < formFields.length; i++) {
+      formData.push(formFields[i].value);
+      projectData[i] = formData[i];
+    }
+    return projectData;
+  }
+
+  return {
+    grabTodoData,
+    processTodoData,
+    processProjectData,
   };
 })();
 
