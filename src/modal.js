@@ -1,5 +1,5 @@
 import { Todo, TodoList, todoListManager } from "/src/Todos.js";
-import { subContainerList, subContainerEvents } from "/src/subContainer.js";
+import { subContainerList, subContainerEvents, dataDOM } from "/src/subContainer.js";
 import { projectsSidebar } from "/src/sidebar.js";
 import format from "date-fns/format";
 
@@ -268,9 +268,13 @@ const modalEvents = (function () {
   function submitEditsEvent(formButton) {
     formButton.addEventListener("click", () => {
       //grab form input
-      let formData = formHandler.grabTodoData();
-      let todoData = formHandler.processTodoData(formData);
+      const formData = formHandler.grabTodoData();
+      const todoData = formHandler.processTodoData(formData);
+      const listName = dataDOM.getListName();
+      const itemIndex = dataDOM.getItemIndex();
       console.log(todoData);
+      console.log(listName);
+      console.log(itemIndex);
     });
   }
 

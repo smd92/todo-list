@@ -111,6 +111,7 @@ const todoListManager = (function () {
     return allTodoLists;
   }
 
+  //get item data for prefilling edit modal form fields
   function getItemFromList(listName, itemIndex) {
     let item;
     allTodoLists.forEach((list) => {

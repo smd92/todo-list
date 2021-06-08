@@ -143,8 +143,10 @@ const subContainerEvents = (function () {
     for (let i = 0; i < todoItems.length; i++) {
       todoItems[i].addEventListener("click", (e) => {
         //get item data
-        let listName = e.target.parentNode.parentNode.className;
-        let itemIndex = parseInt(todoItems[i].getAttribute("data-index"));
+        dataDOM.setListName(e.target);
+        let listName = dataDOM.getListName();
+        dataDOM.setItemIndex(todoItems[i]);
+        let itemIndex = dataDOM.getItemIndex();
         let item = todoListManager.getItemFromList(listName, itemIndex);
         const modal = document.querySelector("#modal");
         //open modal
@@ -163,4 +165,35 @@ const subContainerEvents = (function () {
   };
 })();
 
-export { subContainerHeader, subContainerList, subContainerEvents };
+//get dom data
+const dataDOM = (function () {
+  //get/set list name of todo item
+  let listName;
+  let itemIndex;
+
+  function setListName(targetNode) {
+    listName = targetNode.parentNode.parentNode.className;
+  }
+
+  function getListName() {
+    return listName;
+  }
+
+  //get/set index of todo item
+  function setItemIndex(itemNode) {
+    itemIndex = parseInt(itemNode.getAttribute("data-index"));
+  }
+
+  function getItemIndex() {
+    return itemIndex;
+  }
+
+  return {
+    setListName,
+    getListName,
+    setItemIndex,
+    getItemIndex
+  }
+})();
+
+export { subContainerHeader, subContainerList, subContainerEvents, dataDOM };
