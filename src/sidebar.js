@@ -1,5 +1,9 @@
 import { subContainerEvents } from "/src/subContainer.js";
-import { subContainerHeader, subContainerList } from "/src/subContainer.js";
+import {
+  subContainerHeader,
+  subContainerList,
+  subContainerEvents,
+} from "/src/subContainer.js";
 import { todoListManager } from "/src/Todos.js";
 import modalDOM from "/src/modal.js";
 
@@ -188,7 +192,7 @@ const sideBarEvents = (function () {
     newProjectButtonEvents,
     manageNewTodoButtonEvent,
     renderListItemsEvent,
-    addSidebarEvents,
+    addSidebarEvents
   };
 })();
 

@@ -141,9 +141,8 @@ const subContainerEvents = (function () {
   function editTodoItemEvent() {
     const todoItems = document.querySelectorAll(".todo-item");
     for (let i = 0; i < todoItems.length; i++) {
-      todoItems[i].addEventListener("click", (e) => {
+      todoItems[i].addEventListener("click", () => {
         //get item data
-        dataDOM.setListName(e.target);
         let listName = dataDOM.getListName();
         dataDOM.setItemIndex(todoItems[i]);
         let itemIndex = dataDOM.getItemIndex();
@@ -168,14 +167,10 @@ const subContainerEvents = (function () {
 //get dom data
 const dataDOM = (function () {
   //get/set list name of todo item
-  let listName;
   let itemIndex;
 
-  function setListName(targetNode) {
-    listName = targetNode.parentNode.parentNode.className;
-  }
-
   function getListName() {
+    let listName = document.querySelector("#subContainerTitle").className;
     return listName;
   }
 
@@ -189,7 +184,6 @@ const dataDOM = (function () {
   }
 
   return {
-    setListName,
     getListName,
     setItemIndex,
     getItemIndex

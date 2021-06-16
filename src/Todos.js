@@ -16,6 +16,8 @@ class TodoList {
     this.items.splice(item.index, 1);
   }
 
+  editItem()
+
   enumerateItems() {
     for (let i = 0; i < this.items.length; i++) {
       this.items[i].index = i;
