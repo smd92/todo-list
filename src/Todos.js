@@ -16,8 +16,6 @@ class TodoList {
     this.items.splice(item.index, 1);
   }
 
-  editItem()
-
   enumerateItems() {
     for (let i = 0; i < this.items.length; i++) {
       this.items[i].index = i;
@@ -109,8 +107,16 @@ const todoListManager = (function () {
 
   function removeFromUpcomingList() {}
 
-  function getTodoLists() {
+  function getAllTodoLists() {
     return allTodoLists;
+  }
+
+  function getListIndex(listName) {
+    for (let i = 0; i < allTodoLists.length; i++) {
+      if (allTodoLists[i].nameDOM === listName) {
+        return i;
+      }
+    }
   }
 
   //get item data for prefilling edit modal form fields
@@ -122,19 +128,23 @@ const todoListManager = (function () {
     return item;
   }
 
+  //edit todo item
+  function editItem(listIndex, itemIndex) {
+    let list = allTodoLists[listIndex];
+    let item;
+  }
+
   return {
     addTodoList,
     pushTodoInCorrectList,
     fillTodayList,
     fillUpcomingList,
     removeFromUpcomingList,
+    getAllTodoLists,
+    getListIndex,
     getItemFromList,
-    getTodoLists,
+    editItem,
   };
-})();
-
-const todoManager = (function () {
-  return {};
 })();
 
 export { Todo, TodoList, todoListManager };

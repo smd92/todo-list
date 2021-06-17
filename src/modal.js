@@ -227,7 +227,10 @@ const modalDOM = (function () {
     modal.classList.remove("active");
     overlay.classList.remove("active");
     //clean up modal on close
-    modalBody.firstChild.remove();
+    const modalBodyChildren = modalBody.childNodes;
+    for (let i = 0; i < modalBodyChildren.length; i++) {
+      modalBodyChildren[i].remove();
+    }
   }
 
   return {
@@ -272,9 +275,12 @@ const modalEvents = (function () {
       const todoData = formHandler.processTodoData(formData);
       const listName = dataDOM.getListName();
       const itemIndex = dataDOM.getItemIndex();
+      const listIndex = todoListManager.getListIndex(listName);
       console.log(todoData);
       console.log(listName);
       console.log(itemIndex);
+      const modal = document.querySelector(".modal");
+      modalDOM.closeModal(modal);
     });
   }
 

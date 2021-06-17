@@ -1,4 +1,3 @@
-import { subContainerEvents } from "/src/subContainer.js";
 import {
   subContainerHeader,
   subContainerList,
@@ -176,6 +175,8 @@ const sideBarEvents = (function () {
             });
           }
         });
+        //add editing event
+        subContainerEvents.editTodoItemEvent();
       });
     }
   }
@@ -192,7 +193,7 @@ const sideBarEvents = (function () {
     newProjectButtonEvents,
     manageNewTodoButtonEvent,
     renderListItemsEvent,
-    addSidebarEvents
+    addSidebarEvents,
   };
 })();
 
