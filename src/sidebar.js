@@ -167,7 +167,7 @@ const sideBarEvents = (function () {
   function renderListItemsEvent() {
     for (let i = 0; i < listsNodes.length; i++) {
       listsNodes[i].addEventListener("click", (e) => {
-        let todoLists = todoListManager.getTodoLists();
+        let todoLists = todoListManager.getAllTodoLists();
         todoLists.forEach((list) => {
           if (list.nameDOM === e.target.id) {
             list.items.forEach((item) => {

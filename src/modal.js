@@ -1,5 +1,9 @@
 import { Todo, TodoList, todoListManager } from "/src/Todos.js";
-import { subContainerList, subContainerEvents, dataDOM } from "/src/subContainer.js";
+import {
+  subContainerList,
+  subContainerEvents,
+  dataDOM,
+} from "/src/subContainer.js";
 import { projectsSidebar } from "/src/sidebar.js";
 import format from "date-fns/format";
 
@@ -273,12 +277,22 @@ const modalEvents = (function () {
       //grab form input
       const formData = formHandler.grabTodoData();
       const todoData = formHandler.processTodoData(formData);
+      //collect information for editing item
       const listName = dataDOM.getListName();
-      const itemIndex = dataDOM.getItemIndex();
       const listIndex = todoListManager.getListIndex(listName);
-      console.log(todoData);
-      console.log(listName);
-      console.log(itemIndex);
+      const itemIndex = dataDOM.getItemIndex();
+      //call function that edits the item
+      for (let key in todoData) {
+        todoListManager.editItem(listIndex, itemIndex, key, todoData[key]);
+      }
+      //update DOM
+      subContainerList.clearSubcontainerList();
+      const todoList = todoListManager.getTodoList(listIndex).items;
+      todoList.forEach((item) => {
+        subContainerList.renderListItem(listName, item);
+      });
+      subContainerEvents.editTodoItemEvent();
+      //close modal
       const modal = document.querySelector(".modal");
       modalDOM.closeModal(modal);
     });

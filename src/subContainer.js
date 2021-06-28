@@ -95,6 +95,14 @@ const subContainerList = (function () {
     }
   }
 
+  //clear the todo-list
+  function clearSubcontainerList() {
+    const items = document.querySelectorAll(".todo-item");
+    for (let i = 0; i < items.length; i++) {
+      items[i].remove();
+    }
+  }
+
   function renderNewTodoButton() {
     const subContainerTitle = document.querySelector("#subContainerTitle");
     const newTodoDiv = document.createElement("div");
@@ -120,6 +128,7 @@ const subContainerList = (function () {
 
   return {
     renderListItem,
+    clearSubcontainerList,
     renderNewTodoButton,
     removeNewTodoButton,
   };
@@ -186,8 +195,8 @@ const dataDOM = (function () {
   return {
     getListName,
     setItemIndex,
-    getItemIndex
-  }
+    getItemIndex,
+  };
 })();
 
 export { subContainerHeader, subContainerList, subContainerEvents, dataDOM };

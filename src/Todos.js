@@ -111,6 +111,10 @@ const todoListManager = (function () {
     return allTodoLists;
   }
 
+  function getTodoList(listIndex) {
+    return allTodoLists[listIndex];
+  }
+
   function getListIndex(listName) {
     for (let i = 0; i < allTodoLists.length; i++) {
       if (allTodoLists[i].nameDOM === listName) {
@@ -129,9 +133,8 @@ const todoListManager = (function () {
   }
 
   //edit todo item
-  function editItem(listIndex, itemIndex) {
-    let list = allTodoLists[listIndex];
-    let item;
+  function editItem(listIndex, itemIndex, property, value) {
+    allTodoLists[listIndex].items[itemIndex][property] = value;
   }
 
   return {
@@ -141,6 +144,7 @@ const todoListManager = (function () {
     fillUpcomingList,
     removeFromUpcomingList,
     getAllTodoLists,
+    getTodoList,
     getListIndex,
     getItemFromList,
     editItem,
