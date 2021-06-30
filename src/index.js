@@ -36,7 +36,7 @@ const onLoadFunctionality = (function () {
     0: "Demnächst",
   };
   let archiveListData = {
-    0: "Demnächst",
+    0: "Archiv",
   };
   let defaultList = new TodoList(defaultListData);
   defaultList.nameDOM = "defaultList";

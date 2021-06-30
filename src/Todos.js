@@ -35,6 +35,7 @@ class Todo {
     this.title = todoData.title;
     this.description = todoData.description;
     this.dueDate = todoData.dueDate;
+    this.comparisonDate = todoData.comparisonDate;
     this.priority = todoData.priority;
     this.index;
     this.listName;
@@ -81,10 +82,9 @@ const todoListManager = (function () {
 
   //populate upcomingList
   function fillUpcomingList() {
-    let todayDate = format(new Date(), "dd.MM.yyyy");
-    let maxBase = new Date();
-    maxBase.setDate(new Date().getDate() + 3);
-    let rangeMax = format(maxBase, "dd.MM.yyyy");
+    const todayDate = new Date();
+    let rangeMax = new Date();
+    rangeMax.setDate(new Date().getDate() + 3);
 
     allTodoLists.forEach((todoList) => {
       if (
@@ -93,8 +93,8 @@ const todoListManager = (function () {
       ) {
         todoList.items.forEach((item) => {
           if (
-            item.dueDate > todayDate &&
-            item.dueDate <= rangeMax &&
+            item.comparisonDate > todayDate &&
+            item.comparisonDate <= rangeMax &&
             item.inUpcomingList === false
           ) {
             pushTodoInCorrectList("upcomingList", item);

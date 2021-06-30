@@ -339,6 +339,7 @@ const formHandler = (function () {
       title: formData[0],
       description: formData[1],
       dueDate: format(new Date(formData[2]), "dd.MM.yyyy"),
+      comparisonDate: new Date(formData[2]),
       priority: formData[3],
     };
     return todoData;
