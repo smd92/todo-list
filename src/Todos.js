@@ -137,6 +137,19 @@ const todoListManager = (function () {
     allTodoLists[listIndex].items[itemIndex][property] = value;
   }
 
+  //save todo/list data to localStorage
+  function saveToLocalStorage() {
+    localStorage.clear();
+    localStorage.setItem("allTodoLists", JSON.stringify(allTodoLists));
+  }
+
+  //retrieve todo/list data from localStorage
+  function retrieveFromLocalStorage() {
+    if (localStorage.length > 0) {
+      allTodoLists = JSON.parse(localStorage.getItem("allTodoLists"));
+    }
+  }
+
   return {
     addTodoList,
     pushTodoInCorrectList,
@@ -148,6 +161,8 @@ const todoListManager = (function () {
     getListIndex,
     getItemFromList,
     editItem,
+    saveToLocalStorage,
+    retrieveFromLocalStorage,
   };
 })();
 

@@ -1,5 +1,5 @@
 import pageFrame from "/src/pageFrame.js";
-import { TodoList } from "/src/Todos.js";
+import { TodoList, todoListManager } from "/src/Todos.js";
 import {
   todoListsSidebar,
   projectsSidebar,
@@ -11,7 +11,6 @@ import {
   subContainerEvents,
 } from "/src/subContainer.js";
 import modalDOM from "/src/modal.js";
-import { todoListManager } from "./Todos";
 
 const onLoadDOM = (function () {
   pageFrame.renderPageFrame();
@@ -22,6 +21,7 @@ const onLoadDOM = (function () {
   sideBarEvents.addSidebarEvents();
   subContainerEvents.newTodoButtonEvents();
   modalDOM.renderModalFrame();
+  todoListManager.retrieveFromLocalStorage();
 })();
 
 const onLoadFunctionality = (function () {

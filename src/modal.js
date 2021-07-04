@@ -262,6 +262,8 @@ const modalEvents = (function () {
       //update todayList and upcomingList
       todoListManager.fillTodayList();
       todoListManager.fillUpcomingList();
+      //save data to localStorage
+      todoListManager.saveToLocalStorage();
       //render new todo item
       subContainerList.renderListItem(listName, todo);
       //add eventlistener for editing modal
@@ -292,6 +294,8 @@ const modalEvents = (function () {
         subContainerList.renderListItem(listName, item);
       });
       subContainerEvents.editTodoItemEvent();
+      //save data to localStorage
+      todoListManager.saveToLocalStorage();
       //close modal
       const modal = document.querySelector(".modal");
       modalDOM.closeModal(modal);
@@ -303,9 +307,10 @@ const modalEvents = (function () {
     projectFormButton.addEventListener("click", () => {
       //grab form input
       let projectData = formHandler.processProjectData();
-      //create new project
+      //create new project and save to localStorage
       let project = new TodoList(projectData);
       todoListManager.addTodoList(project);
+      todoListManager.saveToLocalStorage();
       //render new project in sidebar
       projectsSidebar.renderNewProject(project);
       //close and clean modal after submitting form
