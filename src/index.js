@@ -12,20 +12,18 @@ import {
 } from "/src/subContainer.js";
 import modalDOM from "/src/modal.js";
 
-const onLoadDOM = (function () {
-  pageFrame.renderPageFrame();
-  todoListsSidebar.renderSideBar();
-  projectsSidebar.renderProjectsSidebar();
-  subContainerHeader.renderSubContainerHeader();
-  subContainerList.renderNewTodoButton();
-  sideBarEvents.addSidebarEvents();
-  subContainerEvents.newTodoButtonEvents();
-  modalDOM.renderModalFrame();
-  todoListManager.retrieveFromLocalStorage();
-})();
+pageFrame.renderPageFrame();
+todoListsSidebar.renderSideBar();
+projectsSidebar.renderProjectsSidebar();
+subContainerHeader.renderSubContainerHeader();
+subContainerList.renderNewTodoButton();
+sideBarEvents.addSidebarEvents();
+subContainerEvents.newTodoButtonEvents();
+modalDOM.renderModalFrame();
+todoListManager.retrieveFromLocalStorage();
 
-const onLoadFunctionality = (function () {
-  //create the basic set of lists
+//create the basic set of lists
+if (localStorage.length === 0) {
   let defaultListData = {
     0: "Eingang",
   };
@@ -53,4 +51,12 @@ const onLoadFunctionality = (function () {
   //keep due today / due soon lists up to date
   todoListManager.fillTodayList();
   todoListManager.fillUpcomingList();
-})();
+}
+
+//render default list items on load
+if (localStorage.length > 0) {
+  const defaultList = todoListManager.getTodoList(0);
+  defaultList.items.forEach((item) => {
+    subContainerList.renderListItem(defaultList.nameDOM, item);
+  });
+}
