@@ -57,7 +57,8 @@ const todoListManager = (function () {
         list.items.push(item);
       }
       //set index property of items
-      list.enumerateItems();
+      list.addItem("test");
+      //list.enumerateItems();
     });
   }
 
