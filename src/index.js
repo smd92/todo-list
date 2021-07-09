@@ -1,5 +1,5 @@
 import pageFrame from "/src/pageFrame.js";
-import { TodoList, todoListManager } from "/src/Todos.js";
+import { TodoList, todoListManager, storageManager } from "/src/Todos.js";
 import {
   todoListsSidebar,
   projectsSidebar,
@@ -20,7 +20,10 @@ subContainerList.renderNewTodoButton();
 sideBarEvents.addSidebarEvents();
 subContainerEvents.newTodoButtonEvents();
 modalDOM.renderModalFrame();
-todoListManager.retrieveFromLocalStorage();
+//todoListManager.retrieveFromLocalStorage();
+if (localStorage.length > 0) {
+  storageManager.retrieveStorageData();
+}
 
 //create the basic set of lists
 if (localStorage.length === 0) {
@@ -53,6 +56,7 @@ if (localStorage.length === 0) {
   todoListManager.fillUpcomingList();
 }
 
+/*
 //render default list items on load
 if (localStorage.length > 0) {
   const defaultList = todoListManager.getTodoList(0);
@@ -60,3 +64,4 @@ if (localStorage.length > 0) {
     subContainerList.renderListItem(defaultList.nameDOM, item);
   });
 }
+*/

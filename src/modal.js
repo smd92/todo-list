@@ -1,4 +1,4 @@
-import { Todo, TodoList, todoListManager } from "/src/Todos.js";
+import { Todo, TodoList, todoListManager, storageManager } from "/src/Todos.js";
 import {
   subContainerList,
   subContainerEvents,
@@ -263,7 +263,8 @@ const modalEvents = (function () {
       todoListManager.fillTodayList();
       todoListManager.fillUpcomingList();
       //save data to localStorage
-      todoListManager.saveToLocalStorage();
+      //todoListManager.saveToLocalStorage();
+      storageManager.storeAllData();
       //render new todo item
       subContainerList.renderListItem(listName, todo);
       //add eventlistener for editing modal
@@ -295,7 +296,8 @@ const modalEvents = (function () {
       });
       subContainerEvents.editTodoItemEvent();
       //save data to localStorage
-      todoListManager.saveToLocalStorage();
+      //todoListManager.saveToLocalStorage();
+      storageManager.storeAllData();
       //close modal
       const modal = document.querySelector(".modal");
       modalDOM.closeModal(modal);
@@ -310,7 +312,8 @@ const modalEvents = (function () {
       //create new project and save to localStorage
       let project = new TodoList(projectData);
       todoListManager.addTodoList(project);
-      todoListManager.saveToLocalStorage();
+      //todoListManager.saveToLocalStorage();
+      storageManager.storeAllData();
       //render new project in sidebar
       projectsSidebar.renderNewProject(project);
       //close and clean modal after submitting form
@@ -344,7 +347,6 @@ const formHandler = (function () {
       title: formData[0],
       description: formData[1],
       dueDate: format(new Date(formData[2]), "dd.MM.yyyy"),
-      comparisonDate: new Date(formData[2]),
       priority: formData[3],
     };
     return todoData;

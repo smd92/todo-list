@@ -35,7 +35,7 @@ class Todo {
     this.title = todoData.title;
     this.description = todoData.description;
     this.dueDate = todoData.dueDate;
-    this.comparisonDate = todoData.comparisonDate;
+    this.comparisonDate = new Date(todoData.dueDate);
     this.priority = todoData.priority;
     this.index;
     this.listName;
@@ -57,8 +57,7 @@ const todoListManager = (function () {
         list.items.push(item);
       }
       //set index property of items
-      list.addItem("test");
-      //list.enumerateItems();
+      list.enumerateItems();
     });
   }
 
@@ -138,19 +137,6 @@ const todoListManager = (function () {
     allTodoLists[listIndex].items[itemIndex][property] = value;
   }
 
-  //save todo/list data to localStorage
-  function saveToLocalStorage() {
-    localStorage.clear();
-    localStorage.setItem("allTodoLists", JSON.stringify(allTodoLists));
-  }
-
-  //retrieve todo/list data from localStorage
-  function retrieveFromLocalStorage() {
-    if (localStorage.length > 0) {
-      allTodoLists = JSON.parse(localStorage.getItem("allTodoLists"));
-    }
-  }
-
   return {
     addTodoList,
     pushTodoInCorrectList,
@@ -162,9 +148,95 @@ const todoListManager = (function () {
     getListIndex,
     getItemFromList,
     editItem,
-    saveToLocalStorage,
-    retrieveFromLocalStorage,
   };
 })();
 
-export { Todo, TodoList, todoListManager };
+class storageData {
+  constructor(list) {
+    this.visibleName = list.visibleName;
+    this.nameDOM = list.nameDOM;
+    this.items = list.items;
+  }
+}
+
+//handle localStorage
+const storageManager = (function () {
+  let storage = [];
+
+  //collect data from all todo-lists
+  function collectData() {
+    const allTodoLists = todoListManager.getAllTodoLists();
+    allTodoLists.forEach((list) => {
+      const listData = new storageData(list);
+      storage.push(listData);
+    });
+  }
+
+  //save data to localStorage
+  function saveData() {
+    localStorage.setItem("storage", JSON.stringify(storage));
+  }
+
+  //get data from localStorage
+  function getAllData() {
+    storage = JSON.parse(localStorage.getItem("storage"));
+    console.log("storage array:");
+    console.table(storage);
+  }
+
+  //store all data
+  function storeAllData() {
+    //empty storage array and localStorage to prevent redundancy
+    storage.length = 0;
+    localStorage.clear();
+    //store all data
+    collectData();
+    saveData();
+  }
+
+  //create todo-list objects from localStorage data
+  function createListsFromStorage() {
+    storage.forEach((listData) => {
+      let list = new TodoList([listData.visibleName]);
+      list.nameDOM = listData.nameDOM;
+      //push lists in lists array
+      todoListManager.addTodoList(list);
+    });
+  }
+
+  //create todo items from localStorage data
+  function createTodoItemsFromStorage() {
+    let retrievedItems = [];
+
+    storage.forEach((listData) => {
+      const items = listData.items;
+      items.forEach((item) => {
+        const itemData = {
+          title: item.title,
+          description: item.description,
+          dueDate: item.dueDate,
+          priority: item.priority,
+        };
+        const todoItem = new Todo(itemData);
+        retrievedItems.push(todoItem);
+      });
+    });
+    console.log("retrieved items array:");
+    console.table(retrievedItems);
+  }
+
+  //render/reactivate all data
+  function retrieveStorageData() {
+    getAllData();
+    createListsFromStorage();
+    createTodoItemsFromStorage();
+    console.log(todoListManager.getAllTodoLists());
+  }
+
+  return {
+    storeAllData,
+    retrieveStorageData,
+  };
+})();
+
+export { Todo, TodoList, todoListManager, storageManager };
