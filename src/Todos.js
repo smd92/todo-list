@@ -31,12 +31,12 @@ class TodoList {
 
 //create todo items
 class Todo {
-  constructor(todoData) {
-    this.title = todoData.title;
-    this.description = todoData.description;
-    this.dueDate = todoData.dueDate;
-    this.comparisonDate = new Date(todoData.dueDate);
-    this.priority = todoData.priority;
+  constructor({ title, description, dueDate, priority }) {
+    this.title = title;
+    this.description = description;
+    this.dueDate = dueDate;
+    this.comparisonDate = new Date(dueDate);
+    this.priority = priority;
     this.index;
     this.listName;
     this.inTodayList = false;
