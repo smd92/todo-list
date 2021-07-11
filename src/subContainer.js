@@ -6,6 +6,7 @@ const subContainerHeader = (function () {
   let subContainerTitle;
 
   function createSubContainerHeader() {
+    const subContainer = document.querySelector("#subContainer");
     subContainerHeader = document.createElement("div");
     subContainerHeader.id = "subContainerHeader";
 

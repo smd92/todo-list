@@ -14,6 +14,7 @@ const todoListsSidebar = (function () {
   let archiveList;
 
   function createListsContainer() {
+    const sidebar = document.querySelector("#sidebar");
     listsContainer = document.createElement("div");
     listsContainer.id = "listsContainer";
 
@@ -46,8 +47,10 @@ const todoListsSidebar = (function () {
 const projectsSidebar = (function () {
   let projectsContainer;
   let projectsList;
+  const sidebar = document.querySelector("#sidebar");
 
   function renderProjectsContainer() {
+    const sidebar = document.querySelector("#sidebar");
     projectsContainer = document.createElement("div");
     projectsContainer.id = "projectsContainer";
 

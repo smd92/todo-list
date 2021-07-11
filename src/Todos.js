@@ -24,21 +24,21 @@ class TodoList {
 
   setItemsListName() {
     this.items.forEach((item) => {
-      item.listName = this.name;
+      item.listName = this.nameDOM;
     });
   }
 }
 
 //create todo items
 class Todo {
-  constructor({ title, description, dueDate, priority }) {
+  constructor({ title, description, dueDate, priority, listName }) {
     this.title = title;
     this.description = description;
     this.dueDate = dueDate;
     this.comparisonDate = new Date(dueDate);
     this.priority = priority;
     this.index;
-    this.listName;
+    this.listName = listName;
     this.inTodayList = false;
     this.inUpcomingList = false;
   }
@@ -58,6 +58,7 @@ const todoListManager = (function () {
       }
       //set index property of items
       list.enumerateItems();
+      list.setItemsListName();
     });
   }
 
@@ -152,23 +153,29 @@ const todoListManager = (function () {
 })();
 
 class storageData {
-  constructor(list) {
-    this.visibleName = list.visibleName;
-    this.nameDOM = list.nameDOM;
-    this.items = list.items;
+  constructor({ visibleName, nameDOM, items, listName }) {
+    this.visibleName = visibleName;
+    this.nameDOM = nameDOM;
+    this.items = items;
+    this.listName = listName;
   }
 }
 
 //handle localStorage
 const storageManager = (function () {
+  //array to be stored in localStorage
   let storage = [];
+  //array to be filled with todo items created from storage data
+  let retrievedItems = [];
 
   //collect data from all todo-lists
   function collectData() {
     const allTodoLists = todoListManager.getAllTodoLists();
     allTodoLists.forEach((list) => {
-      const listData = new storageData(list);
-      storage.push(listData);
+      if (list.nameDOM != "todayList" && list.nameDOM != "upcomingList") {
+        const listData = new storageData(list);
+        storage.push(listData);
+      }
     });
   }
 
@@ -206,8 +213,6 @@ const storageManager = (function () {
 
   //create todo items from localStorage data
   function createTodoItemsFromStorage() {
-    let retrievedItems = [];
-
     storage.forEach((listData) => {
       const items = listData.items;
       items.forEach((item) => {
@@ -215,6 +220,7 @@ const storageManager = (function () {
           title: item.title,
           description: item.description,
           dueDate: item.dueDate,
+          listName: item.listName,
           priority: item.priority,
         };
         const todoItem = new Todo(itemData);
@@ -225,12 +231,20 @@ const storageManager = (function () {
     console.table(retrievedItems);
   }
 
+  function pushItemsInLists() {
+    retrievedItems.forEach((item) => {
+      todoListManager.pushTodoInCorrectList(item.listName, item);
+    });
+  }
+
   //render/reactivate all data
   function retrieveStorageData() {
     getAllData();
     createListsFromStorage();
     createTodoItemsFromStorage();
-    console.log(todoListManager.getAllTodoLists());
+    pushItemsInLists();
+    console.log("all todo-lists");
+    console.table(todoListManager.getAllTodoLists());
   }
 
   return {

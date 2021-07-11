@@ -220,6 +220,7 @@ const modalDOM = (function () {
 
   //open the modal
   function openModal(modal) {
+    const overlay = document.querySelector("#overlay");
     if (modal === null) return;
     modal.classList.add("active");
     overlay.classList.add("active");
@@ -227,6 +228,7 @@ const modalDOM = (function () {
 
   //close the modal
   function closeModal(modal) {
+    const overlay = document.querySelector("#overlay");
     if (modal === null) return;
     modal.classList.remove("active");
     overlay.classList.remove("active");
@@ -263,7 +265,6 @@ const modalEvents = (function () {
       todoListManager.fillTodayList();
       todoListManager.fillUpcomingList();
       //save data to localStorage
-      //todoListManager.saveToLocalStorage();
       storageManager.storeAllData();
       //render new todo item
       subContainerList.renderListItem(listName, todo);
