@@ -291,7 +291,7 @@ const modalEvents = (function () {
       }
       //update DOM
       subContainerList.clearSubcontainerList();
-      const todoList = todoListManager.getTodoList(listIndex).items;
+      const todoList = todoListManager.getTodoListByIndex(listIndex).items;
       todoList.forEach((item) => {
         subContainerList.renderListItem(listName, item);
       });

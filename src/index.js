@@ -20,9 +20,29 @@ subContainerList.renderNewTodoButton();
 sideBarEvents.addSidebarEvents();
 subContainerEvents.newTodoButtonEvents();
 modalDOM.renderModalFrame();
-//todoListManager.retrieveFromLocalStorage();
+
+//always create todayList and upcomingList, because they are not stored
+let todayListData = {
+  0: "Heute",
+};
+let upcomingListData = {
+  0: "Demnächst",
+};
+
+let todayList = new TodoList(todayListData);
+todayList.nameDOM = "todayList";
+let upcomingList = new TodoList(upcomingListData);
+upcomingList.nameDOM = "upcomingList";
+todoListManager.addTodoList(todayList);
+todoListManager.addTodoList(upcomingList);
+
+//retrieve data of previus session from localStorage
 if (localStorage.length > 0) {
   storageManager.retrieveStorageData();
+  //keep due today / due soon lists up to date
+  todoListManager.fillTodayList();
+  todoListManager.fillUpcomingList();
+  console.table(todoListManager.getAllTodoLists());
 }
 
 //create the basic set of lists
@@ -41,30 +61,10 @@ if (localStorage.length === 0) {
   todoListManager.addTodoList(archiveList);
 }
 
-//always create todayList and upcomingList, because they are not stored
-let todayListData = {
-  0: "Heute",
-};
-let upcomingListData = {
-  0: "Demnächst",
-};
-
-let todayList = new TodoList(todayListData);
-todayList.nameDOM = "todayList";
-let upcomingList = new TodoList(upcomingListData);
-upcomingList.nameDOM = "upcomingList";
-todoListManager.addTodoList(todayList);
-todoListManager.addTodoList(upcomingList);
-//keep due today / due soon lists up to date
-todoListManager.fillTodayList();
-todoListManager.fillUpcomingList();
-
-/*
 //render default list items on load
 if (localStorage.length > 0) {
-  const defaultList = todoListManager.getTodoList(0);
+  const defaultList = todoListManager.getTodoListByName("defaultList");
   defaultList.items.forEach((item) => {
     subContainerList.renderListItem(defaultList.nameDOM, item);
   });
 }
-*/

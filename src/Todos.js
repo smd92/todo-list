@@ -23,9 +23,11 @@ class TodoList {
   }
 
   setItemsListName() {
-    this.items.forEach((item) => {
-      item.listName = this.nameDOM;
-    });
+    if (this.nameDOM != "todayList" && this.nameDOM != "upcomingList") {
+      this.items.forEach((item) => {
+        item.listName = this.nameDOM;
+      });
+    }
   }
 }
 
@@ -112,8 +114,16 @@ const todoListManager = (function () {
     return allTodoLists;
   }
 
-  function getTodoList(listIndex) {
+  function getTodoListByIndex(listIndex) {
     return allTodoLists[listIndex];
+  }
+
+  function getTodoListByName(listName) {
+    for (let i = 0; i < allTodoLists.length; i++) {
+      if (allTodoLists[i].nameDOM === listName) {
+        return allTodoLists[i];
+      }
+    }
   }
 
   function getListIndex(listName) {
@@ -145,7 +155,8 @@ const todoListManager = (function () {
     fillUpcomingList,
     removeFromUpcomingList,
     getAllTodoLists,
-    getTodoList,
+    getTodoListByIndex,
+    getTodoListByName,
     getListIndex,
     getItemFromList,
     editItem,
