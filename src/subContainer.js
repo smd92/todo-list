@@ -94,6 +94,9 @@ const subContainerList = (function () {
     } else {
       taskList.appendChild(newItem);
     }
+
+    //edit item event
+    subContainerEvents.editTodoItemEvent();
   }
 
   //clear the todo-list

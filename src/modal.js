@@ -1,9 +1,5 @@
 import { Todo, TodoList, todoListManager, storageManager } from "/src/Todos.js";
-import {
-  subContainerList,
-  subContainerEvents,
-  dataDOM,
-} from "/src/subContainer.js";
+import { subContainerList, dataDOM } from "/src/subContainer.js";
 import { projectsSidebar } from "/src/sidebar.js";
 import format from "date-fns/format";
 
@@ -130,7 +126,8 @@ const modalDOM = (function () {
     let inputArr = [];
     //format date
     for (let key in item) {
-      if (typeof item[key] === "string") inputArr.push(item[key]);
+      if (typeof item[key] === "string" && key != "ISODate")
+        inputArr.push(item[key]);
     }
     //format item.dueDate for Chrome's datepicker
     let formatDatePicker = (dateString) => {
@@ -268,8 +265,6 @@ const modalEvents = (function () {
       storageManager.storeAllData();
       //render new todo item
       subContainerList.renderListItem(listName, todo);
-      //add eventlistener for editing modal
-      subContainerEvents.editTodoItemEvent();
       //close and clean modal after submitting form
       const modal = document.querySelector(".modal");
       modalDOM.closeModal(modal);
@@ -295,9 +290,7 @@ const modalEvents = (function () {
       todoList.forEach((item) => {
         subContainerList.renderListItem(listName, item);
       });
-      subContainerEvents.editTodoItemEvent();
       //save data to localStorage
-      //todoListManager.saveToLocalStorage();
       storageManager.storeAllData();
       //close modal
       const modal = document.querySelector(".modal");
@@ -313,7 +306,6 @@ const modalEvents = (function () {
       //create new project and save to localStorage
       let project = new TodoList(projectData);
       todoListManager.addTodoList(project);
-      //todoListManager.saveToLocalStorage();
       storageManager.storeAllData();
       //render new project in sidebar
       projectsSidebar.renderNewProject(project);
@@ -358,11 +350,14 @@ const formHandler = (function () {
   function processProjectData() {
     const formFields = document.getElementsByClassName("input-field");
     let formData = [];
-    let projectData = {};
     for (let i = 0; i < formFields.length; i++) {
       formData.push(formFields[i].value);
-      projectData[i] = formData[i];
     }
+    let projectData = {
+      visibleName: formData[0],
+      nameDOM: visibleName.split(" ").join("-") + "List",
+    };
+
     return projectData;
   }
 

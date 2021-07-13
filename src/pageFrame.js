@@ -67,7 +67,6 @@ const pageFrame = (function () {
 
   return {
     renderPageFrame,
-    sidebar,
   };
 })();
 

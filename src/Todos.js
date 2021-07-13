@@ -2,9 +2,9 @@ import format from "date-fns/format";
 
 //create todo lists
 class TodoList {
-  constructor(projectData) {
-    this.visibleName = projectData[0];
-    this.nameDOM = this.visibleName.split(" ").join("-") + "List";
+  constructor({visibleName, nameDOM}) {
+    this.visibleName = visibleName;
+    this.nameDOM = nameDOM;
     this.items = [];
   }
 
@@ -216,7 +216,7 @@ const storageManager = (function () {
   //create todo-list objects from localStorage data
   function createListsFromStorage() {
     storage.forEach((listData) => {
-      let list = new TodoList([listData.visibleName]);
+      let list = new TodoList(listData);
       list.nameDOM = listData.nameDOM;
       //push lists in lists array
       todoListManager.addTodoList(list);

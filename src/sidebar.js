@@ -47,7 +47,6 @@ const todoListsSidebar = (function () {
 const projectsSidebar = (function () {
   let projectsContainer;
   let projectsList;
-  const sidebar = document.querySelector("#sidebar");
 
   function renderProjectsContainer() {
     const sidebar = document.querySelector("#sidebar");
@@ -178,8 +177,6 @@ const sideBarEvents = (function () {
             });
           }
         });
-        //add editing event
-        subContainerEvents.editTodoItemEvent();
       });
     }
   }
