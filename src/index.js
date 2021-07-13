@@ -68,3 +68,19 @@ if (localStorage.length > 0) {
     subContainerList.renderListItem(defaultList.nameDOM, item);
   });
 }
+
+//render stored projects on load
+if (localStorage.length > 0) {
+  const doNotRender = [
+    "defaultList",
+    "todayList",
+    "upcomingList",
+    "archiveList",
+  ];
+  const allTodoLists = todoListManager.getAllTodoLists();
+  allTodoLists.forEach((list) => {
+    if (doNotRender.includes(list.nameDOM) === false) {
+      projectsSidebar.renderNewProject(list);
+    }
+  });
+}

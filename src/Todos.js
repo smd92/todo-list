@@ -33,11 +33,12 @@ class TodoList {
 
 //create todo items
 class Todo {
-  constructor({ title, description, dueDate, priority, listName }) {
+  constructor({ title, description, dueDate, ISODate, priority, listName }) {
     this.title = title;
     this.description = description;
     this.dueDate = dueDate;
-    this.comparisonDate = new Date(dueDate);
+    this.ISODate = ISODate;
+    this.comparisonDate = new Date(ISODate);
     this.priority = priority;
     this.index;
     this.listName = listName;
@@ -231,6 +232,7 @@ const storageManager = (function () {
           title: item.title,
           description: item.description,
           dueDate: item.dueDate,
+          ISODate: item.ISODate,
           listName: item.listName,
           priority: item.priority,
         };

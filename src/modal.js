@@ -348,6 +348,7 @@ const formHandler = (function () {
       title: formData[0],
       description: formData[1],
       dueDate: format(new Date(formData[2]), "dd.MM.yyyy"),
+      ISODate: new Date(formData[2]).toISOString(),
       priority: formData[3],
     };
     return todoData;
