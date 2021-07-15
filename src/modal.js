@@ -354,16 +354,14 @@ const formHandler = (function () {
       formData.push(formFields[i].value);
     }
     let visibleName = formData[0];
-    //replace spaces with "-" for nameDOM
-    let nameDOM = formData[0].split(" ").join("-") + "List";
-    //remove special characters from beginning of string to prevent selector issues
-    nameDOM.replace(/\W+/g, "");
+    //replace spaces with "-" for nameDOM and remove special characters in beginning of string to prevent DOM selector issues
+    let nameRegex = /^\W+/;
+    let nameDOM = formData[0].split(" ").join("-").replace(nameRegex, "") + "List";
     //data object to be passed to project constructor
     let projectData = {
       visibleName: visibleName,
       nameDOM: nameDOM,
     };
-
     return projectData;
   }
 

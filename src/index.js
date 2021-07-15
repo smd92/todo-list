@@ -23,16 +23,16 @@ modalDOM.renderModalFrame();
 
 //always create todayList and upcomingList, because they are not stored
 let todayListData = {
-  0: "Heute",
+  visibleName: "Heute",
+  nameDOM: "todayList",
 };
 let upcomingListData = {
-  0: "Demnächst",
+  visibleName: "Demnächst",
+  nameDOM: "upcomingList",
 };
 
 let todayList = new TodoList(todayListData);
-todayList.nameDOM = "todayList";
 let upcomingList = new TodoList(upcomingListData);
-upcomingList.nameDOM = "upcomingList";
 todoListManager.addTodoList(todayList);
 todoListManager.addTodoList(upcomingList);
 
@@ -48,15 +48,15 @@ if (localStorage.length > 0) {
 //create the basic set of lists
 if (localStorage.length === 0) {
   let defaultListData = {
-    0: "Eingang",
+    visibleName: "Eingang",
+    nameDOM: "defaultList",
   };
   let archiveListData = {
-    0: "Archiv",
+    visibleName: "Archiv",
+    nameDOM: "archiveList",
   };
   let defaultList = new TodoList(defaultListData);
-  defaultList.nameDOM = "defaultList";
   let archiveList = new TodoList(archiveListData);
-  archiveList.nameDOM = "archiveList";
   todoListManager.addTodoList(defaultList);
   todoListManager.addTodoList(archiveList);
 }

@@ -44,6 +44,7 @@ const subContainerHeader = (function () {
 
 const subContainerList = (function () {
   function renderListItem(listName, item) {
+    listName = CSS.escape(listName);
     let taskList = document.querySelector(`.${listName}`);
     //container
     let newItem = document.createElement("div");

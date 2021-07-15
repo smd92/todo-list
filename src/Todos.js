@@ -217,7 +217,7 @@ const storageManager = (function () {
   function createListsFromStorage() {
     storage.forEach((listData) => {
       let list = new TodoList(listData);
-      list.nameDOM = listData.nameDOM;
+      //list.nameDOM = listData.nameDOM;
       //push lists in lists array
       todoListManager.addTodoList(list);
     });
