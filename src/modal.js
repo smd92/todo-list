@@ -353,9 +353,15 @@ const formHandler = (function () {
     for (let i = 0; i < formFields.length; i++) {
       formData.push(formFields[i].value);
     }
+    let visibleName = formData[0];
+    //replace spaces with "-" for nameDOM
+    let nameDOM = formData[0].split(" ").join("-") + "List";
+    //remove special characters from beginning of string to prevent selector issues
+    nameDOM.replace(/\W+/g, "");
+    //data object to be passed to project constructor
     let projectData = {
-      visibleName: formData[0],
-      nameDOM: visibleName.split(" ").join("-") + "List",
+      visibleName: visibleName,
+      nameDOM: nameDOM,
     };
 
     return projectData;
