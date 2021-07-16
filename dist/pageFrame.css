@@ -106,10 +106,12 @@ body {
 #subContainer {
   display: grid;
   grid-area: subContainer;
-  grid-template-rows: 10vh 1fr;
+  grid-template-rows: 7vh 1fr;
   grid-template-areas:
     "subContainerHeader"
     "subContainerList";
+  padding-left: 7vw;
+  width: 60vw;
 }
 
 #subContainerHeader {
@@ -129,6 +131,7 @@ body {
   width: 10vw;
   grid-template-areas: "plusSymbol newTodo";
   place-items: center;
+  padding-left: 5vw;
 }
 
 #plusSymbol {
@@ -145,4 +148,11 @@ body {
   display: grid;
   grid-area: newTodo;
   justify-self: start;
+}
+
+/* todo items */
+.todo-item {
+  display: flex;
+  flex-direction: row;
+  padding-left: 5vw;
 }

@@ -16,29 +16,39 @@ const subContainerHeader = (function () {
   function createSubContainerTitle() {
     subContainerTitle = document.createElement("p");
     subContainerTitle.id = "subContainerTitle";
-    subContainerTitle.className = "defaultList";
     subContainerTitle.textContent = "Eingang";
 
     subContainerHeader.appendChild(subContainerTitle);
+  }
+
+  function createSubContainerBody() {
+    const subContainer = document.querySelector("#subContainer");
+    const subContainerBody = document.createElement("div");
+    subContainerBody.id = "subContainerBody";
+    subContainerBody.classList = "defaultList";
+
+    subContainer.appendChild(subContainerBody);
   }
 
   function setSubContainerTitle(text) {
     subContainerTitle.textContent = text;
   }
 
-  function setSubContainerTitleClassName(className) {
-    subContainerTitle.className = className;
+  function setSubContainerBodyClassName(className) {
+    const subContainerBody = document.querySelector("#subContainerBody");
+    subContainerBody.className = className;
   }
 
-  function renderSubContainerHeader() {
+  function renderSubContainer() {
     createSubContainerHeader();
     createSubContainerTitle();
+    createSubContainerBody();
   }
 
   return {
-    renderSubContainerHeader,
+    renderSubContainer,
     setSubContainerTitle,
-    setSubContainerTitleClassName,
+    setSubContainerBodyClassName,
   };
 })();
 
@@ -66,6 +76,11 @@ const subContainerList = (function () {
     let editBtn = document.createElement("p");
     editBtn.id = "editBtn" + item.index;
     components.push(editBtn);
+    //delete button
+    let deleteBtn = document.createElement("p");
+    deleteBtn.id = "deleteBtn" + item.index;
+    components.push(deleteBtn);
+    /*-----------------------------------------------
     //timing button
     let timingBtn = document.createElement("p");
     timingBtn.id = "timingBtn" + item.index;
@@ -78,10 +93,7 @@ const subContainerList = (function () {
     let moveListBtn = document.createElement("p");
     moveListBtn.id = "moveListBtn" + item.index;
     components.push(moveListBtn);
-    //delete button
-    let deleteBtn = document.createElement("p");
-    deleteBtn.id = "deleteBtn" + item.index;
-    components.push(deleteBtn);
+    ------------------------------------------------*/
 
     //append components
     components.forEach((component) => {
@@ -109,7 +121,7 @@ const subContainerList = (function () {
   }
 
   function renderNewTodoButton() {
-    const subContainerTitle = document.querySelector("#subContainerTitle");
+    const subContainerBody = document.querySelector("#subContainerBody");
     const newTodoDiv = document.createElement("div");
     newTodoDiv.id = "newTodoDiv";
 
@@ -123,7 +135,7 @@ const subContainerList = (function () {
 
     newTodoDiv.appendChild(plusSymbol);
     newTodoDiv.appendChild(newTodo);
-    subContainerTitle.appendChild(newTodoDiv);
+    subContainerBody.appendChild(newTodoDiv);
   }
 
   function removeNewTodoButton() {
@@ -184,7 +196,7 @@ const dataDOM = (function () {
   let itemIndex;
 
   function getListName() {
-    let listName = document.querySelector("#subContainerTitle").className;
+    let listName = document.querySelector("#subContainerBody").className;
     return listName;
   }
 

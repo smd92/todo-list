@@ -127,7 +127,7 @@ const sideBarEvents = (function () {
         //display the lists title in the header of the subcontainer
         subContainerHeader.setSubContainerTitle(e.target.textContent);
         //change classname of subcontainer title to know which list is open
-        subContainerHeader.setSubContainerTitleClassName(e.target.id);
+        subContainerHeader.setSubContainerBodyClassName(e.target.id);
       });
     }
   }
@@ -169,6 +169,7 @@ const sideBarEvents = (function () {
   function renderListItemsEvent() {
     for (let i = 0; i < listsNodes.length; i++) {
       listsNodes[i].addEventListener("click", (e) => {
+        subContainerList.clearSubcontainerList();
         let todoLists = todoListManager.getAllTodoLists();
         todoLists.forEach((list) => {
           if (list.nameDOM === e.target.id) {

@@ -56,6 +56,7 @@ const modalDOM = (function () {
 
   //render modal for adding a new todo item
   function renderNewTodoModal() {
+    _cleanModal();
     const modalTitle = document.querySelector(".modal-title");
     modalTitle.textContent = "Neue Aufgabe";
 
@@ -89,6 +90,7 @@ const modalDOM = (function () {
 
   //modal for editing todo items
   function renderEditTodoModal() {
+    _cleanModal();
     const modalTitle = document.querySelector(".modal-title");
     modalTitle.textContent = "Aufgabe bearbeiten";
 
@@ -168,6 +170,7 @@ const modalDOM = (function () {
   }
 
   function renderNewProjectModal() {
+    _cleanModal();
     const modalTitle = document.querySelector(".modal-title");
     modalTitle.textContent = "Neues Projekt";
 
@@ -230,6 +233,10 @@ const modalDOM = (function () {
     modal.classList.remove("active");
     overlay.classList.remove("active");
     //clean up modal on close
+    _cleanModal();
+  }
+
+  function _cleanModal() {
     const modalBodyChildren = modalBody.childNodes;
     for (let i = 0; i < modalBodyChildren.length; i++) {
       modalBodyChildren[i].remove();
@@ -255,7 +262,7 @@ const modalEvents = (function () {
       let formData = formHandler.grabTodoData();
       let todoData = formHandler.processTodoData(formData);
       //create new todo item
-      let listName = document.querySelector("#subContainerTitle").className;
+      let listName = document.querySelector("#subContainerBody").className;
       let todo = new Todo(todoData);
       todoListManager.pushTodoInCorrectList(listName, todo);
       //update todayList and upcomingList
@@ -356,7 +363,8 @@ const formHandler = (function () {
     let visibleName = formData[0];
     //replace spaces with "-" for nameDOM and remove special characters in beginning of string to prevent DOM selector issues
     let nameRegex = /^\W+/;
-    let nameDOM = formData[0].split(" ").join("-").replace(nameRegex, "") + "List";
+    let nameDOM =
+      formData[0].split(" ").join("-").replace(nameRegex, "") + "List";
     //data object to be passed to project constructor
     let projectData = {
       visibleName: visibleName,

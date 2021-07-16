@@ -15,7 +15,7 @@ import modalDOM from "/src/modal.js";
 pageFrame.renderPageFrame();
 todoListsSidebar.renderSideBar();
 projectsSidebar.renderProjectsSidebar();
-subContainerHeader.renderSubContainerHeader();
+subContainerHeader.renderSubContainer();
 subContainerList.renderNewTodoButton();
 sideBarEvents.addSidebarEvents();
 subContainerEvents.newTodoButtonEvents();

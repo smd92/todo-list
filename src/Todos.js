@@ -109,8 +109,6 @@ const todoListManager = (function () {
     });
   }
 
-  function removeFromUpcomingList() {}
-
   function getAllTodoLists() {
     return allTodoLists;
   }
@@ -154,7 +152,6 @@ const todoListManager = (function () {
     pushTodoInCorrectList,
     fillTodayList,
     fillUpcomingList,
-    removeFromUpcomingList,
     getAllTodoLists,
     getTodoListByIndex,
     getTodoListByName,
@@ -217,7 +214,6 @@ const storageManager = (function () {
   function createListsFromStorage() {
     storage.forEach((listData) => {
       let list = new TodoList(listData);
-      //list.nameDOM = listData.nameDOM;
       //push lists in lists array
       todoListManager.addTodoList(list);
     });
