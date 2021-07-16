@@ -147,9 +147,9 @@ const sideBarEvents = (function () {
     for (let i = 0; i < listsNodes.length; i++) {
       listsNodes[i].addEventListener("click", (e) => {
         const newTodoButton = document.querySelector("#newTodoDiv");
-
+        const noTodoButton = ["todayList", "upcomingList", "archiveList"];
         //add/remove button for adding new todo
-        if (e.target.id != "defaultList" && newTodoButton != null) {
+        if (noTodoButton.includes(e.target.id) && newTodoButton != null) {
           subContainerList.removeNewTodoButton();
         }
         if (

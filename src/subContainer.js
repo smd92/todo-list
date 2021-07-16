@@ -66,6 +66,7 @@ const subContainerList = (function () {
     //checkbox (task done/tasknot done)
     let checkbox = document.createElement("p");
     checkbox.id = "checkbox" + item.index;
+    checkbox.classList.add("checkbox");
     components.push(checkbox);
     //item title
     let itemTitle = document.createElement("p");
@@ -75,10 +76,12 @@ const subContainerList = (function () {
     //edit button
     let editBtn = document.createElement("p");
     editBtn.id = "editBtn" + item.index;
+    editBtn.classList.add("editBtn");
     components.push(editBtn);
     //delete button
     let deleteBtn = document.createElement("p");
     deleteBtn.id = "deleteBtn" + item.index;
+    deleteBtn.classList.add("deleteBtn");
     components.push(deleteBtn);
     /*-----------------------------------------------
     //timing button
