@@ -4,8 +4,7 @@ html {
 
 body {
   margin: 0;
-  background-image: url("img/bg-blue.jpg");
-  background-repeat: no-repeat;
+  background: linear-gradient(#161616, #646363);
   background-attachment: fixed;
   background-position: center;
   font-family: "Montserrat", sans-serif;
@@ -152,7 +151,29 @@ body {
 
 /* todo items */
 .todo-item {
-  display: flex;
-  flex-direction: row;
+  display: grid;
+  grid-template-columns: 5vw 30vw 5vw 5vw;
+  grid-template-areas: "checkbox title edit delete";
   padding-left: 5vw;
+}
+
+.checkbox {
+  width: 20px;
+  height: 10px;
+  background-color: burlywood;
+  grid-area: checkbox;
+}
+
+.editBtn {
+  width: 20px;
+  height: 10px;
+  background-color: red;
+  grid-area: edit;
+}
+
+.deleteBtn {
+  width: 20px;
+  height: 10px;
+  background-color: blue;
+  grid-area: delete;
 }
