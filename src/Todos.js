@@ -2,7 +2,7 @@ import format from "date-fns/format";
 
 //create todo lists
 class TodoList {
-  constructor({visibleName, nameDOM}) {
+  constructor({ visibleName, nameDOM }) {
     this.visibleName = visibleName;
     this.nameDOM = nameDOM;
     this.items = [];
@@ -76,7 +76,17 @@ const todoListManager = (function () {
       ) {
         todoList.items.forEach((item) => {
           if (item.dueDate === todayDate && item.inTodayList === false) {
-            pushTodoInCorrectList("todayList", item);
+            const itemData = {
+              title: item.title,
+              description: item.description,
+              dueDate: item.dueDate,
+              ISODate: item.ISODate,
+              priority: item.priority,
+              listName: "todayList",
+            };
+            const todayItem = new Todo(itemData);
+            todayItem.inTodayList = true;
+            pushTodoInCorrectList("todayList", todayItem);
             item.inTodayList = true;
           }
         });
@@ -101,7 +111,17 @@ const todoListManager = (function () {
             item.comparisonDate <= rangeMax &&
             item.inUpcomingList === false
           ) {
-            pushTodoInCorrectList("upcomingList", item);
+            const itemData = {
+              title: item.title,
+              description: item.description,
+              dueDate: item.dueDate,
+              ISODate: item.ISODate,
+              priority: item.priority,
+              listName: "upcomingList",
+            };
+            const upcomingItem = new Todo(itemData);
+            upcomingItem.inUpcomingList = true;
+            pushTodoInCorrectList("upcomingList", upcomingItem);
             item.inUpcomingList = true;
           }
         });
