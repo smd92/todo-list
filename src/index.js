@@ -22,17 +22,17 @@ subContainerEvents.newTodoButtonEvents();
 modalDOM.renderModalFrame();
 
 //always create todayList and upcomingList, because they are not stored
-let todayListData = {
+const todayListData = {
   visibleName: "Heute",
   nameDOM: "todayList",
 };
-let upcomingListData = {
+const upcomingListData = {
   visibleName: "Demnächst",
   nameDOM: "upcomingList",
 };
 
-let todayList = new TodoList(todayListData);
-let upcomingList = new TodoList(upcomingListData);
+const todayList = new TodoList(todayListData);
+const upcomingList = new TodoList(upcomingListData);
 todoListManager.addTodoList(todayList);
 todoListManager.addTodoList(upcomingList);
 
@@ -47,16 +47,16 @@ if (localStorage.length > 0) {
 
 //create the basic set of lists
 if (localStorage.length === 0) {
-  let defaultListData = {
+  const defaultListData = {
     visibleName: "Eingang",
     nameDOM: "defaultList",
   };
-  let archiveListData = {
+  const archiveListData = {
     visibleName: "Archiv",
     nameDOM: "archiveList",
   };
-  let defaultList = new TodoList(defaultListData);
-  let archiveList = new TodoList(archiveListData);
+  const defaultList = new TodoList(defaultListData);
+  const archiveList = new TodoList(archiveListData);
   todoListManager.addTodoList(defaultList);
   todoListManager.addTodoList(archiveList);
 }

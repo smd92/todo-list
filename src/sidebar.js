@@ -11,6 +11,7 @@ const todoListsSidebar = (function () {
   let defaultList;
   let todayList;
   let upcomingList;
+  let globalList;
   let archiveList;
 
   function createListsContainer() {
@@ -35,6 +36,8 @@ const todoListsSidebar = (function () {
     createSidebarItem(defaultList, "defaultList", "Eingang");
     createSidebarItem(todayList, "todayList", "Heute");
     createSidebarItem(upcomingList, "upcomingList", "Demnächst");
+    //globalList is not an actual todo-list object as it only serves for displaying all todo items of all lists
+    createSidebarItem(globalList, "globalList", "Alle Aufgaben");
     createSidebarItem(archiveList, "archiveList", "Archiv");
   }
 
@@ -172,7 +175,7 @@ const sideBarEvents = (function () {
         subContainerList.clearSubcontainerList();
         let todoLists = todoListManager.getAllTodoLists();
         todoLists.forEach((list) => {
-          if (list.nameDOM === e.target.id) {
+          if (e.target.id != "globalList" && list.nameDOM === e.target.id) {
             list.items.forEach((item) => {
               subContainerList.renderListItem(e.target.id, item);
             });
@@ -182,11 +185,20 @@ const sideBarEvents = (function () {
     }
   }
 
+  //globalList event
+  function globalListEvent() {
+    const globalList = document.querySelector("#globalList");
+    globalList.addEventListener("click", () => {
+      subContainerList.renderGlobalList();
+    });
+  }
+
   function addSidebarEvents() {
     renderListTitleEvent();
     newProjectButtonEvents();
     manageNewTodoButtonEvent();
     renderListItemsEvent();
+    globalListEvent();
   }
 
   return {

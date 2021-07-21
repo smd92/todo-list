@@ -53,6 +53,24 @@ const subContainerHeader = (function () {
 })();
 
 const subContainerList = (function () {
+  function renderGlobalList() {
+    const subContainerBody = document.querySelector("#subContainerBody");
+    const allTodoLists = todoListManager.getAllTodoLists();
+
+    const globalContainer = document.createElement("div");
+    globalContainer.id = "globalContainer";
+
+    allTodoLists.forEach((list) => {
+      const listContainer = document.createElement("div");
+      listContainer.id = `${list.nameDOM}-global`;
+      listContainer.className = list.nameDOM;
+
+      globalContainer.appendChild(listContainer);
+    });
+    subContainerBody.appendChild(globalContainer);
+  }
+
+  //render todo item
   function renderListItem(listName, item) {
     listName = CSS.escape(listName);
     let taskList = document.querySelector(`.${listName}`);
@@ -113,7 +131,21 @@ const subContainerList = (function () {
 
     //edit item event
     subContainerEvents.editTodoItemEvent();
+    //delete item event
+    subContainerEvents.deleteButtonEvent();
   }
+
+  /*
+  //render all items of all lists
+  function renderAllItemsForDefaultList() {
+    const allTodoLists = todoListManager.getAllTodoLists();
+    allTodoLists.forEach((list) => {
+      list.items.forEach((item) => {
+        subContainerList.renderListItem("defaultList", item);
+      });
+    });
+  }
+  */
 
   //clear the todo-list
   function clearSubcontainerList() {
@@ -147,6 +179,7 @@ const subContainerList = (function () {
   }
 
   return {
+    renderGlobalList,
     renderListItem,
     clearSubcontainerList,
     renderNewTodoButton,
@@ -187,17 +220,30 @@ const subContainerEvents = (function () {
     }
   }
 
+  //deleting items
+  function deleteButtonEvent() {
+    const deleteButtons = document.querySelectorAll(".deleteBtn");
+    for (let i = 0; i < deleteButtons.length; i++) {
+      deleteButtons[i].addEventListener("click", () => {
+        dataDOM.setItemIndex(deleteButtons[i].parentNode);
+        const itemIndex = dataDOM.getItemIndex();
+        console.log(itemIndex);
+      });
+    }
+  }
+
   return {
     newTodoButtonEvents,
     editTodoItemEvent,
+    deleteButtonEvent,
   };
 })();
 
 //get dom data
 const dataDOM = (function () {
-  //get/set list name of todo item
   let itemIndex;
 
+  //get/set list name of todo item
   function getListName() {
     let listName = document.querySelector("#subContainerBody").className;
     return listName;
