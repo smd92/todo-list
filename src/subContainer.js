@@ -59,45 +59,75 @@ const subContainerList = (function () {
 
     const globalContainer = document.createElement("div");
     globalContainer.id = "globalContainer";
-
+    
     allTodoLists.forEach((list) => {
+      //create the listContainer
       const listContainer = document.createElement("div");
       listContainer.id = `${list.nameDOM}-global`;
-      listContainer.className = list.nameDOM;
+      listContainer.className = "listContainer";
+      //create the listContainer title
+      const listContainerTitle = document.createElement("p");
+      listContainerTitle.className = "listContainerTitle";
+      listContainerTitle.textContent = list.visibleName;
 
+      listContainer.appendChild(listContainerTitle);
       globalContainer.appendChild(listContainer);
     });
     subContainerBody.appendChild(globalContainer);
   }
 
+  //render global items for overview only
+  function renderGLobalItems() {
+    const listContainers = document.querySelectorAll(".listContainer");
+    const allTodoLists = todoListManager.getAllTodoLists();
+    allTodoLists.forEach((list) => {
+      list.items.forEach((item) => {
+        //container
+        const newItem = document.createElement("div");
+        newItem.classList.add("global-item");
+        //item title
+        const itemTitle = document.createElement("p");
+        itemTitle.classList.add("global-item-title");
+        itemTitle.textContent = item.title;
+        newItem.appendChild(itemTitle);
+
+        for (let i = 0; i < listContainers.length; i++) {
+          if (listContainers[i].id === `${item.listName}-global`) {
+            listContainers[i].appendChild(newItem);
+          }
+        }
+      });
+    });
+  }
+
   //render todo item
   function renderListItem(listName, item) {
     listName = CSS.escape(listName);
-    let taskList = document.querySelector(`.${listName}`);
+    const taskList = document.querySelector(`.${listName}`);
     //container
-    let newItem = document.createElement("div");
+    const newItem = document.createElement("div");
     newItem.id = listName + item.index;
     newItem.classList.add("todo-item");
     newItem.setAttribute("data-index", item.index);
-    //components array for operations
-    let components = [];
+    //components array for operations such as editing, deleting
+    const components = [];
     //checkbox (task done/tasknot done)
-    let checkbox = document.createElement("p");
+    const checkbox = document.createElement("p");
     checkbox.id = "checkbox" + item.index;
     checkbox.classList.add("checkbox");
     components.push(checkbox);
     //item title
-    let itemTitle = document.createElement("p");
+    const itemTitle = document.createElement("p");
     itemTitle.id = "itemTitle" + item.index;
     itemTitle.textContent = item.title;
     components.push(itemTitle);
     //edit button
-    let editBtn = document.createElement("p");
+    const editBtn = document.createElement("p");
     editBtn.id = "editBtn" + item.index;
     editBtn.classList.add("editBtn");
     components.push(editBtn);
     //delete button
-    let deleteBtn = document.createElement("p");
+    const deleteBtn = document.createElement("p");
     deleteBtn.id = "deleteBtn" + item.index;
     deleteBtn.classList.add("deleteBtn");
     components.push(deleteBtn);
@@ -180,6 +210,7 @@ const subContainerList = (function () {
 
   return {
     renderGlobalList,
+    renderGLobalItems,
     renderListItem,
     clearSubcontainerList,
     renderNewTodoButton,

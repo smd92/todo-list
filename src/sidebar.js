@@ -150,7 +150,12 @@ const sideBarEvents = (function () {
     for (let i = 0; i < listsNodes.length; i++) {
       listsNodes[i].addEventListener("click", (e) => {
         const newTodoButton = document.querySelector("#newTodoDiv");
-        const noTodoButton = ["todayList", "upcomingList", "archiveList"];
+        const noTodoButton = [
+          "todayList",
+          "upcomingList",
+          "archiveList",
+          "globalList",
+        ];
         //add/remove button for adding new todo
         if (noTodoButton.includes(e.target.id) && newTodoButton != null) {
           subContainerList.removeNewTodoButton();
@@ -158,6 +163,7 @@ const sideBarEvents = (function () {
         if (
           e.target.id != "todayList" &&
           e.target.id != "upcomingList" &&
+          e.target.id != "globalList" &&
           e.target.id != "archiveList" &&
           newTodoButton === null
         ) {
@@ -189,8 +195,23 @@ const sideBarEvents = (function () {
   function globalListEvent() {
     const globalList = document.querySelector("#globalList");
     globalList.addEventListener("click", () => {
-      subContainerList.renderGlobalList();
+      if (document.querySelector("#globalContainer") === null) {
+        subContainerList.renderGlobalList();
+        subContainerList.renderGLobalItems();
+      }
     });
+  }
+
+  //remove globalList Container
+  function removeGlobal() {
+    for (let i = 0; i < listsNodes.length; i++) {
+      listsNodes[i].addEventListener("click", (e) => {
+        const globalContainer = document.querySelector("#globalContainer");
+        if (e.target.id != "globalList") {
+          if (globalContainer != null) globalContainer.remove();
+        }
+      });
+    }
   }
 
   function addSidebarEvents() {
@@ -199,6 +220,7 @@ const sideBarEvents = (function () {
     manageNewTodoButtonEvent();
     renderListItemsEvent();
     globalListEvent();
+    removeGlobal();
   }
 
   return {
