@@ -162,6 +162,11 @@ const todoListManager = (function () {
     return item;
   }
 
+  function removeItemFromList(listIndex, itemIndex) {
+    allTodoLists[listIndex].items.splice(itemIndex, 1);
+    allTodoLists[listIndex].enumerateItems();
+  }
+
   //edit todo item
   function editItem(listIndex, itemIndex, property, value) {
     allTodoLists[listIndex].items[itemIndex][property] = value;
@@ -177,6 +182,7 @@ const todoListManager = (function () {
     getTodoListByName,
     getListIndex,
     getItemFromList,
+    removeItemFromList,
     editItem,
   };
 })();

@@ -160,8 +160,8 @@ body {
 /* todo items */
 .todo-item {
   display: grid;
-  grid-template-columns: 5vw 30vw 5vw 5vw;
-  grid-template-areas: "checkbox title edit delete";
+  grid-template-columns: 5vw 20vw 10vw 5vw 5vw;
+  grid-template-areas: "checkbox title dueDate edit delete";
   padding-left: 5vw;
 }
 
@@ -189,11 +189,14 @@ body {
 /* global items */
 .global-item {
   display: grid;
-  grid-template-columns: 5vw 30vw 5vw 5vw;
-  grid-template-areas: ". title . .";
-  padding-left: 5vw;
+  grid-template-columns: 5vw 25vw 10vw 5vw 5vw;
+  grid-template-areas: ". title dueDate .";
 }
 
 .global-item-title {
   grid-area: title;
+}
+
+.global-item-dueDate {
+  grid-area: dueDate;
 }

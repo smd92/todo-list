@@ -59,19 +59,21 @@ const subContainerList = (function () {
 
     const globalContainer = document.createElement("div");
     globalContainer.id = "globalContainer";
-    
-    allTodoLists.forEach((list) => {
-      //create the listContainer
-      const listContainer = document.createElement("div");
-      listContainer.id = `${list.nameDOM}-global`;
-      listContainer.className = "listContainer";
-      //create the listContainer title
-      const listContainerTitle = document.createElement("p");
-      listContainerTitle.className = "listContainerTitle";
-      listContainerTitle.textContent = list.visibleName;
 
-      listContainer.appendChild(listContainerTitle);
-      globalContainer.appendChild(listContainer);
+    allTodoLists.forEach((list) => {
+      if (list.items.length > 0) {
+        //create the listContainer
+        const listContainer = document.createElement("div");
+        listContainer.id = `${list.nameDOM}-global`;
+        listContainer.className = "listContainer";
+        //create the listContainer title
+        const listContainerTitle = document.createElement("p");
+        listContainerTitle.className = "listContainerTitle";
+        listContainerTitle.textContent = list.visibleName;
+
+        listContainer.appendChild(listContainerTitle);
+        globalContainer.appendChild(listContainer);
+      }
     });
     subContainerBody.appendChild(globalContainer);
   }
@@ -90,6 +92,11 @@ const subContainerList = (function () {
         itemTitle.classList.add("global-item-title");
         itemTitle.textContent = item.title;
         newItem.appendChild(itemTitle);
+        //item dueDate
+        const itemDueDate = document.createElement("p");
+        itemDueDate.classList.add("global-item-dueDate");
+        itemDueDate.textContent = item.dueDate;
+        newItem.appendChild(itemDueDate);
 
         for (let i = 0; i < listContainers.length; i++) {
           if (listContainers[i].id === `${item.listName}-global`) {
@@ -121,6 +128,11 @@ const subContainerList = (function () {
     itemTitle.id = "itemTitle" + item.index;
     itemTitle.textContent = item.title;
     components.push(itemTitle);
+    //item dueDate
+    const itemDueDate = document.createElement("p");
+    itemDueDate.id = "itemDueDate" + item.index;
+    itemDueDate.textContent = item.dueDate;
+    components.push(itemDueDate);
     //edit button
     const editBtn = document.createElement("p");
     editBtn.id = "editBtn" + item.index;

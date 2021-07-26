@@ -297,6 +297,9 @@ const modalEvents = (function () {
       todoList.forEach((item) => {
         subContainerList.renderListItem(listName, item);
       });
+      //update today/upcoming lists
+      todoListManager.fillTodayList();
+      todoListManager.fillUpcomingList();
       //save data to localStorage
       storageManager.storeAllData();
       //close modal
