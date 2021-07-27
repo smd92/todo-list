@@ -200,3 +200,9 @@ body {
 .global-item-dueDate {
   grid-area: dueDate;
 }
+
+/* style */
+.white-transparent {
+  background-color: white;
+  opacity: 0.5;
+}
