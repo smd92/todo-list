@@ -180,6 +180,9 @@ const sideBarEvents = (function () {
   function renderListItemsEvent() {
     for (let i = 0; i < listsNodes.length; i++) {
       listsNodes[i].addEventListener("click", (e) => {
+        if (e.target.id === "todayList") {
+          console.log(todoListManager.getAllTodayItems());
+        }
         subContainerList.clearSubcontainerList();
         let todoLists = todoListManager.getAllTodoLists();
         todoLists.forEach((list) => {

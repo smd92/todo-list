@@ -38,7 +38,7 @@ class Todo {
     this.description = description;
     this.dueDate = dueDate;
     this.ISODate = ISODate;
-    this.comparisonDate = new Date(ISODate);
+    this.comparisonDate = new Date(`${new Date(ISODate).getFullYear()}-${new Date(ISODate).getMonth()}-${new Date(ISODate).getDate()}`);
     this.priority = priority;
     this.index;
     this.listName = listName;
@@ -133,6 +133,23 @@ const todoListManager = (function () {
     return allTodoLists;
   }
 
+  //return an array consisting of all todo items, that are due today
+  function getAllTodayItems() {
+    const newDate = new Date();
+    const todayDate = new Date(`${newDate.getFullYear()}-${newDate.getMonth()}-${newDate.getDate()}`);
+    const allTodayItems = [];
+    allTodoLists.forEach((list) => {
+      if (list.nameDOM != "archiveList") {
+        list.items.forEach((item) => {
+          if (JSON.stringify(item.comparisonDate) === JSON.stringify(todayDate)) {
+            allTodayItems.push(item);
+          }
+        });
+      }
+    });
+    return allTodayItems;
+  }
+
   function getTodoListByIndex(listIndex) {
     return allTodoLists[listIndex];
   }
@@ -178,6 +195,7 @@ const todoListManager = (function () {
     fillTodayList,
     fillUpcomingList,
     getAllTodoLists,
+    getAllTodayItems,
     getTodoListByIndex,
     getTodoListByName,
     getListIndex,
