@@ -53,6 +53,12 @@ const subContainerHeader = (function () {
 })();
 
 const subContainerList = (function () {
+  function renderOverview(listType, itemsArr) {
+    const subContainerBody = document.querySelector("#subContainerBody");
+    const listContainer = document.createElement("div");
+    listContainer.id = listType;
+  }
+
   function renderGlobalList() {
     const subContainerBody = document.querySelector("#subContainerBody");
     const allTodoLists = todoListManager.getAllTodoLists();
