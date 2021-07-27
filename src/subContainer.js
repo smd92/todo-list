@@ -115,6 +115,7 @@ const subContainerList = (function () {
     const newItem = document.createElement("div");
     newItem.id = listName + item.index;
     newItem.classList.add("todo-item");
+    newItem.classList.add("white-transparent");
     newItem.setAttribute("data-index", item.index);
     //components array for operations such as editing, deleting
     const components = [];

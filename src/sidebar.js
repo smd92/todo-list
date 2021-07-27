@@ -26,6 +26,7 @@ const todoListsSidebar = (function () {
     elementVar = document.createElement("p");
     elementVar.id = id;
     elementVar.classList.add("todoList");
+    elementVar.classList.add("white-transparent");
     elementVar.textContent = textContent;
 
     listsContainer.appendChild(elementVar);
@@ -78,6 +79,7 @@ const projectsSidebar = (function () {
     let sidebarProject = document.createElement("p");
     sidebarProject.id = project.nameDOM;
     sidebarProject.classList.add("todoList");
+    sidebarProject.classList.add("white-transparent");
     sidebarProject.textContent = project.visibleName;
 
     projectsList.appendChild(sidebarProject);
