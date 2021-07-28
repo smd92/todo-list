@@ -196,6 +196,15 @@ const sideBarEvents = (function () {
     }
   }
 
+  //overview list event
+  function overviewEvent() {
+    const overviewArr = document.querySelector("#globalList");
+    overviewArr.addEventListener("click", (e) => {
+      
+    })
+  }
+
+/*
   //globalList event
   function globalListEvent() {
     const globalList = document.querySelector("#globalList");
@@ -206,6 +215,7 @@ const sideBarEvents = (function () {
       }
     });
   }
+*/
 
   //remove globalList Container
   function removeGlobal() {
@@ -224,7 +234,7 @@ const sideBarEvents = (function () {
     newProjectButtonEvents();
     manageNewTodoButtonEvent();
     renderListItemsEvent();
-    globalListEvent();
+    //globalListEvent();
     removeGlobal();
   }
 

@@ -53,10 +53,27 @@ const subContainerHeader = (function () {
 })();
 
 const subContainerList = (function () {
-  function renderOverview(listType, itemsArr) {
+  function renderOverview(overviewType, listsArr) {
     const subContainerBody = document.querySelector("#subContainerBody");
-    const listContainer = document.createElement("div");
-    listContainer.id = listType;
+    const overviewContainer = document.createElement("div");
+    overviewContainer.id = overviewType;
+
+    listsArr.forEach((list) => {
+      if (list.items.length > 0) {
+        //create the listContainer
+        const listContainer = document.createElement("div");
+        listContainer.classList.add(list.nameDOM);
+        listContainer.classList.add("listContainer");
+        //create the listContainer title
+        const listContainerTitle = document.createElement("p");
+        listContainerTitle.className = "listContainerTitle";
+        listContainerTitle.textContent = list.visibleName;
+
+        listContainer.appendChild(listContainerTitle);
+        overviewContainer.appendChild(listContainer);
+      }
+    });
+    subContainerBody.appendChild(globalContainer);
   }
 
   function renderGlobalList() {
