@@ -202,15 +202,29 @@ const sideBarEvents = (function () {
     }
   }
 
-  //overview list event
-  function overviewEvent() {
-    const overviewArr = document.querySelector("#globalList");
-    overviewArr.addEventListener("click", (e) => {
-      
-    })
+  function renderWatchListItemsEvent() {
+    for (let i = 0; i < watchNodes.length; i++) {
+      watchNodes[i].addEventListener("click", (e) => {
+        const watchLists = _getWatchLists(e.target.id);
+        subContainerList.renderWatchListContainers();
+      });
+    }
   }
 
-/*
+  function _getWatchLists(watchList) {
+    switch (watchList) {
+      case "todayList":
+        return todoListManager.getAllTodayItems();
+      case "upcomingList":
+        break;
+      case "globalList":
+        return todoListManager.getAllItems();
+      case "archiveList":
+        break;
+    }
+  }
+
+  /*
   //globalList event
   function globalListEvent() {
     const globalList = document.querySelector("#globalList");
@@ -241,6 +255,7 @@ const sideBarEvents = (function () {
     manageNewTodoButtonEvent();
     clearSubcontainerEvent();
     renderListItemsEvent();
+    renderWatchListItemsEvent();
     //globalListEvent();
     removeGlobal();
   }

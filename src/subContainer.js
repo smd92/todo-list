@@ -53,10 +53,10 @@ const subContainerHeader = (function () {
 })();
 
 const subContainerList = (function () {
-  function renderOverview(overviewType, listsArr) {
+  function renderWatchListContainers(listsArr) {
     const subContainerBody = document.querySelector("#subContainerBody");
-    const overviewContainer = document.createElement("div");
-    overviewContainer.id = overviewType;
+    const watchListContainer = document.createElement("div");
+    watchListContainer.id = "watchListContainer";
 
     listsArr.forEach((list) => {
       if (list.items.length > 0) {
@@ -70,10 +70,10 @@ const subContainerList = (function () {
         listContainerTitle.textContent = list.visibleName;
 
         listContainer.appendChild(listContainerTitle);
-        overviewContainer.appendChild(listContainer);
+        watchListContainer.appendChild(listContainer);
       }
     });
-    subContainerBody.appendChild(globalContainer);
+    subContainerBody.appendChild(watchListContainer);
   }
 
   function renderGlobalList() {
@@ -245,6 +245,7 @@ const subContainerList = (function () {
   }
 
   return {
+    renderWatchListContainers,
     renderGlobalList,
     renderGLobalItems,
     renderListItem,

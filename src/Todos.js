@@ -133,6 +133,15 @@ const todoListManager = (function () {
     return allTodoLists;
   }
 
+  function getAllItems() {
+    const allItems = [];
+    allTodoLists.forEach((list) => {
+      list.items.forEach((item) => {
+        allItems.push(item);
+      })
+    })
+  }
+
   //return an array consisting of all todo items, that are due today
   function getAllTodayItems() {
     const newDate = new Date();
@@ -195,6 +204,7 @@ const todoListManager = (function () {
     fillTodayList,
     fillUpcomingList,
     getAllTodoLists,
+    getAllItems,
     getAllTodayItems,
     getTodoListByIndex,
     getTodoListByName,
