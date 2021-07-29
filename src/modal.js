@@ -265,9 +265,11 @@ const modalEvents = (function () {
       let listName = document.querySelector("#subContainerBody").className;
       let todo = new Todo(todoData);
       todoListManager.pushTodoInCorrectList(listName, todo);
+      /* 29.07
       //update todayList and upcomingList
       todoListManager.fillTodayList();
       todoListManager.fillUpcomingList();
+      */
       //save data to localStorage
       storageManager.storeAllData();
       //render new todo item
@@ -297,9 +299,11 @@ const modalEvents = (function () {
       todoList.forEach((item) => {
         subContainerList.renderListItem(listName, item);
       });
+      /* 29.07
       //update today/upcoming lists
       todoListManager.fillTodayList();
       todoListManager.fillUpcomingList();
+      */
       //save data to localStorage
       storageManager.storeAllData();
       //close modal

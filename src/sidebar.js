@@ -22,10 +22,10 @@ const todoListsSidebar = (function () {
     sidebar.appendChild(listsContainer);
   }
 
-  function createSidebarItem(elementVar, id, textContent) {
+  function createSidebarItem(elementVar, id, textContent, listType) {
     elementVar = document.createElement("p");
     elementVar.id = id;
-    elementVar.classList.add("todoList");
+    elementVar.classList.add(listType);
     elementVar.classList.add("white-transparent");
     elementVar.textContent = textContent;
 
@@ -34,12 +34,12 @@ const todoListsSidebar = (function () {
 
   function renderSideBar() {
     createListsContainer();
-    createSidebarItem(defaultList, "defaultList", "Eingang");
-    createSidebarItem(todayList, "todayList", "Heute");
-    createSidebarItem(upcomingList, "upcomingList", "Demnächst");
+    createSidebarItem(defaultList, "defaultList", "Eingang", "todoList");
+    createSidebarItem(todayList, "todayList", "Heute", "watchList");
+    createSidebarItem(upcomingList, "upcomingList", "Demnächst", "watchList");
     //globalList is not an actual todo-list object as it only serves for displaying all todo items of all lists
-    createSidebarItem(globalList, "globalList", "Alle Aufgaben");
-    createSidebarItem(archiveList, "archiveList", "Archiv");
+    createSidebarItem(globalList, "globalList", "Alle Aufgaben", "watchList");
+    createSidebarItem(archiveList, "archiveList", "Archiv", "watchList");
   }
 
   return {
@@ -120,15 +120,22 @@ const projectsSidebar = (function () {
 
 const sideBarEvents = (function () {
   let listsNodes = document.getElementsByClassName("todoList");
+  let watchNodes = document.getElementsByClassName("watchList");
+
+  function getAllNodes() {
+    return [...listsNodes, ...watchNodes];
+  }
 
   function refreshListsNodes() {
     listsNodes = document.getElementsByClassName("todoList");
+    watchNodes = document.getElementsByClassName("watchList");
   }
 
   function renderListTitleEvent() {
     refreshListsNodes();
-    for (let i = 0; i < listsNodes.length; i++) {
-      listsNodes[i].addEventListener("click", (e) => {
+    const allNodes = getAllNodes();
+    for (let i = 0; i < allNodes.length; i++) {
+      allNodes[i].addEventListener("click", (e) => {
         //display the lists title in the header of the subcontainer
         subContainerHeader.setSubContainerTitle(e.target.textContent);
         //change classname of subcontainer title to know which list is open
@@ -152,26 +159,28 @@ const sideBarEvents = (function () {
     for (let i = 0; i < listsNodes.length; i++) {
       listsNodes[i].addEventListener("click", (e) => {
         const newTodoButton = document.querySelector("#newTodoDiv");
-        const noTodoButton = [
-          "todayList",
-          "upcomingList",
-          "archiveList",
-          "globalList",
-        ];
-        //add/remove button for adding new todo
-        if (noTodoButton.includes(e.target.id) && newTodoButton != null) {
-          subContainerList.removeNewTodoButton();
-        }
-        if (
-          e.target.id != "todayList" &&
-          e.target.id != "upcomingList" &&
-          e.target.id != "globalList" &&
-          e.target.id != "archiveList" &&
-          newTodoButton === null
-        ) {
+        //add button for adding new todo
+        if (newTodoButton === null) {
           subContainerList.renderNewTodoButton();
           subContainerEvents.newTodoButtonEvents();
         }
+      });
+    }
+    for (let i = 0; i < watchNodes.length; i++) {
+      watchNodes[i].addEventListener("click", () => {
+        const newTodoButton = document.querySelector("#newTodoDiv");
+        if (newTodoButton != null) {
+          newTodoButton.remove();
+        }
+      });
+    }
+  }
+
+  function clearSubcontainerEvent() {
+    const allNodes = getAllNodes();
+    for (let i = 0; i < allNodes.length; i++) {
+      allNodes[i].addEventListener("click", () => {
+        subContainerList.clearSubcontainerList();
       });
     }
   }
@@ -180,9 +189,6 @@ const sideBarEvents = (function () {
   function renderListItemsEvent() {
     for (let i = 0; i < listsNodes.length; i++) {
       listsNodes[i].addEventListener("click", (e) => {
-        if (e.target.id === "todayList") {
-          console.log(todoListManager.getAllTodayItems());
-        }
         subContainerList.clearSubcontainerList();
         let todoLists = todoListManager.getAllTodoLists();
         todoLists.forEach((list) => {
@@ -223,6 +229,7 @@ const sideBarEvents = (function () {
     renderListTitleEvent();
     newProjectButtonEvents();
     manageNewTodoButtonEvent();
+    clearSubcontainerEvent();
     renderListItemsEvent();
     globalListEvent();
     removeGlobal();
