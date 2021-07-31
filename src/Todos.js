@@ -38,12 +38,12 @@ class Todo {
     this.description = description;
     this.dueDate = dueDate;
     this.ISODate = ISODate;
-    this.comparisonDate = new Date(`${new Date(ISODate).getFullYear()}-${new Date(ISODate).getMonth()}-${new Date(ISODate).getDate()}`);
+    this.comparisonDate = new Date(
+     `${new Date(ISODate).getFullYear()}-${new Date(ISODate).getMonth() + 1}-${new Date(ISODate).getDate()}`
+    );
     this.priority = priority;
     this.index;
     this.listName = listName;
-    this.inTodayList = false;
-    this.inUpcomingList = false;
   }
 }
 
@@ -65,70 +65,6 @@ const todoListManager = (function () {
     });
   }
 
-  //populate todayList
-  function fillTodayList() {
-    let todayDate = format(new Date(), "dd.MM.yyyy");
-
-    allTodoLists.forEach((todoList) => {
-      if (
-        todoList.nameDOM != "todayList" &&
-        todoList.nameDOM != "archiveList"
-      ) {
-        todoList.items.forEach((item) => {
-          if (item.dueDate === todayDate && item.inTodayList === false) {
-            const itemData = {
-              title: item.title,
-              description: item.description,
-              dueDate: item.dueDate,
-              ISODate: item.ISODate,
-              priority: item.priority,
-              listName: "todayList",
-            };
-            const todayItem = new Todo(itemData);
-            todayItem.inTodayList = true;
-            pushTodoInCorrectList("todayList", todayItem);
-            item.inTodayList = true;
-          }
-        });
-      }
-    });
-  }
-
-  //populate upcomingList
-  function fillUpcomingList() {
-    const todayDate = new Date();
-    let rangeMax = new Date();
-    rangeMax.setDate(new Date().getDate() + 3);
-
-    allTodoLists.forEach((todoList) => {
-      if (
-        todoList.nameDOM != "upcomingList" &&
-        todoList.nameDOM != "archiveList"
-      ) {
-        todoList.items.forEach((item) => {
-          if (
-            item.comparisonDate > todayDate &&
-            item.comparisonDate <= rangeMax &&
-            item.inUpcomingList === false
-          ) {
-            const itemData = {
-              title: item.title,
-              description: item.description,
-              dueDate: item.dueDate,
-              ISODate: item.ISODate,
-              priority: item.priority,
-              listName: "upcomingList",
-            };
-            const upcomingItem = new Todo(itemData);
-            upcomingItem.inUpcomingList = true;
-            pushTodoInCorrectList("upcomingList", upcomingItem);
-            item.inUpcomingList = true;
-          }
-        });
-      }
-    });
-  }
-
   function getAllTodoLists() {
     return allTodoLists;
   }
@@ -138,25 +74,52 @@ const todoListManager = (function () {
     allTodoLists.forEach((list) => {
       list.items.forEach((item) => {
         allItems.push(item);
-      })
-    })
+      });
+    });
   }
 
   //return an array consisting of all todo items, that are due today
   function getAllTodayItems() {
     const newDate = new Date();
-    const todayDate = new Date(`${newDate.getFullYear()}-${newDate.getMonth()}-${newDate.getDate()}`);
+    const todayDate = new Date(
+      `${newDate.getFullYear()}-${newDate.getMonth() + 1}-${newDate.getDate()}`
+    );
     const allTodayItems = [];
     allTodoLists.forEach((list) => {
       if (list.nameDOM != "archiveList") {
         list.items.forEach((item) => {
-          if (JSON.stringify(item.comparisonDate) === JSON.stringify(todayDate)) {
+          if (
+            JSON.stringify(item.comparisonDate) === JSON.stringify(todayDate)
+          ) {
             allTodayItems.push(item);
           }
         });
       }
     });
     return allTodayItems;
+  }
+
+  //return an array consisting of all todo items, that are due soon
+  function getAllUpcomingItems() {
+    const todayDate = new Date();
+    const rangeMax = new Date();
+    rangeMax.setDate(new Date().getDate() + 3);
+
+    const allUpcomingItems = [];
+    allTodoLists.forEach((list) => {
+      if (list.nameDOM != "archiveList") {
+        list.items.forEach((item) => {
+          if (
+            item.comparisonDate > todayDate &&
+            item.comparisonDate <= rangeMax
+          ) {
+            allUpcomingItems.push(item);
+          }
+        });
+      }
+    });
+
+    return allUpcomingItems;
   }
 
   function getTodoListByIndex(listIndex) {
@@ -201,11 +164,10 @@ const todoListManager = (function () {
   return {
     addTodoList,
     pushTodoInCorrectList,
-    fillTodayList,
-    fillUpcomingList,
     getAllTodoLists,
     getAllItems,
     getAllTodayItems,
+    getAllUpcomingItems,
     getTodoListByIndex,
     getTodoListByName,
     getListIndex,

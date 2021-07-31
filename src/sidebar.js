@@ -121,6 +121,9 @@ const projectsSidebar = (function () {
 const sideBarEvents = (function () {
   let listsNodes = document.getElementsByClassName("todoList");
   let watchNodes = document.getElementsByClassName("watchList");
+  let todayUpcomingNodes = [document.querySelector("#todayList"), document.querySelector("#upcomingList")];
+  let globalArchiveNodes = [document.querySelector("#globalList"), document.querySelector("#archiveList")];
+  console.log(document.querySelector("#todayList"));
 
   function getAllNodes() {
     return [...listsNodes, ...watchNodes];
@@ -129,6 +132,8 @@ const sideBarEvents = (function () {
   function refreshListsNodes() {
     listsNodes = document.getElementsByClassName("todoList");
     watchNodes = document.getElementsByClassName("watchList");
+    todayUpcomingNodes = [document.querySelector("#todayList"), document.querySelector("#upcomingList")];
+    globalArchiveNodes = [document.querySelector("#globalList"), document.querySelector("#archiveList")];
   }
 
   function renderListTitleEvent() {
@@ -202,21 +207,31 @@ const sideBarEvents = (function () {
     }
   }
 
-  function renderWatchListItemsEvent() {
-    for (let i = 0; i < watchNodes.length; i++) {
-      watchNodes[i].addEventListener("click", (e) => {
-        const watchLists = _getWatchLists(e.target.id);
-        subContainerList.renderWatchListContainers();
+  function renderTodayUpcomingItemsEvent() {
+    for (let i = 0; i < todayUpcomingNodes.length; i++) {
+      todayUpcomingNodes[i].addEventListener("click", (e) => {
+        const items = _getWatchListItems(e.target.id);
+        items.forEach((item) => {
+          subContainerList.renderListItem(e.target.id, item);
+        })
       });
     }
   }
 
-  function _getWatchLists(watchList) {
+  function renderGlobalArchiveItemsEvent() {
+    for (let i = 0; i < globalArchiveNodes.length; i++) {
+      globalArchiveNodes[i].addEventListener("click", (e) => {
+        
+      })
+    }
+  }
+
+  function _getWatchListItems(watchList) {
     switch (watchList) {
       case "todayList":
         return todoListManager.getAllTodayItems();
       case "upcomingList":
-        break;
+        return todoListManager.getAllUpcomingItems();
       case "globalList":
         return todoListManager.getAllItems();
       case "archiveList":
@@ -255,7 +270,7 @@ const sideBarEvents = (function () {
     manageNewTodoButtonEvent();
     clearSubcontainerEvent();
     renderListItemsEvent();
-    renderWatchListItemsEvent();
+    renderTodayUpcomingItemsEvent();
     //globalListEvent();
     removeGlobal();
   }
