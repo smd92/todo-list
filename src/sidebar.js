@@ -162,7 +162,7 @@ const sideBarEvents = (function () {
 
   function manageNewTodoButtonEvent() {
     for (let i = 0; i < listsNodes.length; i++) {
-      listsNodes[i].addEventListener("click", (e) => {
+      listsNodes[i].addEventListener("click", () => {
         const newTodoButton = document.querySelector("#newTodoDiv");
         //add button for adding new todo
         if (newTodoButton === null) {

@@ -82,20 +82,7 @@ const subContainerList = (function () {
     const listContainers = document.querySelectorAll(".listContainer");
     listsArr.forEach((list) => {
       list.items.forEach((item) => {
-        //container
-        const newItem = document.createElement("div");
-        newItem.classList.add("global-item");
-        //item title
-        const itemTitle = document.createElement("p");
-        itemTitle.classList.add("global-item-title");
-        itemTitle.textContent = item.title;
-        newItem.appendChild(itemTitle);
-        //item dueDate
-        const itemDueDate = document.createElement("p");
-        itemDueDate.classList.add("global-item-dueDate");
-        itemDueDate.textContent = item.dueDate;
-        newItem.appendChild(itemDueDate);
-
+        const newItem = renderListItem(item.listName, item, "watchList");
         for (let i = 0; i < listContainers.length; i++) {
           if (listContainers[i].id === `${item.listName}-watchList`) {
             listContainers[i].appendChild(newItem);
@@ -105,37 +92,8 @@ const subContainerList = (function () {
     });
   }
 
-  //render global items for overview only
-  function renderGLobalItems() {
-    const listContainers = document.querySelectorAll(".listContainer");
-    const allTodoLists = todoListManager.getAllTodoLists();
-    allTodoLists.forEach((list) => {
-      list.items.forEach((item) => {
-        //container
-        const newItem = document.createElement("div");
-        newItem.classList.add("global-item");
-        //item title
-        const itemTitle = document.createElement("p");
-        itemTitle.classList.add("global-item-title");
-        itemTitle.textContent = item.title;
-        newItem.appendChild(itemTitle);
-        //item dueDate
-        const itemDueDate = document.createElement("p");
-        itemDueDate.classList.add("global-item-dueDate");
-        itemDueDate.textContent = item.dueDate;
-        newItem.appendChild(itemDueDate);
-
-        for (let i = 0; i < listContainers.length; i++) {
-          if (listContainers[i].id === `${item.listName}-global`) {
-            listContainers[i].appendChild(newItem);
-          }
-        }
-      });
-    });
-  }
-
   //render todo item
-  function renderListItem(listName, item) {
+  function renderListItem(listName, item, type = "") {
     listName = CSS.escape(listName);
     const taskList = document.querySelector(`.${listName}`);
     //container
@@ -145,6 +103,7 @@ const subContainerList = (function () {
     newItem.classList.add("white-transparent");
     newItem.classList.add("display");
     newItem.setAttribute("data-index", item.index);
+    newItem.setAttribute("in-list", item.listName);
     //components array for operations such as editing, deleting
     const components = [];
     //checkbox (task done/tasknot done)
@@ -172,25 +131,16 @@ const subContainerList = (function () {
     deleteBtn.id = "deleteBtn" + item.index;
     deleteBtn.classList.add("deleteBtn");
     components.push(deleteBtn);
-    /*-----------------------------------------------
-    //timing button
-    let timingBtn = document.createElement("p");
-    timingBtn.id = "timingBtn" + item.index;
-    components.push(timingBtn);
-    //notes button
-    let notesBtn = document.createElement("p");
-    notesBtn.id = "notesBtn" + item.index;
-    components.push(notesBtn);
-    //move item to other list button
-    let moveListBtn = document.createElement("p");
-    moveListBtn.id = "moveListBtn" + item.index;
-    components.push(moveListBtn);
-    ------------------------------------------------*/
 
     //append components
     components.forEach((component) => {
       newItem.appendChild(component);
     });
+
+    //return item for renderGlobalAndArchiveItems function
+    if (type === "watchList") {
+      return newItem;
+    }
 
     //append item to list
     const addTodoBtn = document.querySelector("#newTodoDiv");
@@ -205,18 +155,6 @@ const subContainerList = (function () {
     //delete item event
     subContainerEvents.deleteButtonEvent();
   }
-
-  /*
-  //render all items of all lists
-  function renderAllItemsForDefaultList() {
-    const allTodoLists = todoListManager.getAllTodoLists();
-    allTodoLists.forEach((list) => {
-      list.items.forEach((item) => {
-        subContainerList.renderListItem("defaultList", item);
-      });
-    });
-  }
-  */
 
   //clear the todo-list
   function clearSubcontainerList() {
@@ -252,8 +190,6 @@ const subContainerList = (function () {
   return {
     renderWatchListContainers,
     renderGlobalAndArchiveItems,
-    //renderGlobalList,
-    renderGLobalItems,
     renderListItem,
     clearSubcontainerList,
     renderNewTodoButton,

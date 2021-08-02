@@ -120,11 +120,6 @@ body {
   grid-area: subContainerHeader;
 }
 
-#globalContainer {
-  width: 100%;
-  height: auto;
-}
-
 .listContainer {
   display: grid;
   grid-template-rows: 5vh auto;
