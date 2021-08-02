@@ -57,11 +57,13 @@ const subContainerList = (function () {
     const subContainerBody = document.querySelector("#subContainerBody");
     const watchListContainer = document.createElement("div");
     watchListContainer.id = "watchListContainer";
+    watchListContainer.classList.add("display");
 
     listsArr.forEach((list) => {
       if (list.items.length > 0) {
         //create the listContainer
         const listContainer = document.createElement("div");
+        listContainer.id = `${list.nameDOM}-watchList`;
         listContainer.classList.add(list.nameDOM);
         listContainer.classList.add("listContainer");
         //create the listContainer title
@@ -76,29 +78,31 @@ const subContainerList = (function () {
     subContainerBody.appendChild(watchListContainer);
   }
 
-  function renderGlobalList() {
-    const subContainerBody = document.querySelector("#subContainerBody");
-    const allTodoLists = todoListManager.getAllTodoLists();
+  function renderGlobalAndArchiveItems(listsArr) {
+    const listContainers = document.querySelectorAll(".listContainer");
+    listsArr.forEach((list) => {
+      list.items.forEach((item) => {
+        //container
+        const newItem = document.createElement("div");
+        newItem.classList.add("global-item");
+        //item title
+        const itemTitle = document.createElement("p");
+        itemTitle.classList.add("global-item-title");
+        itemTitle.textContent = item.title;
+        newItem.appendChild(itemTitle);
+        //item dueDate
+        const itemDueDate = document.createElement("p");
+        itemDueDate.classList.add("global-item-dueDate");
+        itemDueDate.textContent = item.dueDate;
+        newItem.appendChild(itemDueDate);
 
-    const globalContainer = document.createElement("div");
-    globalContainer.id = "globalContainer";
-
-    allTodoLists.forEach((list) => {
-      if (list.items.length > 0) {
-        //create the listContainer
-        const listContainer = document.createElement("div");
-        listContainer.id = `${list.nameDOM}-global`;
-        listContainer.className = "listContainer";
-        //create the listContainer title
-        const listContainerTitle = document.createElement("p");
-        listContainerTitle.className = "listContainerTitle";
-        listContainerTitle.textContent = list.visibleName;
-
-        listContainer.appendChild(listContainerTitle);
-        globalContainer.appendChild(listContainer);
-      }
+        for (let i = 0; i < listContainers.length; i++) {
+          if (listContainers[i].id === `${item.listName}-watchList`) {
+            listContainers[i].appendChild(newItem);
+          }
+        }
+      });
     });
-    subContainerBody.appendChild(globalContainer);
   }
 
   //render global items for overview only
@@ -139,6 +143,7 @@ const subContainerList = (function () {
     newItem.id = listName + item.index;
     newItem.classList.add("todo-item");
     newItem.classList.add("white-transparent");
+    newItem.classList.add("display");
     newItem.setAttribute("data-index", item.index);
     //components array for operations such as editing, deleting
     const components = [];
@@ -215,9 +220,9 @@ const subContainerList = (function () {
 
   //clear the todo-list
   function clearSubcontainerList() {
-    const items = document.querySelectorAll(".todo-item");
-    for (let i = 0; i < items.length; i++) {
-      items[i].remove();
+    const removals = document.querySelectorAll(".display");
+    for (let i = 0; i < removals.length; i++) {
+      removals[i].remove();
     }
   }
 
@@ -246,7 +251,8 @@ const subContainerList = (function () {
 
   return {
     renderWatchListContainers,
-    renderGlobalList,
+    renderGlobalAndArchiveItems,
+    //renderGlobalList,
     renderGLobalItems,
     renderListItem,
     clearSubcontainerList,

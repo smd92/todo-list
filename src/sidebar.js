@@ -207,7 +207,7 @@ const sideBarEvents = (function () {
     }
   }
 
-  function renderTodayUpcomingItemsEvent() {
+  function renderTodayAndUpcomingItemsEvent() {
     for (let i = 0; i < todayUpcomingNodes.length; i++) {
       todayUpcomingNodes[i].addEventListener("click", (e) => {
         const items = _getWatchListItems(e.target.id);
@@ -218,10 +218,13 @@ const sideBarEvents = (function () {
     }
   }
 
-  function renderGlobalArchiveItemsEvent() {
+  function renderGlobalAndArchiveItemsEvent() {
     for (let i = 0; i < globalArchiveNodes.length; i++) {
       globalArchiveNodes[i].addEventListener("click", (e) => {
-        
+        const listsArr = _getWatchListItems(e.target.id);
+        //container rendering und item rendering zusammenfassen, dann von hier callen
+        subContainerList.renderWatchListContainers(listsArr);
+        subContainerList.renderGlobalAndArchiveItems(listsArr);
       })
     }
   }
@@ -233,7 +236,7 @@ const sideBarEvents = (function () {
       case "upcomingList":
         return todoListManager.getAllUpcomingItems();
       case "globalList":
-        return todoListManager.getAllItems();
+        return todoListManager.getAllTodoLists();
       case "archiveList":
         break;
     }
@@ -270,7 +273,8 @@ const sideBarEvents = (function () {
     manageNewTodoButtonEvent();
     clearSubcontainerEvent();
     renderListItemsEvent();
-    renderTodayUpcomingItemsEvent();
+    renderTodayAndUpcomingItemsEvent();
+    renderGlobalAndArchiveItemsEvent();
     //globalListEvent();
     removeGlobal();
   }
