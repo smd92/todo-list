@@ -137,6 +137,11 @@ const subContainerList = (function () {
       newItem.appendChild(component);
     });
 
+    //edit item event
+    subContainerEvents.editTodoItemEvent();
+    //delete item event
+    subContainerEvents.deleteButtonEvent();
+
     //return item for renderGlobalAndArchiveItems function
     if (type === "watchList") {
       return newItem;
@@ -149,11 +154,6 @@ const subContainerList = (function () {
     } else {
       taskList.appendChild(newItem);
     }
-
-    //edit item event
-    subContainerEvents.editTodoItemEvent();
-    //delete item event
-    subContainerEvents.deleteButtonEvent();
   }
 
   //clear the todo-list
@@ -211,14 +211,15 @@ const subContainerEvents = (function () {
   }
 
   function editTodoItemEvent() {
-    const todoItems = document.querySelectorAll(".todo-item");
-    for (let i = 0; i < todoItems.length; i++) {
-      todoItems[i].addEventListener("click", () => {
+    const editButtons = document.querySelectorAll(".editBtn");
+    for (let i = 0; i < editButtons.length; i++) {
+      editButtons[i].addEventListener("click", (e) => {
         //get item data
-        let listName = dataDOM.getListName();
-        dataDOM.setItemIndex(todoItems[i]);
-        let itemIndex = dataDOM.getItemIndex();
-        let item = todoListManager.getItemFromList(listName, itemIndex);
+        dataDOM.setListName(e.target);
+        const listName = dataDOM.getListName();
+        dataDOM.setItemIndex(editButtons[i].parentNode);
+        const itemIndex = dataDOM.getItemIndex();
+        const item = todoListManager.getItemFromList(listName, itemIndex);
         const modal = document.querySelector("#modal");
         //open modal
         modalDOM.openModal(modal);
@@ -252,10 +253,14 @@ const subContainerEvents = (function () {
 //get dom data
 const dataDOM = (function () {
   let itemIndex;
+  let listName;
 
   //get/set list name of todo item
+  function setListName(targetNode) {
+    listName = targetNode.parentNode.getAttribute("in-list");
+  }
+
   function getListName() {
-    let listName = document.querySelector("#subContainerBody").className;
     return listName;
   }
 
@@ -269,6 +274,7 @@ const dataDOM = (function () {
   }
 
   return {
+    setListName,
     getListName,
     setItemIndex,
     getItemIndex,

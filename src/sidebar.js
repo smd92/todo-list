@@ -242,19 +242,6 @@ const sideBarEvents = (function () {
     }
   }
 
-  /*
-  //globalList event
-  function globalListEvent() {
-    const globalList = document.querySelector("#globalList");
-    globalList.addEventListener("click", () => {
-      if (document.querySelector("#globalContainer") === null) {
-        subContainerList.renderGlobalList();
-        subContainerList.renderGLobalItems();
-      }
-    });
-  }
-*/
-
   //remove globalList Container
   function removeGlobal() {
     for (let i = 0; i < listsNodes.length; i++) {

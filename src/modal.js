@@ -265,11 +265,6 @@ const modalEvents = (function () {
       let listName = document.querySelector("#subContainerBody").className;
       let todo = new Todo(todoData);
       todoListManager.pushTodoInCorrectList(listName, todo);
-      /* 29.07
-      //update todayList and upcomingList
-      todoListManager.fillTodayList();
-      todoListManager.fillUpcomingList();
-      */
       //save data to localStorage
       storageManager.storeAllData();
       //render new todo item
@@ -284,11 +279,16 @@ const modalEvents = (function () {
     formButton.addEventListener("click", () => {
       //grab form input
       const formData = formHandler.grabTodoData();
+      console.log(formData);
       const todoData = formHandler.processTodoData(formData);
+      console.log(todoData);
       //collect information for editing item
       const listName = dataDOM.getListName();
+      console.log(listName);
       const listIndex = todoListManager.getListIndex(listName);
+      console.log(listIndex);
       const itemIndex = dataDOM.getItemIndex();
+      console.log(itemIndex);
       //call function that edits the item
       for (let key in todoData) {
         todoListManager.editItem(listIndex, itemIndex, key, todoData[key]);
@@ -296,14 +296,11 @@ const modalEvents = (function () {
       //update DOM
       subContainerList.clearSubcontainerList();
       const todoList = todoListManager.getTodoListByIndex(listIndex).items;
+      console.log(todoList);
       todoList.forEach((item) => {
+        console.log(item);
         subContainerList.renderListItem(listName, item);
       });
-      /* 29.07
-      //update today/upcoming lists
-      todoListManager.fillTodayList();
-      todoListManager.fillUpcomingList();
-      */
       //save data to localStorage
       storageManager.storeAllData();
       //close modal
