@@ -35,11 +35,11 @@ const todoListsSidebar = (function () {
   function renderSideBar() {
     createListsContainer();
     createSidebarItem(defaultList, "defaultList", "Eingang", "todoList");
-    createSidebarItem(todayList, "todayList", "Heute", "watchList");
-    createSidebarItem(upcomingList, "upcomingList", "Demnächst", "watchList");
+    createSidebarItem(todayList, "todayList", "Heute", "watchlist");
+    createSidebarItem(upcomingList, "upcomingList", "Demnächst", "watchlist");
     //globalList is not an actual todo-list object as it only serves for displaying all todo items of all lists
-    createSidebarItem(globalList, "globalList", "Alle Aufgaben", "watchList");
-    createSidebarItem(archiveList, "archiveList", "Archiv", "watchList");
+    createSidebarItem(globalList, "globalList", "Alle Aufgaben", "watchlist");
+    createSidebarItem(archiveList, "archiveList", "Archiv", "watchlist");
   }
 
   return {
@@ -120,10 +120,15 @@ const projectsSidebar = (function () {
 
 const sideBarEvents = (function () {
   let listsNodes = document.getElementsByClassName("todoList");
-  let watchNodes = document.getElementsByClassName("watchList");
-  let todayUpcomingNodes = [document.querySelector("#todayList"), document.querySelector("#upcomingList")];
-  let globalArchiveNodes = [document.querySelector("#globalList"), document.querySelector("#archiveList")];
-  console.log(document.querySelector("#todayList"));
+  let watchNodes = document.getElementsByClassName("watchlist");
+  let todayUpcomingNodes = [
+    document.querySelector("#todayList"),
+    document.querySelector("#upcomingList"),
+  ];
+  let globalArchiveNodes = [
+    document.querySelector("#globalList"),
+    document.querySelector("#archiveList"),
+  ];
 
   function getAllNodes() {
     return [...listsNodes, ...watchNodes];
@@ -131,9 +136,15 @@ const sideBarEvents = (function () {
 
   function refreshListsNodes() {
     listsNodes = document.getElementsByClassName("todoList");
-    watchNodes = document.getElementsByClassName("watchList");
-    todayUpcomingNodes = [document.querySelector("#todayList"), document.querySelector("#upcomingList")];
-    globalArchiveNodes = [document.querySelector("#globalList"), document.querySelector("#archiveList")];
+    watchNodes = document.getElementsByClassName("watchlist");
+    todayUpcomingNodes = [
+      document.querySelector("#todayList"),
+      document.querySelector("#upcomingList"),
+    ];
+    globalArchiveNodes = [
+      document.querySelector("#globalList"),
+      document.querySelector("#archiveList"),
+    ];
   }
 
   function renderListTitleEvent() {
@@ -210,10 +221,10 @@ const sideBarEvents = (function () {
   function renderTodayAndUpcomingItemsEvent() {
     for (let i = 0; i < todayUpcomingNodes.length; i++) {
       todayUpcomingNodes[i].addEventListener("click", (e) => {
-        const items = _getWatchListItems(e.target.id);
+        const items = _getWatchlistItems(e.target.id);
         items.forEach((item) => {
           subContainerList.renderListItem(e.target.id, item);
-        })
+        });
       });
     }
   }
@@ -221,16 +232,16 @@ const sideBarEvents = (function () {
   function renderGlobalAndArchiveItemsEvent() {
     for (let i = 0; i < globalArchiveNodes.length; i++) {
       globalArchiveNodes[i].addEventListener("click", (e) => {
-        const listsArr = _getWatchListItems(e.target.id);
+        const listsArr = _getWatchlistItems(e.target.id);
         //container rendering und item rendering zusammenfassen, dann von hier callen
-        subContainerList.renderWatchListContainers(listsArr);
+        subContainerList.renderWatchlistContainers(listsArr);
         subContainerList.renderGlobalAndArchiveItems(listsArr);
-      })
+      });
     }
   }
 
-  function _getWatchListItems(watchList) {
-    switch (watchList) {
+  function _getWatchlistItems(watchlist) {
+    switch (watchlist) {
       case "todayList":
         return todoListManager.getAllTodayItems();
       case "upcomingList":

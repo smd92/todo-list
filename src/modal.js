@@ -289,19 +289,18 @@ const modalEvents = (function () {
         todoListManager.editItem(listIndex, itemIndex, key, todoData[key]);
       }
       //update DOM
-      const todoList = todoListManager.getTodoListByIndex(listIndex).items;
-      subContainerList.clearSubcontainerList();
+      subContainerList.clearSubcontainerList("edit-item");
       if (
         document.querySelector(".globalList") === null &&
         document.querySelector(".archiveList") === null
       ) {
+        const todoList = todoListManager.getTodoListByIndex(listIndex).items;
         todoList.forEach((item) => {
           subContainerList.renderListItem(listName, item);
         });
       } else {
-        todoList.forEach((item) => {
-          subContainerList.renderListItem(listName, item, "bong");
-        });
+        const allTodoLists = todoListManager.getAllTodoLists();
+        subContainerList.renderGlobalAndArchiveItems(allTodoLists);
       }
       //save data to localStorage
       storageManager.storeAllData();

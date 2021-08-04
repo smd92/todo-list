@@ -53,17 +53,17 @@ const subContainerHeader = (function () {
 })();
 
 const subContainerList = (function () {
-  function renderWatchListContainers(listsArr) {
+  function renderWatchlistContainers(listsArr) {
     const subContainerBody = document.querySelector("#subContainerBody");
-    const watchListContainer = document.createElement("div");
-    watchListContainer.id = "watchListContainer";
-    watchListContainer.classList.add("display");
+    const watchlistContainer = document.createElement("div");
+    watchlistContainer.id = "watchlistContainer";
+    watchlistContainer.classList.add("display");
 
     listsArr.forEach((list) => {
       if (list.items.length > 0) {
         //create the listContainer
         const listContainer = document.createElement("div");
-        listContainer.id = `${list.nameDOM}-watchList`;
+        listContainer.id = `${list.nameDOM}-watchlist`;
         listContainer.classList.add(list.nameDOM);
         listContainer.classList.add("listContainer");
         //create the listContainer title
@@ -72,19 +72,19 @@ const subContainerList = (function () {
         listContainerTitle.textContent = list.visibleName;
 
         listContainer.appendChild(listContainerTitle);
-        watchListContainer.appendChild(listContainer);
+        watchlistContainer.appendChild(listContainer);
       }
     });
-    subContainerBody.appendChild(watchListContainer);
+    subContainerBody.appendChild(watchlistContainer);
   }
 
   function renderGlobalAndArchiveItems(listsArr) {
     const listContainers = document.querySelectorAll(".listContainer");
     listsArr.forEach((list) => {
       list.items.forEach((item) => {
-        const newItem = renderListItem(item.listName, item, "watchList");
+        const newItem = renderListItem(item.listName, item, "watchlist");
         for (let i = 0; i < listContainers.length; i++) {
-          if (listContainers[i].id === `${item.listName}-watchList`) {
+          if (listContainers[i].id === `${item.listName}-watchlist`) {
             listContainers[i].appendChild(newItem);
           }
         }
@@ -96,12 +96,11 @@ const subContainerList = (function () {
   function renderListItem(listName, item, type = "") {
     listName = CSS.escape(listName);
     let taskList;
-    if (type === "bong") {
-      return console.log(listName);
+    if (type === "edit-item") {
+      taskList = document.querySelector(`#${listName}-watchlist`);
     } else {
       taskList = document.querySelector(`.${listName}`);
     }
-    //if (type === "bong") return console.log(taskList);
     //container
     const newItem = document.createElement("div");
     newItem.id = listName + item.index;
@@ -149,7 +148,7 @@ const subContainerList = (function () {
     subContainerEvents.deleteButtonEvent();
 
     //return item for renderGlobalAndArchiveItems function
-    if (type === "watchList") {
+    if (type === "watchlist") {
       return newItem;
     }
 
@@ -163,8 +162,15 @@ const subContainerList = (function () {
   }
 
   //clear the todo-list
-  function clearSubcontainerList() {
-    const removals = document.querySelectorAll(".display");
+  function clearSubcontainerList(type = "standard") {
+    let removals;
+    if (type === "standard") {
+      removals = document.querySelectorAll(".display");
+    }
+    if (type === "edit-item") {
+      removals = document.querySelectorAll(".todo-item");
+      console.log(removals);
+    }
     for (let i = 0; i < removals.length; i++) {
       removals[i].remove();
     }
@@ -194,7 +200,7 @@ const subContainerList = (function () {
   }
 
   return {
-    renderWatchListContainers,
+    renderWatchlistContainers,
     renderGlobalAndArchiveItems,
     renderListItem,
     clearSubcontainerList,
@@ -243,8 +249,6 @@ const subContainerEvents = (function () {
     for (let i = 0; i < deleteButtons.length; i++) {
       deleteButtons[i].addEventListener("click", () => {
         dataDOM.setItemIndex(deleteButtons[i].parentNode);
-        const itemIndex = dataDOM.getItemIndex();
-        console.log(itemIndex);
       });
     }
   }
