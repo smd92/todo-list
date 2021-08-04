@@ -279,28 +279,30 @@ const modalEvents = (function () {
     formButton.addEventListener("click", () => {
       //grab form input
       const formData = formHandler.grabTodoData();
-      console.log(formData);
       const todoData = formHandler.processTodoData(formData);
-      console.log(todoData);
       //collect information for editing item
       const listName = dataDOM.getListName();
-      console.log(listName);
       const listIndex = todoListManager.getListIndex(listName);
-      console.log(listIndex);
       const itemIndex = dataDOM.getItemIndex();
-      console.log(itemIndex);
       //call function that edits the item
       for (let key in todoData) {
         todoListManager.editItem(listIndex, itemIndex, key, todoData[key]);
       }
       //update DOM
-      subContainerList.clearSubcontainerList();
       const todoList = todoListManager.getTodoListByIndex(listIndex).items;
-      console.log(todoList);
-      todoList.forEach((item) => {
-        console.log(item);
-        subContainerList.renderListItem(listName, item);
-      });
+      subContainerList.clearSubcontainerList();
+      if (
+        document.querySelector(".globalList") === null &&
+        document.querySelector(".archiveList") === null
+      ) {
+        todoList.forEach((item) => {
+          subContainerList.renderListItem(listName, item);
+        });
+      } else {
+        todoList.forEach((item) => {
+          subContainerList.renderListItem(listName, item, "bong");
+        });
+      }
       //save data to localStorage
       storageManager.storeAllData();
       //close modal

@@ -262,7 +262,6 @@ const sideBarEvents = (function () {
     renderListItemsEvent();
     renderTodayAndUpcomingItemsEvent();
     renderGlobalAndArchiveItemsEvent();
-    //globalListEvent();
     removeGlobal();
   }
 

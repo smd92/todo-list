@@ -95,7 +95,13 @@ const subContainerList = (function () {
   //render todo item
   function renderListItem(listName, item, type = "") {
     listName = CSS.escape(listName);
-    const taskList = document.querySelector(`.${listName}`);
+    let taskList;
+    if (type === "bong") {
+      return console.log(listName);
+    } else {
+      taskList = document.querySelector(`.${listName}`);
+    }
+    //if (type === "bong") return console.log(taskList);
     //container
     const newItem = document.createElement("div");
     newItem.id = listName + item.index;
