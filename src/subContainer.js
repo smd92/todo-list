@@ -142,11 +142,6 @@ const subContainerList = (function () {
       newItem.appendChild(component);
     });
 
-    //edit item event
-    subContainerEvents.editTodoItemEvent();
-    //delete item event
-    subContainerEvents.deleteButtonEvent();
-
     //return item for renderGlobalAndArchiveItems function
     if (type === "watchlist") {
       return newItem;

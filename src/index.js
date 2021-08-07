@@ -21,34 +21,11 @@ sideBarEvents.addSidebarEvents();
 subContainerEvents.newTodoButtonEvents();
 modalDOM.renderModalFrame();
 
-/* 29.07.
-//always create todayList and upcomingList, because they are not stored
-const todayListData = {
-  visibleName: "Heute",
-  nameDOM: "todayList",
-};
-const upcomingListData = {
-  visibleName: "Demnächst",
-  nameDOM: "upcomingList",
-};
-
-const todayList = new TodoList(todayListData);
-const upcomingList = new TodoList(upcomingListData);
-todoListManager.addTodoList(todayList);
-todoListManager.addTodoList(upcomingList);
-*/
-
 //retrieve data of previus session from localStorage
 if (localStorage.length > 0) {
   storageManager.retrieveStorageData();
-  //keep due today / due soon lists up to date
-  /* 29.07
-  todoListManager.fillTodayList();
-  todoListManager.fillUpcomingList();
-  */
   console.table(todoListManager.getAllTodoLists());
 }
-
 
 //create the basic set of lists
 if (localStorage.length === 0) {
@@ -56,17 +33,9 @@ if (localStorage.length === 0) {
     visibleName: "Eingang",
     nameDOM: "defaultList",
   };
-  /* 29.07
-  const archiveListData = {
-    visibleName: "Archiv",
-    nameDOM: "archiveList",
-      
-  };*/
 
   const defaultList = new TodoList(defaultListData);
-  //const archiveList = new TodoList(archiveListData);
   todoListManager.addTodoList(defaultList);
-  //todoListManager.addTodoList(archiveList);
 }
 
 //render default list items on load
@@ -75,16 +44,14 @@ if (localStorage.length > 0) {
   defaultList.items.forEach((item) => {
     subContainerList.renderListItem(defaultList.nameDOM, item);
   });
+  //add events for editing/deleting items
+  subContainerEvents.editTodoItemEvent();
+  subContainerEvents.deleteButtonEvent();
 }
 
 //render stored projects on load
 if (localStorage.length > 0) {
-  const doNotRender = [
-    "defaultList",
-    //"todayList",
-    //"upcomingList",
-    //"archiveList",
-  ];
+  const doNotRender = ["defaultList"];
   const allTodoLists = todoListManager.getAllTodoLists();
   allTodoLists.forEach((list) => {
     if (doNotRender.includes(list.nameDOM) === false) {

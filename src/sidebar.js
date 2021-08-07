@@ -212,6 +212,9 @@ const sideBarEvents = (function () {
             list.items.forEach((item) => {
               subContainerList.renderListItem(e.target.id, item);
             });
+            //add events for editing/deleting items
+            subContainerEvents.editTodoItemEvent();
+            subContainerEvents.deleteButtonEvent();
           }
         });
       });
@@ -225,6 +228,9 @@ const sideBarEvents = (function () {
         items.forEach((item) => {
           subContainerList.renderListItem(e.target.id, item);
         });
+        //add events for editing/deleting items
+        subContainerEvents.editTodoItemEvent();
+        subContainerEvents.deleteButtonEvent();
       });
     }
   }
@@ -236,6 +242,9 @@ const sideBarEvents = (function () {
         //container rendering und item rendering zusammenfassen, dann von hier callen
         subContainerList.renderWatchlistContainers(listsArr);
         subContainerList.renderGlobalAndArchiveItems(listsArr);
+        //add events for editing/deleting items
+        subContainerEvents.editTodoItemEvent();
+        subContainerEvents.deleteButtonEvent();
       });
     }
   }
