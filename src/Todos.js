@@ -1,5 +1,3 @@
-import format from "date-fns/format";
-
 //create todo lists
 class TodoList {
   constructor({ visibleName, nameDOM }) {
@@ -112,8 +110,8 @@ const todoListManager = (function () {
   //return an array consisting of all todo items, that are due soon
   function getAllUpcomingItems() {
     const todayDate = new Date();
-    const rangeMax = new Date();
-    rangeMax.setDate(new Date().getDate() + 3);
+    const rangeTop = new Date();
+    rangeTop.setDate(new Date().getDate() + 3);
 
     const allUpcomingItems = [];
     allTodoLists.forEach((list) => {
@@ -121,7 +119,7 @@ const todoListManager = (function () {
         list.items.forEach((item) => {
           if (
             item.comparisonDate > todayDate &&
-            item.comparisonDate <= rangeMax
+            item.comparisonDate <= rangeTop
           ) {
             allUpcomingItems.push(item);
           }
@@ -130,6 +128,32 @@ const todoListManager = (function () {
     });
 
     return allUpcomingItems;
+  }
+
+  function getAllOverdueItems() {
+    const todayYear = new Date().getFullYear();
+    const todayMonth = new Date().getMonth() + 1;
+    const todayDate = new Date().getDate();
+    const allOverdueItems = [];
+    allTodoLists.forEach((list) => {
+      if (list.nameDOM != "archiveList") {
+        list.items.forEach((item) => {
+          const itemYear = new Date(item.ISODate).getFullYear();
+          const itemMonth = new Date(item.ISODate).getMonth() + 1;
+          const itemDate = new Date(item.ISODate).getDate();
+          if (
+            (todayYear >= itemYear &&
+              todayMonth === itemMonth &&
+              todayDate > itemDate) ||
+            (todayYear >= itemYear && todayMonth > itemMonth)
+          ) {
+            allOverdueItems.push(item);
+          }
+        });
+      }
+    });
+
+    return allOverdueItems;
   }
 
   function getTodoListByIndex(listIndex) {
@@ -179,6 +203,7 @@ const todoListManager = (function () {
     getAllItems,
     getAllTodayItems,
     getAllUpcomingItems,
+    getAllOverdueItems,
     getTodoListByIndex,
     getTodoListByName,
     getListIndex,
