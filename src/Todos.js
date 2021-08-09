@@ -39,11 +39,21 @@ class Todo {
     this.dueDate = dueDate;
     this.ISODate = ISODate;
     this.comparisonDate = new Date(
-     `${new Date(ISODate).getFullYear()}-${new Date(ISODate).getMonth() + 1}-${new Date(ISODate).getDate()}`
+      `${new Date(ISODate).getFullYear()}-${
+        new Date(ISODate).getMonth() + 1
+      }-${new Date(ISODate).getDate()}`
     );
     this.priority = priority;
     this.index;
     this.listName = listName;
+  }
+
+  updateComparisonDate() {
+    this.comparisonDate = new Date(
+      `${new Date(this.ISODate).getFullYear()}-${
+        new Date(this.ISODate).getMonth() + 1
+      }-${new Date(this.ISODate).getDate()}`
+    );
   }
 }
 
@@ -159,6 +169,7 @@ const todoListManager = (function () {
   //edit todo item
   function editItem(listIndex, itemIndex, property, value) {
     allTodoLists[listIndex].items[itemIndex][property] = value;
+    allTodoLists[listIndex].items[itemIndex].updateComparisonDate();
   }
 
   return {

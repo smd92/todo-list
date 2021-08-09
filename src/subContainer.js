@@ -164,7 +164,6 @@ const subContainerList = (function () {
     }
     if (type === "edit-item") {
       removals = document.querySelectorAll(".todo-item");
-      console.log(removals);
     }
     for (let i = 0; i < removals.length; i++) {
       removals[i].remove();
