@@ -163,7 +163,7 @@ const subContainerList = (function () {
     if (type === "standard") {
       removals = document.querySelectorAll(".display");
     }
-    if (type === "edit-item") {
+    if (type === "item") {
       removals = document.querySelectorAll(".todo-item");
     }
     for (let i = 0; i < removals.length; i++) {
@@ -194,6 +194,49 @@ const subContainerList = (function () {
     newTodoDiv.remove();
   }
 
+  function renderLists(listName) {
+    switch (listName) {
+      case "todayList":
+        todoListManager.getAllTodayItems().forEach((item) => {
+          subContainerList.renderListItem(listName, item);
+        });
+        break;
+      case "upcomingList":
+        todoListManager.getAllUpcomingItems().forEach((item) => {
+          subContainerList.renderListItem(listName, item);
+        });
+        break;
+      case "overdueList":
+        todoListManager.getAllOverdueItems().forEach((item) => {
+          subContainerList.renderListItem(listName, item);
+        });
+        break;
+      case "globalList":
+        todoListManager.getAllTodoLists();
+        subContainerList.renderWatchlistContainers(
+          todoListManager.getAllTodoLists()
+        );
+        subContainerList.renderGlobalAndArchiveItems(
+          todoListManager.getAllTodoLists()
+        );
+        break;
+      case "archiveList":
+        break;
+      default:
+        clearSubcontainerList();
+        todoListManager.getAllTodoLists().forEach((list) => {
+          if (list.nameDOM === listName) {
+            list.items.forEach((item) => {
+              subContainerList.renderListItem(listName, item);
+            });
+          }
+        });
+    }
+    //add events for editing/deleting items
+    subContainerEvents.editTodoItemEvent();
+    subContainerEvents.deleteButtonEvent();
+  }
+
   return {
     renderWatchlistContainers,
     renderGlobalAndArchiveItems,
@@ -201,6 +244,7 @@ const subContainerList = (function () {
     clearSubcontainerList,
     renderNewTodoButton,
     removeNewTodoButton,
+    renderLists,
   };
 })();
 
@@ -251,13 +295,15 @@ const subContainerEvents = (function () {
           )
         ) {
           dataDOM.setItemIndex(e.target.parentNode);
-          const listName = e.target.parentNode.getAttribute("in-list");
-          const listIndex = todoListManager.getListIndex(listName);
+          const listNameDelete = e.target.parentNode.getAttribute("in-list");
+          const listIndex = todoListManager.getListIndex(listNameDelete);
           const itemIndex = dataDOM.getItemIndex();
           todoListManager.deleteItemFromList(listIndex, itemIndex);
-          //remove item element from DOM
-          e.target.parentNode.remove();
-          //implicitly remove item from localStorage
+          //remove item from DOM by rendering all items without the now deleted item
+          subContainerList.clearSubcontainerList("item");
+          const listNameRender = document.querySelector("#subContainerBody").className;
+          subContainerList.renderLists(listNameRender);
+          //remove item from localStorage by storing all items without the now deleted item
           storageManager.storeAllData();
         }
       });

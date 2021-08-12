@@ -3,7 +3,6 @@ import {
   subContainerList,
   subContainerEvents,
 } from "/src/subContainer.js";
-import { todoListManager } from "/src/Todos.js";
 import modalDOM from "/src/modal.js";
 
 const todoListsSidebar = (function () {
@@ -138,14 +137,6 @@ const projectsSidebar = (function () {
 const sideBarEvents = (function () {
   let listsNodes = document.getElementsByClassName("todoList");
   let watchNodes = document.getElementsByClassName("watchlist");
-  let timingNodes = [
-    document.querySelector("#todayList"),
-    document.querySelector("#upcomingList"),
-  ];
-  let globalArchiveNodes = [
-    document.querySelector("#globalList"),
-    document.querySelector("#archiveList"),
-  ];
 
   function getAllNodes() {
     return [...listsNodes, ...watchNodes];
@@ -154,15 +145,6 @@ const sideBarEvents = (function () {
   function refreshListsNodes() {
     listsNodes = document.getElementsByClassName("todoList");
     watchNodes = document.getElementsByClassName("watchlist");
-    timingNodes = [
-      document.querySelector("#todayList"),
-      document.querySelector("#upcomingList"),
-      document.querySelector("#overdueList"),
-    ];
-    globalArchiveNodes = [
-      document.querySelector("#globalList"),
-      document.querySelector("#archiveList"),
-    ];
   }
 
   function renderListTitleEvent() {
@@ -223,73 +205,28 @@ const sideBarEvents = (function () {
   function renderListItemsEvent() {
     for (let i = 0; i < listsNodes.length; i++) {
       listsNodes[i].addEventListener("click", (e) => {
-        subContainerList.clearSubcontainerList();
-        let todoLists = todoListManager.getAllTodoLists();
-        todoLists.forEach((list) => {
-          if (e.target.id != "globalList" && list.nameDOM === e.target.id) {
-            list.items.forEach((item) => {
-              subContainerList.renderListItem(e.target.id, item);
-            });
-            //add events for editing/deleting items
-            subContainerEvents.editTodoItemEvent();
-            subContainerEvents.deleteButtonEvent();
-          }
-        });
+        subContainerList.renderLists(e.target.id);
       });
     }
   }
 
-  function renderTimingLists() {
-    for (let i = 0; i < timingNodes.length; i++) {
-      timingNodes[i].addEventListener("click", (e) => {
-        const items = _getWatchlistItems(e.target.id);
-        items.forEach((item) => {
-          subContainerList.renderListItem(e.target.id, item);
-        });
-        //add events for editing/deleting items
-        subContainerEvents.editTodoItemEvent();
-        subContainerEvents.deleteButtonEvent();
-      });
+  function rederListsEvent() {
+    const allNodes = getAllNodes();
+    for (let i = 0; i < allNodes.length; i++) {
+      allNodes[i].addEventListener("click", (e) => {
+        subContainerList.renderLists(e.target.id);
+      })
     }
   }
 
-  function renderGlobalAndArchiveItemsEvent() {
-    for (let i = 0; i < globalArchiveNodes.length; i++) {
-      globalArchiveNodes[i].addEventListener("click", (e) => {
-        const listsArr = _getWatchlistItems(e.target.id);
-        //container rendering und item rendering zusammenfassen, dann von hier callen
-        subContainerList.renderWatchlistContainers(listsArr);
-        subContainerList.renderGlobalAndArchiveItems(listsArr);
-        //add events for editing/deleting items
-        subContainerEvents.editTodoItemEvent();
-        subContainerEvents.deleteButtonEvent();
-      });
-    }
-  }
 
-  function _getWatchlistItems(watchlist) {
-    switch (watchlist) {
-      case "todayList":
-        return todoListManager.getAllTodayItems();
-      case "upcomingList":
-        return todoListManager.getAllUpcomingItems();
-      case "overdueList":
-        return todoListManager.getAllOverdueItems();
-      case "globalList":
-        return todoListManager.getAllTodoLists();
-      case "archiveList":
-        break;
-    }
-  }
 
   function addSidebarEvents() {
     renderListTitleEvent();
     newProjectButtonEvents();
     manageNewTodoButtonEvent();
     clearSubcontainerEvent();
-    renderListItemsEvent();
-    renderTimingLists();
-    renderGlobalAndArchiveItemsEvent();
+    rederListsEvent();
   }
 
   return {

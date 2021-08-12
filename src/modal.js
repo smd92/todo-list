@@ -289,7 +289,7 @@ const modalEvents = (function () {
         todoListManager.editItem(listIndex, itemIndex, key, todoData[key]);
       }
       //update DOM
-      subContainerList.clearSubcontainerList("edit-item");
+      subContainerList.clearSubcontainerList("item");
       if (
         document.querySelector(".globalList") === null &&
         document.querySelector(".archiveList") === null
