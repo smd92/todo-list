@@ -78,11 +78,26 @@ const projectsSidebar = (function () {
   }
 
   function renderNewProject(project) {
-    let sidebarProject = document.createElement("p");
+    const sidebarProject = document.createElement("p");
     sidebarProject.id = project.nameDOM;
     sidebarProject.classList.add("todoList");
+    sidebarProject.classList.add("sidebar-project");
     sidebarProject.classList.add("white-transparent");
     sidebarProject.textContent = project.visibleName;
+    //components means edit button, delete button etc
+    const components = [];
+    //edit button
+    const editBtn = document.createElement("p");
+    editBtn.classList.add("editBtn-project");
+    components.push(editBtn);
+    //delete button
+    const deleteBtn = document.createElement("p");
+    deleteBtn.classList.add("deleteBtn-project");
+    components.push(deleteBtn);
+    //append components
+    components.forEach((component) => {
+      sidebarProject.appendChild(component);
+    });
 
     projectsList.appendChild(sidebarProject);
     sideBarEvents.renderListTitleEvent();

@@ -1,3 +1,4 @@
+import { storageManager } from "./Todos";
 import modalDOM from "/src/modal.js";
 import { todoListManager } from "/src/Todos.js";
 
@@ -237,15 +238,34 @@ const subContainerEvents = (function () {
     }
   }
 
-  //deleting items
+  //delete todo items
   function deleteButtonEvent() {
     const deleteButtons = document.querySelectorAll(".deleteBtn");
     for (let i = 0; i < deleteButtons.length; i++) {
-      deleteButtons[i].addEventListener("click", () => {
-        dataDOM.setItemIndex(deleteButtons[i].parentNode);
+      deleteButtons[i].addEventListener("click", (e) => {
+        const components = e.target.parentNode.childNodes;
+        if (
+          confirm(
+            `Soll das folgende Todo wirklich gelöscht werden?
+            "${components[1].textContent}"`
+          )
+        ) {
+          dataDOM.setItemIndex(e.target.parentNode);
+          const listName = e.target.parentNode.getAttribute("in-list");
+          const listIndex = todoListManager.getListIndex(listName);
+          const itemIndex = dataDOM.getItemIndex();
+          todoListManager.deleteItemFromList(listIndex, itemIndex);
+          //remove item element from DOM
+          e.target.parentNode.remove();
+          //implicitly remove item from localStorage
+          storageManager.storeAllData();
+        }
       });
     }
   }
+
+  //delete projects
+  function deleteProjectButtonEvent() {}
 
   return {
     newTodoButtonEvents,

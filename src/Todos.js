@@ -44,6 +44,7 @@ class Todo {
     this.priority = priority;
     this.index;
     this.listName = listName;
+    this.inArchive = false;
   }
 
   updateComparisonDate() {
@@ -185,7 +186,7 @@ const todoListManager = (function () {
     return item;
   }
 
-  function removeItemFromList(listIndex, itemIndex) {
+  function deleteItemFromList(listIndex, itemIndex) {
     allTodoLists[listIndex].items.splice(itemIndex, 1);
     allTodoLists[listIndex].enumerateItems();
   }
@@ -208,7 +209,7 @@ const todoListManager = (function () {
     getTodoListByName,
     getListIndex,
     getItemFromList,
-    removeItemFromList,
+    deleteItemFromList,
     editItem,
   };
 })();

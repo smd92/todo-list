@@ -170,30 +170,36 @@ body {
 .editBtn {
   width: 20px;
   height: 10px;
-  background-color: red;
+  background-color: blue;
   grid-area: edit;
 }
 
 .deleteBtn {
   width: 20px;
   height: 10px;
-  background-color: blue;
+  background-color: red;
   grid-area: delete;
 }
 
-/* global items */
-.global-item {
+/* projects */
+.sidebar-project {
   display: grid;
-  grid-template-columns: 5vw 25vw 10vw 5vw 5vw;
-  grid-template-areas: ". title dueDate .";
+  grid-template-columns: auto 2vw 2vw;
+  grid-template-areas: "title edit delete";
 }
 
-.global-item-title {
-  grid-area: title;
+.editBtn-project {
+  width: 20px;
+  height: 10px;
+  background-color: blue;
+  grid-area: edit;
 }
 
-.global-item-dueDate {
-  grid-area: dueDate;
+.deleteBtn-project {
+  width: 20px;
+  height: 10px;
+  background-color: red;
+  grid-area: delete;
 }
 
 /* style */
