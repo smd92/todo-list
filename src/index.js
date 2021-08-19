@@ -58,4 +58,8 @@ if (localStorage.length > 0) {
       projectsSidebar.renderNewProject(list);
     }
   });
+  const editProjectButtons = document.querySelectorAll(".editBtn-project");
+  for (let i = 0; i < editProjectButtons.length; i++) {
+    sideBarEvents.editProjectEvent(editProjectButtons[i]);
+  }
 }

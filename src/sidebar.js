@@ -97,6 +97,7 @@ const projectsSidebar = (function () {
     components.forEach((component) => {
       sidebarProject.appendChild(component);
     });
+    sideBarEvents.editProjectEvent(sidebarProject);
 
     projectsList.appendChild(sidebarProject);
     sideBarEvents.renderListTitleEvent();
@@ -171,6 +172,16 @@ const sideBarEvents = (function () {
     });
   }
 
+  function editProjectEvent(project) {
+    project.addEventListener("click", (e) => {
+      const modal = document.querySelector("#modal");
+      //open modal
+      modalDOM.openModal(modal);
+      //render edit modal
+      modalDOM.renderNewProjectModal(e.target);
+    });
+  }
+
   function manageNewTodoButtonEvent() {
     for (let i = 0; i < listsNodes.length; i++) {
       listsNodes[i].addEventListener("click", () => {
@@ -215,11 +226,9 @@ const sideBarEvents = (function () {
     for (let i = 0; i < allNodes.length; i++) {
       allNodes[i].addEventListener("click", (e) => {
         subContainerList.renderLists(e.target.id);
-      })
+      });
     }
   }
-
-
 
   function addSidebarEvents() {
     renderListTitleEvent();
@@ -232,6 +241,7 @@ const sideBarEvents = (function () {
   return {
     renderListTitleEvent,
     newProjectButtonEvents,
+    editProjectEvent,
     manageNewTodoButtonEvent,
     renderListItemsEvent,
     addSidebarEvents,

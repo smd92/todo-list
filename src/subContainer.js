@@ -310,9 +310,6 @@ const subContainerEvents = (function () {
     }
   }
 
-  //delete projects
-  function deleteProjectButtonEvent() {}
-
   return {
     newTodoButtonEvents,
     editTodoItemEvent,

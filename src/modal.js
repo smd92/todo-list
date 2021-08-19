@@ -169,13 +169,13 @@ const modalDOM = (function () {
     }
   }
 
-  function renderNewProjectModal() {
+  function renderNewProjectModal(node = null) {
     _cleanModal();
     const modalTitle = document.querySelector(".modal-title");
-    modalTitle.textContent = "Neues Projekt";
+    //modalTitle.textContent = "Neues Projekt";
 
     const newProjectModal = document.createElement("div");
-    newProjectModal.id = "newProjectModal";
+    //newProjectModal.id = "newProjectModal";
 
     const formContainer = document.createElement("div");
     formContainer.id = "formContainer";
@@ -208,8 +208,17 @@ const modalDOM = (function () {
     formButton.id = "formButton";
     formButton.classList.add("button");
     formButton.textContent = "+";
-    //submit event
-    modalEvents.projectFormButtonEvent(formButton);
+
+    if (node != null) {
+      modalTitle.textContent = "Projekt bearbeiten";
+      nameInput.value = node.parentNode.textContent;
+      newProjectModal.id = "editProjectModal";
+      modalEvents.projectFormButtonEvent(formButton, "edit");
+    } else if (node === null) {
+      modalTitle.textContent = "Neues Projekt";
+      newProjectModal.id = "newProjectModal";
+      modalEvents.projectFormButtonEvent(formButton);
+    }
 
     form.appendChild(formFields);
     formContainer.appendChild(form);
@@ -311,16 +320,21 @@ const modalEvents = (function () {
   }
 
   //event of the form button for creating a new project item/todo list
-  function projectFormButtonEvent(projectFormButton) {
+  function projectFormButtonEvent(projectFormButton, type = "new") {
     projectFormButton.addEventListener("click", () => {
       //grab form input
-      let projectData = formHandler.processProjectData();
-      //create new project and save to localStorage
-      let project = new TodoList(projectData);
-      todoListManager.addTodoList(project);
+      const projectData = formHandler.processProjectData();
+      if (type === "new") {
+        //create new project
+        const project = new TodoList(projectData);
+        todoListManager.addTodoList(project);
+        //render new project in sidebar
+        projectsSidebar.renderNewProject(project);
+      } else if (type === "edit") {
+        
+      }
+      //save to localStorage
       storageManager.storeAllData();
-      //render new project in sidebar
-      projectsSidebar.renderNewProject(project);
       //close and clean modal after submitting form
       const modal = document.querySelector(".modal");
       modalDOM.closeModal(modal);
