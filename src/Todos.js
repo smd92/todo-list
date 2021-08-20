@@ -197,6 +197,15 @@ const todoListManager = (function () {
     allTodoLists[listIndex].items[itemIndex].updateComparisonDate();
   }
 
+  //edit project
+  function editProject(listIndex, { visibleName, nameDOM }) {
+    //edit properties
+    allTodoLists[listIndex].visibleName = visibleName;
+    allTodoLists[listIndex].nameDOM = nameDOM;
+    //update listName of items
+    allTodoLists[listIndex].setItemsListName();
+  }
+
   return {
     addTodoList,
     pushTodoInCorrectList,
@@ -211,6 +220,7 @@ const todoListManager = (function () {
     getItemFromList,
     deleteItemFromList,
     editItem,
+    editProject,
   };
 })();
 

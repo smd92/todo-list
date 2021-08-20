@@ -213,7 +213,7 @@ const modalDOM = (function () {
       modalTitle.textContent = "Projekt bearbeiten";
       nameInput.value = node.parentNode.textContent;
       newProjectModal.id = "editProjectModal";
-      modalEvents.projectFormButtonEvent(formButton, "edit");
+      modalEvents.projectFormButtonEvent(formButton, "edit", node);
     } else if (node === null) {
       modalTitle.textContent = "Neues Projekt";
       newProjectModal.id = "newProjectModal";
@@ -320,7 +320,11 @@ const modalEvents = (function () {
   }
 
   //event of the form button for creating a new project item/todo list
-  function projectFormButtonEvent(projectFormButton, type = "new") {
+  function projectFormButtonEvent(
+    projectFormButton,
+    type = "new",
+    node = null
+  ) {
     projectFormButton.addEventListener("click", () => {
       //grab form input
       const projectData = formHandler.processProjectData();
@@ -331,7 +335,8 @@ const modalEvents = (function () {
         //render new project in sidebar
         projectsSidebar.renderNewProject(project);
       } else if (type === "edit") {
-        
+        const listIndex = todoListManager.getListIndex(node.parentNode.id);
+        todoListManager.editProject(listIndex, projectData);
       }
       //save to localStorage
       storageManager.storeAllData();
