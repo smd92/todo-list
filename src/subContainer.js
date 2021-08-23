@@ -301,7 +301,8 @@ const subContainerEvents = (function () {
           todoListManager.deleteItemFromList(listIndex, itemIndex);
           //remove item from DOM by rendering all items without the now deleted item
           subContainerList.clearSubcontainerList("item");
-          const listNameRender = document.querySelector("#subContainerBody").className;
+          const listNameRender =
+            document.querySelector("#subContainerBody").className;
           subContainerList.renderLists(listNameRender);
           //remove item from localStorage by storing all items without the now deleted item
           storageManager.storeAllData();

@@ -1,5 +1,5 @@
 import { Todo, TodoList, todoListManager, storageManager } from "/src/Todos.js";
-import { subContainerList, dataDOM } from "/src/subContainer.js";
+import { subContainerHeader, subContainerList, dataDOM } from "/src/subContainer.js";
 import { projectsSidebar } from "/src/sidebar.js";
 import format from "date-fns/format";
 
@@ -172,10 +172,8 @@ const modalDOM = (function () {
   function renderNewProjectModal(node = null) {
     _cleanModal();
     const modalTitle = document.querySelector(".modal-title");
-    //modalTitle.textContent = "Neues Projekt";
 
     const newProjectModal = document.createElement("div");
-    //newProjectModal.id = "newProjectModal";
 
     const formContainer = document.createElement("div");
     formContainer.id = "formContainer";
@@ -343,6 +341,17 @@ const modalEvents = (function () {
       //close and clean modal after submitting form
       const modal = document.querySelector(".modal");
       modalDOM.closeModal(modal);
+      //update DOM
+      projectsSidebar.removeAllProjects();
+      projectsSidebar.renderAllProjects();
+      //update listname in subcontainer
+      const preEditName = node.parentNode.textContent;
+      const openListName = document.querySelector("#subContainerTitle").textContent;
+      console.log(preEditName);
+      console.log(openListName);
+      if (node != null && preEditName === openListName) {
+        subContainerHeader.setSubContainerTitle(projectData.visibleName);
+      }
     });
   }
 

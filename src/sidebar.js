@@ -4,6 +4,7 @@ import {
   subContainerEvents,
 } from "/src/subContainer.js";
 import modalDOM from "/src/modal.js";
+import { todoListManager } from "./Todos";
 
 const todoListsSidebar = (function () {
   let listsContainer;
@@ -93,16 +94,37 @@ const projectsSidebar = (function () {
     const deleteBtn = document.createElement("p");
     deleteBtn.classList.add("deleteBtn-project");
     components.push(deleteBtn);
+    sideBarEvents.editProjectEvent(editBtn);
     //append components
     components.forEach((component) => {
       sidebarProject.appendChild(component);
     });
-    sideBarEvents.editProjectEvent(sidebarProject);
 
     projectsList.appendChild(sidebarProject);
     sideBarEvents.renderListTitleEvent();
     sideBarEvents.renderListItemsEvent();
     sideBarEvents.manageNewTodoButtonEvent();
+  }
+
+  function renderAllProjects() {
+    const doNotRender = ["defaultList", "archiveList"];
+    const allTodoLists = todoListManager.getAllTodoLists();
+    allTodoLists.forEach((list) => {
+      if (doNotRender.includes(list.nameDOM) === false) {
+        projectsSidebar.renderNewProject(list);
+      }
+    });
+    const editProjectButtons = document.querySelectorAll(".editBtn-project");
+    for (let i = 0; i < editProjectButtons.length; i++) {
+      sideBarEvents.editProjectEvent(editProjectButtons[i]);
+    }
+  }
+
+  function removeAllProjects() {
+    const projectNodes = document.querySelectorAll(".sidebar-project");
+    for (let i = 0; i < projectNodes.length; i++) {
+      projectNodes[i].remove();
+    }
   }
 
   function renderAddProjectButton() {
@@ -132,6 +154,8 @@ const projectsSidebar = (function () {
   return {
     renderProjectsSidebar,
     renderNewProject,
+    renderAllProjects,
+    removeAllProjects,
   };
 })();
 
@@ -172,8 +196,8 @@ const sideBarEvents = (function () {
     });
   }
 
-  function editProjectEvent(project) {
-    project.addEventListener("click", (e) => {
+  function editProjectEvent(editBtn) {
+    editBtn.addEventListener("click", (e) => {
       const modal = document.querySelector("#modal");
       //open modal
       modalDOM.openModal(modal);

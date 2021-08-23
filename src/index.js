@@ -51,15 +51,5 @@ if (localStorage.length > 0) {
 
 //render stored projects on load
 if (localStorage.length > 0) {
-  const doNotRender = ["defaultList"];
-  const allTodoLists = todoListManager.getAllTodoLists();
-  allTodoLists.forEach((list) => {
-    if (doNotRender.includes(list.nameDOM) === false) {
-      projectsSidebar.renderNewProject(list);
-    }
-  });
-  const editProjectButtons = document.querySelectorAll(".editBtn-project");
-  for (let i = 0; i < editProjectButtons.length; i++) {
-    sideBarEvents.editProjectEvent(editProjectButtons[i]);
-  }
+  projectsSidebar.renderAllProjects();
 }
