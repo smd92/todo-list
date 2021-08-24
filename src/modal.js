@@ -343,24 +343,25 @@ const modalEvents = (function () {
       } else if (type === "edit") {
         const listIndex = todoListManager.getListIndex(node.parentNode.id);
         todoListManager.editProject(listIndex, projectData);
+        //update listname in subcontainer
+        const preEditName = node.parentNode.textContent;
+        const openListName = document
+          .querySelector("#editProjectModal")
+          .getAttribute("currentList");
+        //update subContainer nodes
+        if (node != null && preEditName === openListName) {
+          subContainerHeader.setSubContainerTitle(projectData.visibleName);
+          subContainerHeader.setSubContainerBodyClassName(
+            projectData.nameDOM
+          );
+          subContainerList.renderLists(projectData.nameDOM);
+        } else {
+          subContainerHeader.setSubContainerTitle(openListName);
+          subContainerHeader.setSubContainerBodyClassName(openListName);
+        }
       }
       //save to localStorage
       storageManager.storeAllData();
-      //update listname in subcontainer
-      const preEditName = node.parentNode.textContent;
-      const openListName = document
-        .querySelector("#editProjectModal")
-        .getAttribute("currentList");
-      //update subContainer nodes
-      if (node != null && preEditName === openListName) {
-        subContainerHeader.setSubContainerTitle(projectData.visibleName);
-        subContainerHeader.setSubContainerBodyClassName(
-          projectData.visibleName
-        );
-      } else {
-        subContainerHeader.setSubContainerTitle(openListName);
-        subContainerHeader.setSubContainerBodyClassName(openListName);
-      }
       //update DOM
       projectsSidebar.removeAllProjects();
       projectsSidebar.renderAllProjects();
