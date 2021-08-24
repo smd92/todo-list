@@ -100,7 +100,8 @@ const projectsSidebar = (function () {
       sidebarProject.appendChild(component);
     });
 
-    projectsList.appendChild(sidebarProject);
+    //projectsList.appendChild(sidebarProject);
+    projectsList.insertBefore(sidebarProject, document.querySelector("#newProjectDiv"));
     sideBarEvents.renderListTitleEvent();
     sideBarEvents.renderListItemsEvent();
     sideBarEvents.manageNewTodoButtonEvent();

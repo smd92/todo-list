@@ -1,5 +1,9 @@
 import { Todo, TodoList, todoListManager, storageManager } from "/src/Todos.js";
-import { subContainerHeader, subContainerList, dataDOM } from "/src/subContainer.js";
+import {
+  subContainerHeader,
+  subContainerList,
+  dataDOM,
+} from "/src/subContainer.js";
 import { projectsSidebar } from "/src/sidebar.js";
 import format from "date-fns/format";
 
@@ -174,6 +178,10 @@ const modalDOM = (function () {
     const modalTitle = document.querySelector(".modal-title");
 
     const newProjectModal = document.createElement("div");
+    newProjectModal.setAttribute(
+      "currentList",
+      subContainerHeader.getSubContainerTitle()
+    );
 
     const formContainer = document.createElement("div");
     formContainer.id = "formContainer";
@@ -338,20 +346,27 @@ const modalEvents = (function () {
       }
       //save to localStorage
       storageManager.storeAllData();
-      //close and clean modal after submitting form
-      const modal = document.querySelector(".modal");
-      modalDOM.closeModal(modal);
+      //update listname in subcontainer
+      const preEditName = node.parentNode.textContent;
+      const openListName = document
+        .querySelector("#editProjectModal")
+        .getAttribute("currentList");
+      //update subContainer nodes
+      if (node != null && preEditName === openListName) {
+        subContainerHeader.setSubContainerTitle(projectData.visibleName);
+        subContainerHeader.setSubContainerBodyClassName(
+          projectData.visibleName
+        );
+      } else {
+        subContainerHeader.setSubContainerTitle(openListName);
+        subContainerHeader.setSubContainerBodyClassName(openListName);
+      }
       //update DOM
       projectsSidebar.removeAllProjects();
       projectsSidebar.renderAllProjects();
-      //update listname in subcontainer
-      const preEditName = node.parentNode.textContent;
-      const openListName = document.querySelector("#subContainerTitle").textContent;
-      console.log(preEditName);
-      console.log(openListName);
-      if (node != null && preEditName === openListName) {
-        subContainerHeader.setSubContainerTitle(projectData.visibleName);
-      }
+      //close and clean modal after submitting form
+      const modal = document.querySelector(".modal");
+      modalDOM.closeModal(modal);
     });
   }
 

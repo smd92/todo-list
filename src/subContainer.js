@@ -17,6 +17,7 @@ const subContainerHeader = (function () {
   function createSubContainerTitle() {
     subContainerTitle = document.createElement("p");
     subContainerTitle.id = "subContainerTitle";
+    subContainerTitle.classList.add("white-transparent");
     subContainerTitle.textContent = "Eingang";
 
     subContainerHeader.appendChild(subContainerTitle);
@@ -35,6 +36,10 @@ const subContainerHeader = (function () {
     subContainerTitle.textContent = text;
   }
 
+  function getSubContainerTitle() {
+    return subContainerTitle.textContent;
+  }
+
   function setSubContainerBodyClassName(className) {
     const subContainerBody = document.querySelector("#subContainerBody");
     subContainerBody.className = className;
@@ -49,6 +54,7 @@ const subContainerHeader = (function () {
   return {
     renderSubContainer,
     setSubContainerTitle,
+    getSubContainerTitle,
     setSubContainerBodyClassName,
   };
 })();
