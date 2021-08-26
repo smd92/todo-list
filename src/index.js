@@ -10,7 +10,7 @@ import {
   subContainerList,
   subContainerEvents,
 } from "/src/subContainer.js";
-import modalDOM from "/src/modal.js";
+import { modalDOM } from "/src/modal.js";
 
 pageFrame.renderPageFrame();
 todoListsSidebar.renderSideBar();

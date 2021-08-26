@@ -10,10 +10,6 @@ class TodoList {
     this.items.push(item);
   }
 
-  removeItem(item) {
-    this.items.splice(item.index, 1);
-  }
-
   enumerateItems() {
     for (let i = 0; i < this.items.length; i++) {
       this.items[i].index = i;
@@ -44,7 +40,6 @@ class Todo {
     this.priority = priority;
     this.index;
     this.listName = listName;
-    this.inArchive = false;
   }
 
   updateComparisonDate() {
@@ -95,15 +90,11 @@ const todoListManager = (function () {
     );
     const allTodayItems = [];
     allTodoLists.forEach((list) => {
-      if (list.nameDOM != "archiveList") {
-        list.items.forEach((item) => {
-          if (
-            JSON.stringify(item.comparisonDate) === JSON.stringify(todayDate)
-          ) {
-            allTodayItems.push(item);
-          }
-        });
-      }
+      list.items.forEach((item) => {
+        if (JSON.stringify(item.comparisonDate) === JSON.stringify(todayDate)) {
+          allTodayItems.push(item);
+        }
+      });
     });
     return allTodayItems;
   }
@@ -116,16 +107,14 @@ const todoListManager = (function () {
 
     const allUpcomingItems = [];
     allTodoLists.forEach((list) => {
-      if (list.nameDOM != "archiveList") {
-        list.items.forEach((item) => {
-          if (
-            item.comparisonDate > todayDate &&
-            item.comparisonDate <= rangeTop
-          ) {
-            allUpcomingItems.push(item);
-          }
-        });
-      }
+      list.items.forEach((item) => {
+        if (
+          item.comparisonDate > todayDate &&
+          item.comparisonDate <= rangeTop
+        ) {
+          allUpcomingItems.push(item);
+        }
+      });
     });
 
     return allUpcomingItems;
@@ -137,21 +126,19 @@ const todoListManager = (function () {
     const todayDate = new Date().getDate();
     const allOverdueItems = [];
     allTodoLists.forEach((list) => {
-      if (list.nameDOM != "archiveList") {
-        list.items.forEach((item) => {
-          const itemYear = new Date(item.ISODate).getFullYear();
-          const itemMonth = new Date(item.ISODate).getMonth() + 1;
-          const itemDate = new Date(item.ISODate).getDate();
-          if (
-            (todayYear >= itemYear &&
-              todayMonth === itemMonth &&
-              todayDate > itemDate) ||
-            (todayYear >= itemYear && todayMonth > itemMonth)
-          ) {
-            allOverdueItems.push(item);
-          }
-        });
-      }
+      list.items.forEach((item) => {
+        const itemYear = new Date(item.ISODate).getFullYear();
+        const itemMonth = new Date(item.ISODate).getMonth() + 1;
+        const itemDate = new Date(item.ISODate).getDate();
+        if (
+          (todayYear >= itemYear &&
+            todayMonth === itemMonth &&
+            todayDate > itemDate) ||
+          (todayYear >= itemYear && todayMonth > itemMonth)
+        ) {
+          allOverdueItems.push(item);
+        }
+      });
     });
 
     return allOverdueItems;
@@ -186,9 +173,15 @@ const todoListManager = (function () {
     return item;
   }
 
+  //delete todo item
   function deleteItemFromList(listIndex, itemIndex) {
     allTodoLists[listIndex].items.splice(itemIndex, 1);
     allTodoLists[listIndex].enumerateItems();
+  }
+
+  //delete project
+  function deleteProject(listIndex) {
+    allTodoLists.splice(listIndex, 1);
   }
 
   //edit todo item
@@ -219,6 +212,7 @@ const todoListManager = (function () {
     getListIndex,
     getItemFromList,
     deleteItemFromList,
+    deleteProject,
     editItem,
     editProject,
   };

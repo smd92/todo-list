@@ -3,8 +3,8 @@ import {
   subContainerList,
   subContainerEvents,
 } from "/src/subContainer.js";
-import modalDOM from "/src/modal.js";
-import { todoListManager } from "./Todos";
+import { modalDOM, modalEvents } from "/src/modal.js";
+import { todoListManager, storageManager } from "./Todos";
 
 const todoListsSidebar = (function () {
   let listsContainer;
@@ -13,7 +13,6 @@ const todoListsSidebar = (function () {
   let upcomingList;
   let overdueList;
   let globalList;
-  let archiveList;
 
   function createListsContainer() {
     const sidebar = document.querySelector("#sidebar");
@@ -41,7 +40,6 @@ const todoListsSidebar = (function () {
     createSidebarItem(upcomingList, "upcomingList", "Demnächst", "watchlist");
     createSidebarItem(overdueList, "overdueList", "Überfällig", "watchlist");
     createSidebarItem(globalList, "globalList", "Alle Aufgaben", "watchlist");
-    createSidebarItem(archiveList, "archiveList", "Archiv", "watchlist");
   }
 
   return {
@@ -89,36 +87,35 @@ const projectsSidebar = (function () {
     //edit button
     const editBtn = document.createElement("p");
     editBtn.classList.add("editBtn-project");
+    sideBarEvents.editProjectEvent(editBtn);
     components.push(editBtn);
     //delete button
     const deleteBtn = document.createElement("p");
     deleteBtn.classList.add("deleteBtn-project");
+    sideBarEvents.deleteProjectEvent(deleteBtn);
     components.push(deleteBtn);
-    sideBarEvents.editProjectEvent(editBtn);
     //append components
     components.forEach((component) => {
       sidebarProject.appendChild(component);
     });
 
-    //projectsList.appendChild(sidebarProject);
-    projectsList.insertBefore(sidebarProject, document.querySelector("#newProjectDiv"));
+    projectsList.insertBefore(
+      sidebarProject,
+      document.querySelector("#newProjectDiv")
+    );
     sideBarEvents.renderListTitleEvent();
     sideBarEvents.renderListItemsEvent();
     sideBarEvents.manageNewTodoButtonEvent();
   }
 
   function renderAllProjects() {
-    const doNotRender = ["defaultList", "archiveList"];
+    const doNotRender = ["defaultList"];
     const allTodoLists = todoListManager.getAllTodoLists();
     allTodoLists.forEach((list) => {
       if (doNotRender.includes(list.nameDOM) === false) {
         projectsSidebar.renderNewProject(list);
       }
     });
-    const editProjectButtons = document.querySelectorAll(".editBtn-project");
-    for (let i = 0; i < editProjectButtons.length; i++) {
-      sideBarEvents.editProjectEvent(editProjectButtons[i]);
-    }
   }
 
   function removeAllProjects() {
@@ -204,6 +201,41 @@ const sideBarEvents = (function () {
       modalDOM.openModal(modal);
       //render edit modal
       modalDOM.renderNewProjectModal(e.target);
+      //set modal type
+      document
+        .querySelector("#modal")
+        .setAttribute("modal-type", "editProjectModal");
+      //set edit node
+      modalEvents.setEditNode(e.target);
+    });
+  }
+
+  function deleteProjectEvent(deleteBtn) {
+    deleteBtn.addEventListener("click", (e) => {
+      const visibleName = e.target.parentNode.textContent;
+      if (
+        confirm(
+          `Soll das folgende Projekt wirklich gelöscht werden?
+          "${visibleName}"`
+        )
+      ) {
+        const listName = e.target.parentNode.id;
+        const listIndex = todoListManager.getListIndex(listName);
+        todoListManager.deleteProject(listIndex);
+        //remove project from DOM by rendering all projects without the now deleted project
+        projectsSidebar.removeAllProjects();
+        projectsSidebar.renderAllProjects();
+        //render next list
+        const projectsListChild = document.querySelector("#projectsList").firstChild;
+        //render defaultList if there's no next list else render next list
+        if (projectsListChild.id === "newProjectDiv") {
+          subContainerList.renderLists("defaultList");
+        } else {
+          subContainerList.renderLists(projectsListChild.id);
+        }
+        //remove item from localStorage by storing all items without the now deleted item
+        storageManager.storeAllData();
+      }
     });
   }
 
@@ -267,6 +299,7 @@ const sideBarEvents = (function () {
     renderListTitleEvent,
     newProjectButtonEvents,
     editProjectEvent,
+    deleteProjectEvent,
     manageNewTodoButtonEvent,
     renderListItemsEvent,
     addSidebarEvents,

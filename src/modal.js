@@ -21,6 +21,7 @@ const modalDOM = (function () {
     modal = document.createElement("div");
     modal.id = "modal";
     modal.classList.add("modal");
+    modal.setAttribute("modal-type", "standard");
 
     let overlay = document.createElement("div");
     overlay.id = "overlay";
@@ -247,6 +248,10 @@ const modalDOM = (function () {
     if (modal === null) return;
     modal.classList.remove("active");
     overlay.classList.remove("active");
+    //
+    if (modal.getAttribute("modal-type") === "editProjectModal") {
+      modalEvents.updateDOMProjectEdit();
+    }
     //clean up modal on close
     _cleanModal();
   }
@@ -270,6 +275,11 @@ const modalDOM = (function () {
 })();
 
 const modalEvents = (function () {
+  let preEditName;
+  let openListName;
+  let editProjectData;
+  let editNode;
+
   //event of the form button for creating a new todo item
   function submitFormButtonEvent(formButton) {
     formButton.addEventListener("click", () => {
@@ -305,17 +315,14 @@ const modalEvents = (function () {
       }
       //update DOM
       subContainerList.clearSubcontainerList("item");
-      if (
-        document.querySelector(".globalList") === null &&
-        document.querySelector(".archiveList") === null
-      ) {
+      if (document.querySelector(".globalList") === null) {
         const todoList = todoListManager.getTodoListByIndex(listIndex).items;
         todoList.forEach((item) => {
           subContainerList.renderListItem(listName, item);
         });
       } else {
         const allTodoLists = todoListManager.getAllTodoLists();
-        subContainerList.renderGlobalAndArchiveItems(allTodoLists);
+        subContainerList.renderGlobalEvents(allTodoLists);
       }
       //save data to localStorage
       storageManager.storeAllData();
@@ -333,32 +340,16 @@ const modalEvents = (function () {
   ) {
     projectFormButton.addEventListener("click", () => {
       //grab form input
-      const projectData = formHandler.processProjectData();
+      editProjectData = formHandler.processProjectData();
       if (type === "new") {
         //create new project
-        const project = new TodoList(projectData);
+        const project = new TodoList(editProjectData);
         todoListManager.addTodoList(project);
         //render new project in sidebar
         projectsSidebar.renderNewProject(project);
       } else if (type === "edit") {
         const listIndex = todoListManager.getListIndex(node.parentNode.id);
-        todoListManager.editProject(listIndex, projectData);
-        //update listname in subcontainer
-        const preEditName = node.parentNode.textContent;
-        const openListName = document
-          .querySelector("#editProjectModal")
-          .getAttribute("currentList");
-        //update subContainer nodes
-        if (node != null && preEditName === openListName) {
-          subContainerHeader.setSubContainerTitle(projectData.visibleName);
-          subContainerHeader.setSubContainerBodyClassName(
-            projectData.nameDOM
-          );
-          subContainerList.renderLists(projectData.nameDOM);
-        } else {
-          subContainerHeader.setSubContainerTitle(openListName);
-          subContainerHeader.setSubContainerBodyClassName(openListName);
-        }
+        todoListManager.editProject(listIndex, editProjectData);
       }
       //save to localStorage
       storageManager.storeAllData();
@@ -371,10 +362,33 @@ const modalEvents = (function () {
     });
   }
 
+  function updateDOMProjectEdit() {
+    //update listname in subcontainer
+    preEditName = editNode.parentNode.textContent;
+    openListName = document
+      .querySelector("#editProjectModal")
+      .getAttribute("currentList");
+    //update subContainer nodes
+    if (editNode != null && preEditName === openListName) {
+      subContainerHeader.setSubContainerTitle(editProjectData.visibleName);
+      subContainerHeader.setSubContainerBodyClassName(editProjectData.nameDOM);
+      subContainerList.renderLists(editProjectData.nameDOM);
+    } else {
+      subContainerHeader.setSubContainerTitle(openListName);
+      subContainerHeader.setSubContainerBodyClassName(openListName);
+    }
+  }
+
+  function setEditNode(node) {
+    editNode = node;
+  }
+
   return {
     submitFormButtonEvent,
     submitEditsEvent,
     projectFormButtonEvent,
+    updateDOMProjectEdit,
+    setEditNode,
   };
 })();
 
@@ -429,4 +443,4 @@ const formHandler = (function () {
   };
 })();
 
-export default modalDOM;
+export { modalDOM, modalEvents };

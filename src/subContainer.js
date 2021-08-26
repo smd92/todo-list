@@ -1,5 +1,5 @@
 import { storageManager } from "./Todos";
-import modalDOM from "/src/modal.js";
+import { modalDOM } from "/src/modal.js";
 import { todoListManager } from "/src/Todos.js";
 
 const subContainerHeader = (function () {
@@ -85,7 +85,7 @@ const subContainerList = (function () {
     subContainerBody.appendChild(watchlistContainer);
   }
 
-  function renderGlobalAndArchiveItems(listsArr) {
+  function renderGlobalEvents(listsArr) {
     const listContainers = document.querySelectorAll(".listContainer");
     listsArr.forEach((list) => {
       list.items.forEach((item) => {
@@ -105,6 +105,8 @@ const subContainerList = (function () {
     let taskList;
     if (type === "edit-item") {
       taskList = document.querySelector(`#${listName}-watchlist`);
+    } else if (type === "delete-item") {
+      /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     } else {
       taskList = document.querySelector(`.${listName}`);
     }
@@ -149,7 +151,7 @@ const subContainerList = (function () {
       newItem.appendChild(component);
     });
 
-    //return item for renderGlobalAndArchiveItems function
+    //return item for renderGlobalEvents function
     if (type === "watchlist") {
       return newItem;
     }
@@ -222,11 +224,9 @@ const subContainerList = (function () {
         subContainerList.renderWatchlistContainers(
           todoListManager.getAllTodoLists()
         );
-        subContainerList.renderGlobalAndArchiveItems(
+        subContainerList.renderGlobalEvents(
           todoListManager.getAllTodoLists()
         );
-        break;
-      case "archiveList":
         break;
       default:
         clearSubcontainerList();
@@ -245,7 +245,7 @@ const subContainerList = (function () {
 
   return {
     renderWatchlistContainers,
-    renderGlobalAndArchiveItems,
+    renderGlobalEvents,
     renderListItem,
     clearSubcontainerList,
     renderNewTodoButton,
